@@ -15,7 +15,7 @@
 /* Indeks minimum list */
 #define IDX_UNDEF -1
 /* Indeks tak terdefinisi*/
-#define MARK -9999
+#define LISTMARK -9999
 /* Nilai elemen tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
@@ -34,7 +34,7 @@ typedef struct {
    Definisi elemen pertama: ELMT(l,i) dengan i=0 */
 
 /* ********** SELEKTOR ********** */
-#define ELMT(l, i) (l).contents[(i)]
+#define LISTELMT(l, i) (l).contents[(i)]
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
