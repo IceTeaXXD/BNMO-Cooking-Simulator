@@ -1,11 +1,4 @@
-// NIM              : 13521024
-// Nama             : Ahmad Nadil
-// Tanggal          : 27 September 2022
-// Topik praktikum  : ADT Mesin Kata
-// Deskripsi        : File "wordmachine.c"
-
 #include <stdio.h>
-#include "boolean.h"
 #include "wordmachine.h"
 
 boolean EndWord;
