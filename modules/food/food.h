@@ -12,8 +12,8 @@ typedef struct
     int id;
     char food_name;
     TIME expiry_time;
-    char location;
-    int delivery_time;
+    char action;
+    TIME delivery_time;
 
 }food;
 
