@@ -5,12 +5,13 @@
 #define FOOD_H
 
 #include "../utility/boolean.h"
+#include "../time/time.h"
 
 typedef struct
 {
     int id;
     char food_name;
-    int expiry_time;
+    TIME expiry_time;
     char location;
     int delivery_time;
 
@@ -22,4 +23,4 @@ typedef struct
 #define LOCATION(F) (F).location
 #define DELIVERY_TIME(F) (F).delivery_time
 
-#endif
+#endif  
