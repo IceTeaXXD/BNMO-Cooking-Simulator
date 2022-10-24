@@ -2,6 +2,7 @@
 #define ADT_H
 
 #include "./food/food.h"
+#include "./simulator/simulator.h"
 #include "./liststatik/liststatik.h"
 #include "./matrix/matrix.h"
 #include "./point/point.h"
