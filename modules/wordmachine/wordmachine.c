@@ -7,7 +7,7 @@ Word currentWord;
 void IgnoreBlanks()
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang
-   F.S. : currentChar ≠ BLANK atau currentChar = MARK */
+   F.S. : currentChar ≠ BLANK atau currentChar = CHARMARK */
 {
    while (currentChar == BLANK) {
       ADV();
@@ -15,13 +15,13 @@ void IgnoreBlanks()
 }
 void STARTWORD()
 /* I.S. : currentChar sembarang
-   F.S. : EndWord = true, dan currentChar = MARK;
+   F.S. : EndWord = true, dan currentChar = CHARMARK;
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
 {
    START();
    IgnoreBlanks();
-   if (currentChar == MARK){
+   if (currentChar == CHARMARK){
       EndWord = true;
    }
    else{
@@ -33,12 +33,12 @@ void STARTWORD()
 void ADVWORD()
 /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
    F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
-          currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
-          Jika currentChar = MARK, EndWord = true.
+          currentChar adalah karakter pertama dari kata berikutnya, mungkin CHARMARK
+          Jika currentChar = CHARMARK, EndWord = true.
    Proses : Akuisisi kata menggunakan procedure SalinWord */
 {
    IgnoreBlanks();
-   if (currentChar == MARK){
+   if (currentChar == CHARMARK){
       EndWord = true;
    }
    else{
@@ -51,12 +51,12 @@ void CopyWord()
 /* Mengakuisisi kata, menyimpan dalam currentWord
    I.S. : currentChar adalah karakter pertama dari kata
    F.S. : currentWord berisi kata yang sudah diakuisisi;
-          currentChar = BLANK atau currentChar = MARK;
+          currentChar = BLANK atau currentChar = CHARMARK;
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 {
    int i = 0;
-   while (currentChar != MARK && currentChar != BLANK){
+   while (currentChar != CHARMARK && currentChar != BLANK){
       currentWord.TabWord[i] = currentChar;
       ADV();
       i++;

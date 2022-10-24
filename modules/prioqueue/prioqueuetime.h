@@ -36,7 +36,7 @@ typedef struct {
 #define Tail(Q)     (Q).TAIL
 #define InfoHead(Q) (Q).T[(Q).HEAD]
 #define InfoTail(Q) (Q).T[(Q).TAIL]
-#define MaxEl(Q)    (Q).MaxEl
+#define MaxElQ(Q)    (Q).MaxElQ
 #define Elmt(Q,i)   (Q).T[(i)]
 
 /* ********* Prototype ********* */

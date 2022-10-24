@@ -22,7 +22,7 @@ void createMatrix(int nRows, int nCols, Matrix *m)
     {
         for (j = 0; j < nCols; j++)
         {
-            ELMT(*m, i, j) = 0;
+            MATRIXELMT(*m, i, j) = 0;
         }
     }
 }
@@ -54,10 +54,10 @@ boolean isIdxEff(Matrix m, IdxType i, IdxType j)
     return (i >= 0 && i <= getLastIdxRow(m) && j >= 0 && j <= getLastIdxCol(m));
 }
 
-ElType getElmtDiagonal(Matrix m, IdxType i)
+ElType getMATRIXELMTDiagonal(Matrix m, IdxType i)
 /* Mengirimkan elemen m(i,i) */
 {
-    return ELMT(m, i, i);
+    return MATRIXELMT(m, i, i);
 }
 
 /* ********** Assignment  Matrix ********** */
@@ -71,14 +71,14 @@ void copyMatrix(Matrix mIn, Matrix *mOut)
     {
         for (j = 0; j < COL_EFF(mIn); j++)
         {
-            ELMT(*mOut, i, j) = ELMT(mIn, i, j);
+            MATRIXELMT(*mOut, i, j) = MATRIXELMT(mIn, i, j);
         }
     }
     for (i = 0; i < ROW_EFF(mIn); i++)
     {
         for (j = 0; j < COL_EFF(mIn); j++)
         {
-            ELMT(*mOut, i, j) = ELMT(mIn, i, j);
+            MATRIXELMT(*mOut, i, j) = MATRIXELMT(mIn, i, j);
         }
     }
 }
@@ -101,7 +101,7 @@ void readMatrix(Matrix *m, int nRow, int nCol)
     {
         for (j = 0; j < nCol; j++)
         {
-            scanf("%d", &ELMT(*m, i, j));
+            scanf("%d", &MATRIXELMT(*m, i, j));
         }
     }
 }
@@ -120,9 +120,9 @@ void displayMatrix(Matrix m)
     for (i = 0; i < ROW_EFF(m); i ++){
         for (j = 0; j < COL_EFF(m); j++){
             if (j < COL_EFF(m)-1){
-                printf("%d ", ELMT(m, i,j));
+                printf("%d ", MATRIXELMT(m, i,j));
             }else{
-                printf("%d\n", ELMT(m, i,j));
+                printf("%d\n", MATRIXELMT(m, i,j));
             }
         }
     }
@@ -142,7 +142,7 @@ Matrix addMatrix(Matrix m1, Matrix m2)
     {
         for (j = 0; j < COL_EFF(m1); j++)
         {
-            ELMT(m, i, j) = ELMT(m1, i, j) + ELMT(m2, i, j);
+            MATRIXELMT(m, i, j) = MATRIXELMT(m1, i, j) + MATRIXELMT(m2, i, j);
         }
     }
     return m;
@@ -159,7 +159,7 @@ Matrix subtractMatrix(Matrix m1, Matrix m2)
     {
         for (j = 0; j < COL_EFF(m1); j++)
         {
-            ELMT(m, i, j) = ELMT(m1, i, j) - ELMT(m2, i, j);
+            MATRIXELMT(m, i, j) = MATRIXELMT(m1, i, j) - MATRIXELMT(m2, i, j);
         }
     }
     return m;
@@ -178,7 +178,7 @@ Matrix multiplyMatrix(Matrix m1, Matrix m2)
         {
             for (k = 0; k < COL_EFF(m1); k++)
             {
-                ELMT(m, i, j) += ELMT(m1, i, k) * ELMT(m2, k, j);
+                MATRIXELMT(m, i, j) += MATRIXELMT(m1, i, k) * MATRIXELMT(m2, k, j);
             }
         }
     }
@@ -195,7 +195,7 @@ Matrix multiplyByConst(Matrix m, ElType x)
     {
         for (j = 0; j < COL_EFF(m); j++)
         {
-            ELMT(mOut, i, j) = ELMT(m, i, j) * x;
+            MATRIXELMT(mOut, i, j) = MATRIXELMT(m, i, j) * x;
         }
     }
     return mOut;
@@ -209,7 +209,7 @@ void pMultiplyByConst(Matrix *m, ElType k)
     {
         for (j = 0; j < COL_EFF(*m); j++)
         {
-            ELMT(*m, i, j) *= k;
+            MATRIXELMT(*m, i, j) *= k;
         }
     }
 }
@@ -229,7 +229,7 @@ boolean isMatrixEqual(Matrix m1, Matrix m2)
     {
         for (j = 0; j < COL_EFF(m1); j++)
         {
-            if (ELMT(m1, i, j) != ELMT(m2, i, j))
+            if (MATRIXELMT(m1, i, j) != MATRIXELMT(m2, i, j))
             {
                 return false;
             }
@@ -250,7 +250,7 @@ boolean isMatrixSizeEqual(Matrix m1, Matrix m2)
 }
 
 /* ********** Operasi lain ********** */
-int countElmt(Matrix m)
+int countMATRIXELMT(Matrix m)
 /* Mengirimkan banyaknya elemen m */
 {
     return ROW_EFF(m) * COL_EFF(m);
@@ -275,7 +275,7 @@ boolean isSymmetric(Matrix m)
     {
         for (j = 0; j < COL_EFF(m); j++)
         {
-            if (ELMT(m, i, j) != ELMT(m, j, i))
+            if (MATRIXELMT(m, i, j) != MATRIXELMT(m, j, i))
             {
                 return false;
             }
@@ -298,14 +298,14 @@ boolean isIdentity(Matrix m)
         {
             if (i == j)
             {
-                if (ELMT(m, i, j) != 1)
+                if (MATRIXELMT(m, i, j) != 1)
                 {
                     return false;
                 }
             }
             else
             {
-                if (ELMT(m, i, j) != 0)
+                if (MATRIXELMT(m, i, j) != 0)
                 {
                     return false;
                 }
@@ -324,7 +324,7 @@ boolean isSparse(Matrix m)
     {
         for (j = 0; j < COL_EFF(m); j++)
         {
-            if (ELMT(m, i, j) != 0)
+            if (MATRIXELMT(m, i, j) != 0)
             {
                 count++;
             }
@@ -343,7 +343,7 @@ Matrix negation(Matrix m)
     {
         for (j = 0; j < COL_EFF(m); j++)
         {
-            ELMT(mOut, i, j) = -ELMT(m, i, j);
+            MATRIXELMT(mOut, i, j) = -MATRIXELMT(m, i, j);
         }
     }
     return mOut;
@@ -357,7 +357,7 @@ void pNegation(Matrix *m)
     {
         for (j = 0; j < COL_EFF(*m); j++)
         {
-            ELMT(*m, i, j) = -ELMT(*m, i, j);
+            MATRIXELMT(*m, i, j) = -MATRIXELMT(*m, i, j);
         }
     }
 }
@@ -375,7 +375,7 @@ float determinant(Matrix m)
    int co = 1;
    for(i = 0; i < n; i++){
       idx = i;
-      while(ELMT(m,idx,i) == 0 && idx < n){
+      while(MATRIXELMT(m,idx,i) == 0 && idx < n){
          idx++;
       }
       if (idx == n){
@@ -383,26 +383,26 @@ float determinant(Matrix m)
       }
       if (i != idx){
          for(j = 0; j < n; j++){
-            temp1 = ELMT(m,i,j);
-            ELMT(m,i,j) = ELMT(m,idx,j);
-            ELMT(m,idx,j) = temp1;
+            temp1 = MATRIXELMT(m,i,j);
+            MATRIXELMT(m,i,j) = MATRIXELMT(m,idx,j);
+            MATRIXELMT(m,idx,j) = temp1;
          }
          det *= -1;
       }
       for(j = 0;j<n;j++){
-         tmpRow[j] = ELMT(m,i,j);
+         tmpRow[j] = MATRIXELMT(m,i,j);
       }
       for (j=i+1; j<n; j++){
          temp1 = tmpRow[i];
-         temp2 = ELMT(m,j,i);
+         temp2 = MATRIXELMT(m,j,i);
          for(k=0;k<n;k++){
-            ELMT(m,j,k) = ((temp1 * ELMT(m,j,k)) - (temp2 * tmpRow[k]));
+            MATRIXELMT(m,j,k) = ((temp1 * MATRIXELMT(m,j,k)) - (temp2 * tmpRow[k]));
          }
          co *= temp1;
       }
    }
    for(i=0;i<n;i++){
-      det *= ELMT(m,i,i);
+      det *= MATRIXELMT(m,i,i);
    }
    return det/co;
 }
@@ -418,7 +418,7 @@ Matrix transpose(Matrix m)
     {
         for (j = 0; j < COL_EFF(m); j++)
         {
-            ELMT(mOut, i, j) = ELMT(m, j, i);
+            MATRIXELMT(mOut, i, j) = MATRIXELMT(m, j, i);
         }
     }
     return mOut;
@@ -432,9 +432,9 @@ void pTranspose(Matrix *m)
     {
         for (j = i + 1; j < COL_EFF(*m); j++)
         {
-            int temp = ELMT(*m, i, j);
-            ELMT(*m, i, j) = ELMT(*m, j, i);
-            ELMT(*m, j, i) = temp;
+            int temp = MATRIXELMT(*m, i, j);
+            MATRIXELMT(*m, i, j) = MATRIXELMT(*m, j, i);
+            MATRIXELMT(*m, j, i) = temp;
         }
     }
 }
@@ -451,7 +451,7 @@ float AvgRow(Matrix M, IdxType i)
     float sum = 0;
     int j;
     for (j =  0 ;  j < COL_EFF(M) ; j++){
-        sum += ELMT(M,i,j);
+        sum += MATRIXELMT(M,i,j);
     }
     return sum / COL_EFF(M);
 
@@ -467,7 +467,7 @@ float AvgCol(Matrix M, IdxType j)
     float sum = 0;
     int i;
     for (i = 0 ; i < ROW_EFF(M) ; i++){
-        sum += ELMT(M,i,j);
+        sum += MATRIXELMT(M,i,j);
     }
     return sum / ROW_EFF(M);
 }
@@ -481,15 +481,15 @@ void MinMaxRow(Matrix M, IdxType i, ElType * max, ElType * min)
 
 min berisi elemen minimum pada baris i dari M */
 {
-    *max = ELMT(M,i,0);
+    *max = MATRIXELMT(M,i,0);
     *min = *max;
     int j;
     for (j = 1 ; j < COL_EFF(M) ; j++){
-        if (ELMT(M,i,j) > *max){
-            *max =  ELMT(M,i,j);
+        if (MATRIXELMT(M,i,j) > *max){
+            *max =  MATRIXELMT(M,i,j);
         }
-        if (ELMT(M,i,j) < *min){
-            *min =  ELMT(M,i,j);
+        if (MATRIXELMT(M,i,j) < *min){
+            *min =  MATRIXELMT(M,i,j);
         }
     }
 }
@@ -503,15 +503,15 @@ void MinMaxCol(Matrix M, IdxType j, ElType * max, ElType * min)
 
 min berisi elemen minimum pada kolom j dari M */
 {
-    *max = ELMT(M,0,j);
+    *max = MATRIXELMT(M,0,j);
     *min = *max;
     int i;
     for (i = 1 ; i < ROW_EFF(M) ; i++){
-        if (ELMT(M,i,j) > *max){
-            *max =  ELMT(M,i,j);
+        if (MATRIXELMT(M,i,j) > *max){
+            *max =  MATRIXELMT(M,i,j);
         }
-        if (ELMT(M,i,j) < *min){
-            *min =  ELMT(M,i,j);
+        if (MATRIXELMT(M,i,j) < *min){
+            *min =  MATRIXELMT(M,i,j);
         }
     }
 }
@@ -524,7 +524,7 @@ int CountNumRow(Matrix M, IdxType i, ElType X)
     int j;
     int count = 0;
     for (j = 0 ; j < COL_EFF(M) ; j++){
-        if (ELMT(M,i,j) == X){
+        if (MATRIXELMT(M,i,j) == X){
             count ++;
         }
     }
@@ -539,7 +539,7 @@ int CountNumCol(Matrix M, IdxType j, ElType X)
     int i;
     int count = 0;
     for (i = 0 ; i < ROW_EFF(M) ; i++){
-        if(ELMT(M,i,j) == X){
+        if(MATRIXELMT(M,i,j) == X){
             count++;
         }
     }
@@ -595,14 +595,14 @@ void RotateMat(Matrix *m)
 
 // CONTOH Perpindahan :
 // 3 x 3
-// ELMT(0 1) = ELMT(0 0)
-// ELMT(0 2) = ELMT(0 1)
-// ELMT(1 2) = ELMT(0 2)
-// ELMT(2 2) = ELMT(1 2)
-// ELMT(2 1) = ELMT(2 2)
-// ELMT(2 0) = ELMT(2 1)
-// ELMT(1 0) = ELMT(2 0)
-// ELMT(0 0) = ELMT(1 0)
+// MATRIXELMT(0 1) = MATRIXELMT(0 0)
+// MATRIXELMT(0 2) = MATRIXELMT(0 1)
+// MATRIXELMT(1 2) = MATRIXELMT(0 2)
+// MATRIXELMT(2 2) = MATRIXELMT(1 2)
+// MATRIXELMT(2 1) = MATRIXELMT(2 2)
+// MATRIXELMT(2 0) = MATRIXELMT(2 1)
+// MATRIXELMT(1 0) = MATRIXELMT(2 0)
+// MATRIXELMT(0 0) = MATRIXELMT(1 0)
 
 {
     int row = 0, col = 0;
@@ -614,31 +614,31 @@ void RotateMat(Matrix *m)
         if (row + 1 == a || col + 1 == b) {
             break;
         }
-        previous = ELMT(*m,row + 1,col);
+        previous = MATRIXELMT(*m,row + 1,col);
         for (i = col; i < b; i++) {
-            current = ELMT(*m,row,i);
-            ELMT(*m,row,i) = previous;
+            current = MATRIXELMT(*m,row,i);
+            MATRIXELMT(*m,row,i) = previous;
             previous = current;
         }
         row++;
         for (i = row; i < a; i++) {
-            current = ELMT(*m,i,b-1);
-            ELMT(*m,i,b-1) = previous;
+            current = MATRIXELMT(*m,i,b-1);
+            MATRIXELMT(*m,i,b-1) = previous;
             previous = current;
         }
         b--;
         if (row < a) {
             for (i = b-1; i >= col; i--) {
-                current = ELMT(*m,a-1,i);
-                ELMT(*m,a-1,i) = previous;
+                current = MATRIXELMT(*m,a-1,i);
+                MATRIXELMT(*m,a-1,i) = previous;
                 previous = current;
             }
         }
         a--;
         if (col < b) {
             for (i = a-1; i >= row; i--) {
-                current = ELMT(*m,i,col);
-                ELMT(*m,i,col) = previous;
+                current = MATRIXELMT(*m,i,col);
+                MATRIXELMT(*m,i,col) = previous;
                 previous = current;
             }
         }
