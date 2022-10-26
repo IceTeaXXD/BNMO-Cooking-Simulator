@@ -5,18 +5,19 @@
 #define SIMULATOR_H
 
 #include "../utility/boolean.h"
-#include "../adt.h"
+#include "../point/point.h"
+#include "../liststatik/liststatik.h"
 
 
 typedef struct
 {
     char username[100];
-    POINT location;
+    POINT loc;
     ListStatik inventory;
 }player;
 
 #define USERNAME(P) (P).username
-#define LOCATION(P) (P).location
+#define LOC(P) (P).loc
 #define INVENTORY(P) (P).inventory
 
 #endif  
