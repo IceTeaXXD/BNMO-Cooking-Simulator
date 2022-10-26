@@ -25,7 +25,7 @@ void START()
        ADV();
 }
 
-void START_FILE(char *filename)
+void START_FILE(char filename[])
 {
     EndOfFile = false;
     pita = fopen(filename, "r");

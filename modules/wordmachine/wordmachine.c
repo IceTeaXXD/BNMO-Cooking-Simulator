@@ -29,9 +29,9 @@ void STARTWORD()
       CopyWord();
    }
 }
-void STARTWORD_FILE(char *filename)
+void STARTWORD_FILE(char filename[])
 {
-   START_FILE(*filename);
+   START_FILE(filename);
    IgnoreBlanks();
    if (currentChar == CHARMARK){
       EndWord = true;
@@ -80,5 +80,12 @@ void CopyWord()
 
    else{
       currentWord.Length = i;
+   }
+}
+int WordtoInt(Word string){
+   int temp = 0;
+   int i;
+   for (i=0; i<string.Length; i++){
+      temp = temp * 10 + (int) string.TabWord[i] - 48;
    }
 }
