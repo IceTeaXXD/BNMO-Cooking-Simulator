@@ -29,6 +29,18 @@ void STARTWORD()
       CopyWord();
    }
 }
+void STARTWORD_FILE(char *filename)
+{
+   START_FILE(*filename);
+   IgnoreBlanks();
+   if (currentChar == CHARMARK){
+      EndWord = true;
+   }
+   else{
+      EndWord = false;
+      CopyWord();
+   }
+}
 
 void ADVWORD()
 /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi

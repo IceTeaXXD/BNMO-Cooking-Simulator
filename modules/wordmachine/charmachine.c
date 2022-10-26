@@ -6,6 +6,8 @@
 
 char currentChar;
 boolean EOP;
+boolean EndOfFile;
+static int N;
 
 static FILE *pita;
 static int retval;
@@ -23,6 +25,13 @@ void START()
        ADV();
 }
 
+void START_FILE(char *filename)
+{
+    EndOfFile = false;
+    pita = fopen(filename, "r");
+    ADV();
+}
+
 void ADV()
 {
        /* Pita dimajukan satu karakter.
@@ -37,6 +46,7 @@ void ADV()
        EOP = (currentChar == CHARMARK);
        if (EOP)
        {
+              EndOfFile = true;
               fclose(pita);
        }
 }
