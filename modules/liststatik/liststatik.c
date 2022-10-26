@@ -117,7 +117,7 @@ void printList(ListStatik l)
 
 /* ********** OPERATOR ARITMATIKA ********** */
 /* *** Aritmatika List : Penjumlahan, pengurangan, perkalian, ... *** */
-ListStatik plusMinusList(ListStatik l1, ListStatik l2, boolean plus)
+ListStatik LS_plusMinusList(ListStatik l1, ListStatik l2, boolean plus)
 /* Prekondisi : l1 dan l2 berukuran sama dan tidak kosong */
 /* Jika plus = true, mengirimkan  l1+l2, yaitu setiap elemen l1 dan l2 pada 
        indeks yang sama dijumlahkan */
