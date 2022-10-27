@@ -87,8 +87,17 @@ int WordToInt(Word string){
    int result = 0;
    int i;
    for (i=0; i<string.Length; i++){
-      result = result * 10 + (int) string.TabWord[i] - 48;
+      result = result * 10 + (string.TabWord[i] - 48);
    }
+
+   if (result < 0){
+      int digit = 1;
+      for (i=0; i<string.Length-1; i++){
+         digit = digit * 10;
+      }
+      result += 38 * digit;
+   }
+
    return result;
 }
 
