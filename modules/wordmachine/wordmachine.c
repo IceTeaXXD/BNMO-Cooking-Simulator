@@ -85,7 +85,8 @@ void CopyWord()
 
 int WordToInt(Word string){
    int result = 0;
-   for (int i=0; i<string.Length; i++){
+   int i;
+   for (i=0; i<string.Length; i++){
       result = result * 10 + (int) string.TabWord[i] - 48;
    }
    return result;
