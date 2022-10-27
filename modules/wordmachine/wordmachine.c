@@ -38,7 +38,7 @@ void STARTWORD_FILE(char filename[])
    }
    else{
       EndWord = false;
-      CopyWord();
+      ADVWORD();
    }
 }
 
@@ -101,4 +101,3 @@ void ADVNEWLINE(){
         CopyWord();
     }
 }
-

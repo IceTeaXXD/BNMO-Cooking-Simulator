@@ -37,15 +37,15 @@ void displayMap(Matrix m){
         
 
 void readMap(Matrix *m){
-    
-    int M,N;
+
+    int N, M;
     STARTWORD_FILE("config.txt");
     N = WordToInt(currentWord);
     ADVWORD();
     M = WordToInt(currentWord);
     ADVNEWLINE();
     
-    createMatrix(N, M, &m);
+    createMatrix(N, M, m);
     int i, j;
     for (i=0; i<N; i++){
         for(j=0; j<M; j++){
@@ -62,7 +62,11 @@ void readMap(Matrix *m){
     ADV();
 }
 
-
+int main(){
+    Matrix m;
+    readMap(&m);
+    displayMap(m);
+}
 
     
 

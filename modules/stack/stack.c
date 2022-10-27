@@ -4,7 +4,7 @@
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
-void CreateEmpty(Stack *S)
+void CreateEmpty_Stack(Stack *S)
 /* I.S. sembarang; */
 /* F.S. Membuat sebuah stack S yang kosong berkapasitas stack_MaxEl */
 /* jadi indeksnya antara 0.. stack_MaxEl */
@@ -14,13 +14,13 @@ void CreateEmpty(Stack *S)
 }
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */
-boolean IsEmpty(Stack S)
+boolean IsEmpty_Stack(Stack S)
 /* Mengirim true jika Stack kosong: lihat definisi di atas */
 {
     return (Top(S) == Nil);
 }
 
-boolean IsFull(Stack S)
+boolean IsFull_Stack(Stack S)
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
 {
     return (Top(S) == stack_MaxEl-1);

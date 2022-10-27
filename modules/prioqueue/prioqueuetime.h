@@ -9,20 +9,20 @@
 #include "../utility/boolean.h"
 
 #define Nil -1
-/* Konstanta untuk mendefinisikan address tak terdefinisi */
+/* Konstanta untuk mendefinisikan addressPrioqueue tak terdefinisi */
 
-/* Definisi elemen dan address */
+/* Definisi elemen dan addressPrioqueue */
 typedef struct {
     int time;  /* [1..100], waktu dengan nilai 1..100 (1 adalah waktu adalah terendah) */
     char info;  /* elemen karakter */
 } pq_infotype;
-typedef int address;   /* indeks tabel */
+typedef int addressPrioqueue;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype PrioQueueTime : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
 typedef struct {
     pq_infotype * T;   /* tabel penyimpan elemen */
-    address HEAD;  /* alamat penghapusan */
-    address TAIL;  /* alamat penambahan */
+    addressPrioqueue HEAD;  /* alamat penghapusan */
+    addressPrioqueue TAIL;  /* alamat penambahan */
     int MaxElQ;     /* Max elemen queue */
 } PrioQueueTime;
 /* Definisi PrioQueueTime kosong: HEAD=Nil; TAIL=Nil. */
@@ -40,16 +40,16 @@ typedef struct {
 #define Elmt(Q,i)   (Q).T[(i)]
 
 /* ********* Prototype ********* */
-boolean IsEmpty (PrioQueueTime Q);
+boolean IsEmpty_Prioqueue (PrioQueueTime Q);
 /* Mengirim true jika Q kosong: lihat definisi di atas */
-boolean IsFull (PrioQueueTime Q);
+boolean IsFull_Prioqueue (PrioQueueTime Q);
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
-int NBElmt (PrioQueueTime Q);
+int NBElmt_Prioqueue (PrioQueueTime Q);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 
 /* *** Kreator *** */
-void MakeEmpty (PrioQueueTime * Q, int Max);
+void MakeEmpty_Prioqueue (PrioQueueTime * Q, int Max);
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
@@ -57,18 +57,18 @@ void MakeEmpty (PrioQueueTime * Q, int Max);
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
 
 /* *** Destruktor *** */
-void DeAlokasi(PrioQueueTime * Q);
+void DeAlokasi_Prioqueue(PrioQueueTime * Q);
 /* Proses: Mengembalikan memori Q */
 /* I.S. Q pernah dialokasi */
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueueTime * Q, pq_infotype X);
+void Enqueue_Prioqueue (PrioQueueTime * Q, pq_infotype X);
 /* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan time */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
         TAIL "maju" dengan mekanisme circular buffer; */
-void Dequeue (PrioQueueTime * Q, pq_infotype * X);
+void Dequeue_Prioqueue (PrioQueueTime * Q, pq_infotype * X);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;

@@ -8,8 +8,8 @@ void CreateTree(Tree *T){
 }
 
 /* *** Manajemen Memory *** */
-address Alokasi(int X){
-    address P = (address) malloc(sizeof(Node));
+addressTree Alokasi(int X){
+    addressTree P = (addressTree) malloc(sizeof(Node));
     if(P != NULL){
         Data(P) = X;
         FirstChild(P) = NULL;
@@ -18,16 +18,16 @@ address Alokasi(int X){
     return P;
 }
 
-void Dealokasi(address P){
+void Dealokasi(addressTree P){
     free(P);
 }
 
 
-void AddChild(address *P, address C){
+void AddChild(addressTree *P, addressTree C){
     if(*P == NULL){
         *P = C;
     }else{
-        address Q = *P;
+        addressTree Q = *P;
         while(FirstChild(Q) != NULL){
             Q = FirstChild(Q);
         }
@@ -35,11 +35,11 @@ void AddChild(address *P, address C){
     }
 }
 
-void AddSibling(address *P, address S){
+void AddSibling(addressTree *P, addressTree S){
     if(*P == NULL){
         *P = S;
     }else{
-        address Q = *P;
+        addressTree Q = *P;
         while(NextSibling(Q) != NULL){
             Q = NextSibling(Q);
         }
@@ -47,14 +47,14 @@ void AddSibling(address *P, address S){
     }
 }
 
-void printSiblings(address P){
+void printSiblings(addressTree P){
     if(P != NULL){
         printf("%d ", Data(P));
         printSiblings(NextSibling(P));
     }
 }
 
-void printChild(address P){
+void printChild(addressTree P){
     if(P != NULL){
         printf("%d ", Data(P));
         printChild(FirstChild(P));
@@ -62,7 +62,7 @@ void printChild(address P){
     }
 }
 
-void printTree (address P, int h){
+void printTree (addressTree P, int h){
     if(P != NULL){
         int i;
         for(i = 0; i < h; i++){
@@ -74,7 +74,7 @@ void printTree (address P, int h){
     }
 }
 
-boolean isTreeElmt (address P, int X){
+boolean isTreeElmt (addressTree P, int X){
     if(P != NULL){
         if(Data(P) == X){
             return true;
@@ -86,13 +86,13 @@ boolean isTreeElmt (address P, int X){
     }
 }
 
-// int to address
-address toAddress (address P, int X){
+// int to addressTree
+addressTree toAddress (addressTree P, int X){
     if(P != NULL){
         if(Data(P) == X){
             return P;
         }else{
-            address Q = toAddress(FirstChild(P), X);
+            addressTree Q = toAddress(FirstChild(P), X);
             if(Q != NULL){
                 return Q;
             }else{

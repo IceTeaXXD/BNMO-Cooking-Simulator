@@ -56,9 +56,9 @@ int main()
     // int L7[] = {9,2,13,14};
     // int L8[] = {0,3,1,2,3};
     // int *L[] = {L2,L3,L4,L5,L6,L7,L8};
-    address P[7];
-    address PPrev;
-    address PNow;
+    addressTree P[7];
+    addressTree PPrev;
+    addressTree PNow;
     for (i = 0 ; i < N ; i++){
         P[i] = Alokasi(MATRIXELMT(L,i,0));
     }
