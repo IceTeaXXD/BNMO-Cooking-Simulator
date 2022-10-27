@@ -90,3 +90,15 @@ int WordToInt(Word string){
    }
    return result;
 }
+
+void ADVNEWLINE(){
+   
+    Word EMPTY = {"", 0};
+    currentWord = EMPTY;
+    if(currentChar == CHARMARK){
+        EndWord = false;
+        ADV();
+        CopyWord();
+    }
+}
+
