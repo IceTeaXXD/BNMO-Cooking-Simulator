@@ -4,38 +4,30 @@
 #define TREE_H
 
 #include "../utility/boolean.h"
-#include "../liststatik/liststatik.h"
-#include "../listdin/listdin.h"
 
 #define Nil NULL
 
-/* Definisi Type */
-typedef struct tNode* Address;
+/* Definisi Type Data */
+typedef struct tNode *address;
 typedef struct tNode {
-    int id;
-    ListDin parent;
-    ListDin children;
+    int data;
+    address firstChild;
+    address nextSibling;
 } Node;
 
 typedef struct {
-    Address root;
+    address root;
 } Tree;
 
-/* Selektor */
+
+#define Data(P) (P)->data
+#define FirstChild(P) (P)->firstChild
+#define NextSibling(P) (P)->nextSibling
 #define Root(T) (T).root
-#define Id(P) (P)->id
-#define Parent(P) (P)->parent
-#define Children(P) (P)->children
 
-/* *** Konstruktor *** */
-void CreateTree(Tree *T);
-/* I.S. T sembarang */
-/* F.S. Terbentuk pohon kosong */
-
-void createNode(Address *P, int id, ListDin parent, ListDin children);
-/* I.S. P sembarang */
-/* F.S. Terbentuk node kosong */
-
-
+/* Definisi Pohon : */
+/* Pohon kosong : P = Nil */
+/* Setiap elemen dengan address P dapat diacu Info(P), FirstChild(P), NextSibling(P) */
+/* Elemen terakhir pohon : jika NextSibling(P) = Nil, maka P adalah elemen terakhir pohon */
 
 #endif

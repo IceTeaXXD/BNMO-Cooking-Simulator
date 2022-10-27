@@ -1,47 +1,105 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "tree.h"
 
-
-/* *** Konstruktor *** */
-void CreateTree(Tree *T)
-/* I.S. T sembarang */
-/* F.S. Terbentuk pohon kosong */
-{
-    Root(*T) = Nil;
+/*KONSTRUKTOR*/
+void CreateTree(Tree *T){
+    (*T).root = NULL;
 }
 
-void createNode(Address *P, int id, ListDin parent, ListDin children)
-/* I.S. P sembarang */
-/* F.S. Terbentuk node kosong */
-{
-    *P = (Address) malloc(sizeof(Node));
-    Id(*P) = id;
-    Parent(*P) = parent;
-    Children(*P) = children;
+/* *** Manajemen Memory *** */
+address Alokasi(int X){
+    address P = (address) malloc(sizeof(Node));
+    if(P != NULL){
+        Data(P) = X;
+        FirstChild(P) = NULL;
+        NextSibling(P) = NULL;
+    }
+    return P;
 }
 
-void AddChild(Tree *T, int id, int parent)
-/* I.S. T terdefinisi, id dan parent terdefinisi */
-{
-    Address P;
-    createNode(&P, id, Nil, Nil);
-    if (Root(*T) == Nil) {
-        Root(*T) = P;
-    } else {
-        Address Q = Root(*T);
-        while (Id(Q) != parent) {
-            Q = Next(Q);
+void Dealokasi(address P){
+    free(P);
+}
+
+
+void AddChild(address *P, address C){
+    if(*P == NULL){
+        *P = C;
+    }else{
+        address Q = *P;
+        while(FirstChild(Q) != NULL){
+            Q = FirstChild(Q);
         }
-        InsertLast(&Children(Q), P);
+        FirstChild(Q) = C;
     }
 }
 
-void PrintTree(Tree T)
-/* I.S. T terdefinisi */
-/* F.S. T dicetak secara preorder */
-{
-    if (Root(T) != Nil) {
-        printf("%d ", Id(Root(T)));
-        PrintTree(Children(Root(T)));
+void AddSibling(address *P, address S){
+    if(*P == NULL){
+        *P = S;
+    }else{
+        address Q = *P;
+        while(NextSibling(Q) != NULL){
+            Q = NextSibling(Q);
+        }
+        NextSibling(Q) = S;
+    }
+}
+
+void printSiblings(address P){
+    if(P != NULL){
+        printf("%d ", Data(P));
+        printSiblings(NextSibling(P));
+    }
+}
+
+void printChild(address P){
+    if(P != NULL){
+        printf("%d ", Data(P));
+        printChild(FirstChild(P));
+        printSiblings(NextSibling(P));
+    }
+}
+
+void printTree (address P, int h){
+    if(P != NULL){
+        int i;
+        for(i = 0; i < h; i++){
+            printf("    ");
+        }
+        printf("%d\n", Data(P));
+        printTree(FirstChild(P), h+1);
+        printTree(NextSibling(P), h);
+    }
+}
+
+boolean isTreeElmt (address P, int X){
+    if(P != NULL){
+        if(Data(P) == X){
+            return true;
+        }else{
+            return isTreeElmt(FirstChild(P), X) || isTreeElmt(NextSibling(P), X);
+        }
+    }else{
+        return false;
+    }
+}
+
+// int to address
+address toAddress (address P, int X){
+    if(P != NULL){
+        if(Data(P) == X){
+            return P;
+        }else{
+            address Q = toAddress(FirstChild(P), X);
+            if(Q != NULL){
+                return Q;
+            }else{
+                return toAddress(NextSibling(P), X);
+            }
+        }
+    }else{
+        return NULL;
     }
 }
