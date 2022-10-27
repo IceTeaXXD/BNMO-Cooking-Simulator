@@ -14,7 +14,7 @@ void CreateListStatik(ListStatik *l)
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
-int listLength(ListStatik l)
+int listLength_ListStatik(ListStatik l)
 /* Mengirimkan banyaknya elemen efektif List */
 /* Mengirimkan nol jika List kosong */
 {
@@ -28,53 +28,53 @@ int listLength(ListStatik l)
 }
 
 /* *** Selektor INDEKS *** */
-IdxType getFirstIdx(ListStatik l)
+IdxType getFirstIdx_ListStatik(ListStatik l)
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l pertama */
 {
     return IDX_MIN;
 }
 
-IdxType getLastIdx(ListStatik l)
+IdxType getLastIdx_ListStatik(ListStatik l)
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
 {
-    return listLength(l) - 1;
+    return listLength_ListStatik(l) - 1;
 }
 
 /* ********** Test Indeks yang valid ********** */
-boolean isIdxValid(ListStatik l, IdxType i)
+boolean isIdxValid_ListStatik(ListStatik l, IdxType i)
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas List l */
 /* yaitu antara indeks yang terdefinisi utk container*/
 {
     return (i >= IDX_MIN && i <= CAPACITY-1);
 }
 
-boolean isIdxEff(ListStatik l, IdxType i)
+boolean isIdxEff_ListStatik(ListStatik l, IdxType i)
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
 /* yaitu antara 0..length(l)-1 */
 {
-    return (i >= 0 && i <= listLength(l)-1);
+    return (i >= 0 && i <= listLength_ListStatik(l)-1);
 }
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test List kosong *** */
-boolean isEmpty(ListStatik l)
+boolean isEmpty_ListStatik(ListStatik l)
 /* Mengirimkan true jika List l kosong, mengirimkan false jika tidak */
 {
-    return (listLength(l) == 0);
+    return (listLength_ListStatik(l) == 0);
 }
 
 /* *** Test List penuh *** */
-boolean isFull(ListStatik l)
+boolean isFull_ListStatik(ListStatik l)
 /* Mengirimkan true jika List l penuh, mengirimkan false jika tidak */
 {
-    return (listLength(l) == CAPACITY);
+    return (listLength_ListStatik(l) == CAPACITY);
 }
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi List dari pembacaan *** */
-void readList(ListStatik *l)
+void readList_ListStatik(ListStatik *l)
 /* I.S. l sembarang */
 /* F.S. List l terdefinisi */
 /* Proses: membaca banyaknya elemen l dan mengisi nilainya */
@@ -96,7 +96,7 @@ void readList(ListStatik *l)
     }
 }
 
-void printList(ListStatik l)
+void printList_ListStatik(ListStatik l)
 /* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung 
    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
@@ -107,9 +107,9 @@ void printList(ListStatik l)
 {
     int i;
     printf("[");
-    for (i = 0; i < listLength(l); i++) {
+    for (i = 0; i < listLength_ListStatik(l); i++) {
         printf("%d", LISTELMT(l, i));
-        if (i < listLength(l) - 1)
+        if (i < listLength_ListStatik(l) - 1)
             printf(",");
     }
     printf("]");
@@ -117,7 +117,7 @@ void printList(ListStatik l)
 
 /* ********** OPERATOR ARITMATIKA ********** */
 /* *** Aritmatika List : Penjumlahan, pengurangan, perkalian, ... *** */
-ListStatik LS_plusMinusList(ListStatik l1, ListStatik l2, boolean plus)
+ListStatik plusMinusList_ListStatik(ListStatik l1, ListStatik l2, boolean plus)
 /* Prekondisi : l1 dan l2 berukuran sama dan tidak kosong */
 /* Jika plus = true, mengirimkan  l1+l2, yaitu setiap elemen l1 dan l2 pada 
        indeks yang sama dijumlahkan */
@@ -127,7 +127,7 @@ ListStatik LS_plusMinusList(ListStatik l1, ListStatik l2, boolean plus)
     ListStatik l;
     int i;
     CreateListStatik(&l);
-    for (i = 0; i < listLength(l1); i++) {
+    for (i = 0; i < listLength_ListStatik(l1); i++) {
         if (plus)
             LISTELMT(l, i) = LISTELMT(l1, i) + LISTELMT(l2, i);
         else
@@ -138,17 +138,17 @@ ListStatik LS_plusMinusList(ListStatik l1, ListStatik l2, boolean plus)
 
 /* ********** OPERATOR RELASIONAL ********** */
 /* *** Operasi pembandingan List: *** */
-boolean isListEqual(ListStatik l1, ListStatik l2)
+boolean isListEqual_ListStatik(ListStatik l1, ListStatik l2)
 /* Mengirimkan true jika l1 sama dengan l2 yaitu jika ukuran l1 = l2 dan semua 
    elemennya sama */
 {
 
     boolean equal = true;
     int i = 0;
-    if (listLength(l1) != listLength(l2)) {
+    if (listLength_ListStatik(l1) != listLength_ListStatik(l2)) {
         equal = false;
     } else {
-        while (equal && i < listLength(l1)) {
+        while (equal && i < listLength_ListStatik(l1)) {
             if (LISTELMT(l1, i) != LISTELMT(l2, i)) {
                 equal = false;
             }
@@ -160,7 +160,7 @@ boolean isListEqual(ListStatik l1, ListStatik l2)
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */
-int indexOf(ListStatik l, ElType val)
+int indexOf_ListStatik(ListStatik l, ElType val)
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan LISTELMT(l,i) = val */
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
@@ -168,7 +168,7 @@ int indexOf(ListStatik l, ElType val)
 {
     int i = 0;
     boolean found = false;
-    while (!found && i < listLength(l)) {
+    while (!found && i < listLength_ListStatik(l)) {
         if (LISTELMT(l, i) == val) {
             found = true;
         } else {
@@ -183,7 +183,7 @@ int indexOf(ListStatik l, ElType val)
 }
 
 /* ********** NILAI EKSTREM ********** */
-void extremeValues(ListStatik l, ElType *max, ElType *min)
+void extremeValues_ListStatik(ListStatik l, ElType *max, ElType *min)
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
@@ -191,7 +191,7 @@ void extremeValues(ListStatik l, ElType *max, ElType *min)
     int i;
     *max = LISTELMT(l, 0);
     *min = LISTELMT(l, 0);
-    for (i = 1; i < listLength(l); i++) {
+    for (i = 1; i < listLength_ListStatik(l); i++) {
         if (LISTELMT(l, i) > *max) {
             *max = LISTELMT(l, i);
         }
@@ -203,43 +203,43 @@ void extremeValues(ListStatik l, ElType *max, ElType *min)
 
 /* ********** MENAMBAH ELEMEN ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertFirst(ListStatik *l, ElType val)
+void insertFirst_ListStatik(ListStatik *l, ElType val)
 /* Proses: Menambahkan val sebagai elemen pertama List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen pertama l yang baru */
 /* *** Menambahkan elemen pada index tertentu *** */
 {
     int i;
-    for (i = listLength(*l); i > 0; i--) {
+    for (i = listLength_ListStatik(*l); i > 0; i--) {
         LISTELMT(*l, i) = LISTELMT(*l, i - 1);
     }
     LISTELMT(*l, 0) = val;
 }
 
-void insertAt(ListStatik *l, ElType val, IdxType idx)
+void insertAt_ListStatik(ListStatik *l, ElType val, IdxType idx)
 /* Proses: Menambahkan val sebagai elemen pada index idx List */
 /* I.S. List l tidak kosong dan tidak penuh, idx merupakan index yang valid di l */
 /* F.S. val adalah elemen yang disisipkan pada index idx l */
 {
     int i;
-    for (i = listLength(*l); i > idx; i--) {
+    for (i = listLength_ListStatik(*l); i > idx; i--) {
         LISTELMT(*l, i) = LISTELMT(*l, i - 1);
     }
     LISTELMT(*l, idx) = val;
 }
 
-void insertLast(ListStatik *l, ElType val)
+void insertLast_ListStatik(ListStatik *l, ElType val)
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 {
-    LISTELMT(*l, listLength(*l)) = val;
+    LISTELMT(*l, listLength_ListStatik(*l)) = val;
 }
 
 
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
-void deleteFirst(ListStatik *l, ElType *val)
+void deleteFirst_ListStatik(ListStatik *l, ElType *val)
 /* Proses : Menghapus elemen pertama List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen pertama l sebelum penghapusan, */
@@ -249,15 +249,15 @@ void deleteFirst(ListStatik *l, ElType *val)
     int i;
     if (!isEmpty(*l)){
         *val = LISTELMT(*l, 0);
-        for (i = 0; i < listLength(*l) - 1; i++){
+        for (i = 0; i < listLength_ListStatik(*l) - 1; i++){
             LISTELMT(*l, i) = LISTELMT(*l, i + 1);
             }
         }
-        LISTELMT(*l, listLength(*l) - 1) = LISTMARK;
+        LISTELMT(*l, listLength_ListStatik(*l) - 1) = LISTMARK;
 }
 
 /* *** Menghapus elemen pada index tertentu *** */
-void deleteAt(ListStatik *l, ElType *val, IdxType idx)
+void deleteAt_ListStatik(ListStatik *l, ElType *val, IdxType idx)
 /* Proses : Menghapus elemen pada index idx List */
 /* I.S. List tidak kosong, idx adalah index yang valid di l */
 /* F.S. val adalah nilai elemen pada index idx l sebelum penghapusan, */
@@ -268,28 +268,28 @@ void deleteAt(ListStatik *l, ElType *val, IdxType idx)
     int i;
     if (!isEmpty(*l)){
         *val = LISTELMT(*l, idx);
-        for (i = idx; i < listLength(*l) - 1; i++){
+        for (i = idx; i < listLength_ListStatik(*l) - 1; i++){
             LISTELMT(*l, i) = LISTELMT(*l, i + 1);
             }
         }
-        LISTELMT(*l, listLength(*l) - 1) = LISTMARK;
+        LISTELMT(*l, listLength_ListStatik(*l) - 1) = LISTMARK;
 }
 
-void deleteLast(ListStatik *l, ElType *val)
+void deleteLast_ListStatik(ListStatik *l, ElType *val)
 /* Proses : Menghapus elemen terakhir List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
 /*      Banyaknya elemen List berkurang satu */
 /*      List l mungkin menjadi kosong */
 {
-    if (!isEmpty(*l)){
-        *val = LISTELMT(*l, listLength(*l) - 1);
-        LISTELMT(*l, listLength(*l) - 1) = LISTMARK;
+    if (!isEmpty_ListStatik(*l)){
+        *val = LISTELMT(*l, listLength_ListStatik(*l) - 1);
+        LISTELMT(*l, listLength_ListStatik(*l) - 1) = LISTMARK;
     }
 }
 
 /* ********** SORTING ********** */
-void sortList(ListStatik *l, boolean asc)
+void sortList_ListStatik(ListStatik *l, boolean asc)
 /* I.S. l boleh kosong */
 /* F.S. Jika asc = true, l terurut membesar */
 /*      Jika asc = false, l terurut mengecil */
@@ -298,8 +298,8 @@ void sortList(ListStatik *l, boolean asc)
 {
     int i, j;
     ElType temp;
-    for (i = 0; i < listLength(*l) - 1; i++) {
-        for (j = i + 1; j < listLength(*l); j++) {
+    for (i = 0; i < listLength_ListStatik(*l) - 1; i++) {
+        for (j = i + 1; j < listLength_ListStatik(*l); j++) {
             if (asc) {
                 if (LISTELMT(*l, i) > LISTELMT(*l, j)) {
                     temp = LISTELMT(*l, i);

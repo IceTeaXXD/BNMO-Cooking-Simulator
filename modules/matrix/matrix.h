@@ -44,7 +44,7 @@ IdxType getLastIdxCol(Matrix m);
 /* Mengirimkan Index kolom terbesar m */
 boolean isIdxEff(Matrix m, IdxType i, IdxType j);
 /* Mengirimkan true jika i, j adalah Index efektif bagi m */
-ElType getElmtDiagonal(Matrix m, IdxType i);
+ElType getElmtDiagonal_Matrix(Matrix m, IdxType i);
 /* Mengirimkan elemen m(i,i) */
 
 /* ********** Assignment  Matrix ********** */
@@ -101,7 +101,7 @@ boolean isMatrixSizeEqual(Matrix m1, Matrix m2);
 /* yaitu RowEff(m1) = RowEff (m2) dan ColEff (m1) = ColEff (m2) */
 
 /* ********** Operasi lain ********** */
-int countElmt(Matrix m);
+int countElmt_Matrix(Matrix m);
 /* Mengirimkan banyaknya elemen m */
 
 /* ********** KELOMPOK TEST TERHADAP Matrix ********** */

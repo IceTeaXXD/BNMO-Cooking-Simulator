@@ -48,13 +48,13 @@ IdxType getLastIdxCol(Matrix m)
     return COL_EFF(m) - 1;
 }
 
-boolean isIdxEff(Matrix m, IdxType i, IdxType j)
+boolean isIdxEff_Matrix(Matrix m, IdxType i, IdxType j)
 /* Mengirimkan true jika i, j adalah Index efektif bagi m */
 {
     return (i >= 0 && i <= getLastIdxRow(m) && j >= 0 && j <= getLastIdxCol(m));
 }
 
-ElType getMATRIXELMTDiagonal(Matrix m, IdxType i)
+ElType getElmtDiagonal_Matrix(Matrix m, IdxType i)
 /* Mengirimkan elemen m(i,i) */
 {
     return MATRIXELMT(m, i, i);
@@ -250,7 +250,7 @@ boolean isMatrixSizeEqual(Matrix m1, Matrix m2)
 }
 
 /* ********** Operasi lain ********** */
-int countMATRIXELMT(Matrix m)
+int countElmt_Matrix(Matrix m)
 /* Mengirimkan banyaknya elemen m */
 {
     return ROW_EFF(m) * COL_EFF(m);
