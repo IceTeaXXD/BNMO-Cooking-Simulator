@@ -36,25 +36,25 @@ boolean isMatrixIdxValid(int i, int j)
 }
 
 /* *** Selektor: Untuk sebuah matriks m yang terdefinisi: *** */
-IdxType getLastIdxRow(Matrix m)
+MIdxType getLastIdxRow(Matrix m)
 /* Mengirimkan Index baris terbesar m */
 {
     return ROW_EFF(m) - 1;
 }
 
-IdxType getLastIdxCol(Matrix m)
+MIdxType getLastIdxCol(Matrix m)
 /* Mengirimkan Index kolom terbesar m */
 {
     return COL_EFF(m) - 1;
 }
 
-boolean isIdxEff_Matrix(Matrix m, IdxType i, IdxType j)
+boolean isIdxEff_Matrix(Matrix m, MIdxType i, MIdxType j)
 /* Mengirimkan true jika i, j adalah Index efektif bagi m */
 {
     return (i >= 0 && i <= getLastIdxRow(m) && j >= 0 && j <= getLastIdxCol(m));
 }
 
-ElType getElmtDiagonal_Matrix(Matrix m, IdxType i)
+MElType getElmtDiagonal_Matrix(Matrix m, MIdxType i)
 /* Mengirimkan elemen m(i,i) */
 {
     return MATRIXELMT(m, i, i);
@@ -184,7 +184,7 @@ Matrix multiplyMatrix(Matrix m1, Matrix m2)
     }
     return m;
 }
-Matrix multiplyByConst(Matrix m, ElType x)
+Matrix multiplyByConst(Matrix m, MElType x)
 /* Mengirim hasil perkalian setiap elemen m dengan x */
 {
     Matrix mOut;
@@ -200,7 +200,7 @@ Matrix multiplyByConst(Matrix m, ElType x)
     }
     return mOut;
 }
-void pMultiplyByConst(Matrix *m, ElType k)
+void pMultiplyByConst(Matrix *m, MElType k)
 /* I.S. m terdefinisi, k terdefinisi */
 /* F.S. Mengalikan setiap elemen m dengan k */
 {
@@ -442,7 +442,7 @@ void pTranspose(Matrix *m)
 /* Operasi berbasis baris dan per kolom */
 
 
-float AvgRow(Matrix M, IdxType i)
+float AvgRow(Matrix M, MIdxType i)
 
 /* Menghasilkan rata-rata dari elemen pada baris ke-i */
 
@@ -458,7 +458,7 @@ float AvgRow(Matrix M, IdxType i)
 }
 
 
-float AvgCol(Matrix M, IdxType j)
+float AvgCol(Matrix M, MIdxType j)
 
 /* Menghasilkan rata-rata dari elemen pada kolom ke-j */
 
@@ -473,7 +473,7 @@ float AvgCol(Matrix M, IdxType j)
 }
 
 
-void MinMaxRow(Matrix M, IdxType i, ElType * max, ElType * min)
+void MinMaxRow(Matrix M, MIdxType i, MElType * max, MElType * min)
 
 /* I.S. i adalah indeks baris efektif dari M, M terdefinisi */
 
@@ -495,7 +495,7 @@ min berisi elemen minimum pada baris i dari M */
 }
 
 
-void MinMaxCol(Matrix M, IdxType j, ElType * max, ElType * min)
+void MinMaxCol(Matrix M, MIdxType j, MElType * max, MElType * min)
 
 /* I.S. j adalah indeks kolom efektif dari M, M terdefinisi */
 
@@ -517,7 +517,7 @@ min berisi elemen minimum pada kolom j dari M */
 }
 
 
-int CountNumRow(Matrix M, IdxType i, ElType X)
+int CountNumRow(Matrix M, MIdxType i, MElType X)
 
 /* Menghasilkan banyaknya kemunculan X pada baris i dari M */
 {
@@ -532,7 +532,7 @@ int CountNumRow(Matrix M, IdxType i, ElType X)
 
 }
 
-int CountNumCol(Matrix M, IdxType j, ElType X)
+int CountNumCol(Matrix M, MIdxType j, MElType X)
 
 /* Menghasilkan banyaknya kemunculan X pada kolom j dari M */
 {

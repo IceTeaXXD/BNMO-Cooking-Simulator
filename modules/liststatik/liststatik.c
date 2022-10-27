@@ -247,7 +247,7 @@ void deleteFirst_ListStatik(ListStatik *l, ElType *val)
 /*      List l mungkin menjadi kosong */
 {
     int i;
-    if (!isEmpty(*l)){
+    if (!isEmpty_ListStatik(*l)){
         *val = LISTELMT(*l, 0);
         for (i = 0; i < listLength_ListStatik(*l) - 1; i++){
             LISTELMT(*l, i) = LISTELMT(*l, i + 1);
@@ -266,7 +266,7 @@ void deleteAt_ListStatik(ListStatik *l, ElType *val, IdxType idx)
 /* *** Menghapus elemen terakhir *** */
 {
     int i;
-    if (!isEmpty(*l)){
+    if (!isEmpty_ListStatik(*l)){
         *val = LISTELMT(*l, idx);
         for (i = idx; i < listLength_ListStatik(*l) - 1; i++){
             LISTELMT(*l, i) = LISTELMT(*l, i + 1);

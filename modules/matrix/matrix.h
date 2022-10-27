@@ -9,11 +9,11 @@
 #define ROW_CAP 100
 #define COL_CAP 100
 
-typedef int IdxType; /* Index baris, kolom */
-typedef int ElType;
+typedef int MIdxType; /* Index baris, kolom */
+typedef int MElType;
 typedef struct
 {
-   ElType mem[ROW_CAP][COL_CAP];
+   MElType mem[ROW_CAP][COL_CAP];
    int rowEff; /* banyaknya/ukuran baris yg terdefinisi */
    int colEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } Matrix;
@@ -38,13 +38,13 @@ boolean isMatrixIdxValid(int i, int j);
 /* Mengirimkan true jika i, j adalah index yang valid untuk matriks apa pun */
 
 /* *** Selektor: Untuk sebuah matriks m yang terdefinisi: *** */
-IdxType getLastIdxRow(Matrix m);
+MIdxType getLastIdxRow(Matrix m);
 /* Mengirimkan Index baris terbesar m */
-IdxType getLastIdxCol(Matrix m);
+MIdxType getLastIdxCol(Matrix m);
 /* Mengirimkan Index kolom terbesar m */
-boolean isIdxEff(Matrix m, IdxType i, IdxType j);
+boolean isIdxEff(Matrix m, MIdxType i, MIdxType j);
 /* Mengirimkan true jika i, j adalah Index efektif bagi m */
-ElType getElmtDiagonal_Matrix(Matrix m, IdxType i);
+MElType getElmtDiagonal_Matrix(Matrix m, MIdxType i);
 /* Mengirimkan elemen m(i,i) */
 
 /* ********** Assignment  Matrix ********** */
@@ -83,9 +83,9 @@ Matrix subtractMatrix(Matrix m1, Matrix m2);
 Matrix multiplyMatrix(Matrix m1, Matrix m2);
 /* Prekondisi : Ukuran kolom efektif m1 = ukuran baris efektif m2 */
 /* Mengirim hasil perkalian matriks: salinan m1 * m2 */
-Matrix multiplyByConst(Matrix m, ElType x);
+Matrix multiplyByConst(Matrix m, MElType x);
 /* Mengirim hasil perkalian setiap elemen m dengan x */
-void pMultiplyByConst(Matrix *m, ElType k);
+void pMultiplyByConst(Matrix *m, MElType k);
 /* I.S. m terdefinisi, k terdefinisi */
 /* F.S. Mengalikan setiap elemen m dengan k */
 
