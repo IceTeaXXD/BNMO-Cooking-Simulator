@@ -64,7 +64,7 @@ void displayMap(Matrix m){
 void readMap(Matrix *m){
     // read file
     int i,j,k;
-    STARTWORD_FILE("map.txt");
+    STARTWORD_FILE("../../cfg/map.txt");
     // the first line is number of row and cols
     int row,col;
     row = WordToInt(currentWord);
