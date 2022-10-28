@@ -9,7 +9,7 @@ void IgnoreBlanks()
    I.S. : currentChar sembarang
    F.S. : currentChar ≠ BLANK atau currentChar = CHARMARK */
 {
-   while (currentChar == BLANK) {
+   while (currentChar == BLANK || currentChar == '\n') {
       ADV();
    }
 }
@@ -68,7 +68,7 @@ void CopyWord()
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 {
    int i = 0;
-   while (currentChar != CHARMARK && currentChar != BLANK){
+   while (currentChar != CHARMARK && currentChar != BLANK && currentChar != LineMARK){
       currentWord.TabWord[i] = currentChar;
       ADV();
       i++;

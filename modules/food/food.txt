@@ -1,0 +1,31 @@
+6 
+11 
+AyamMentah 
+1 0 0 
+0 0 15 
+Buy 
+21 
+AyamPotong 
+0 2 0 
+0 0 0 
+Chop 
+10 
+Tepung 
+0 1 0 
+0 0 30 
+Buy 
+15 
+MinyakGoreng 
+0 1 30 
+0 1 0 
+Buy 
+31 
+AyamTepung 
+0 0 30 
+0 0 0 
+Mix 
+37 
+AyamGoreng 
+0 0 15 
+0 0 0 
+Fry.

@@ -7,7 +7,6 @@
 char currentChar;
 boolean EOP;
 boolean EndOfFile;
-static int N;
 
 static FILE *pita;
 static int retval;
@@ -44,9 +43,9 @@ void ADV()
        /* Algoritma */
        retval = fscanf(pita, "%c", &currentChar);
        EOP = (currentChar == CHARMARK);
-       // if (EOP)
-       // {
-       //        EndOfFile = true;
-       //        fclose(pita);
-       // }
+       if (EOP)
+       {
+              EndOfFile = true;
+              fclose(pita);
+       }
 }

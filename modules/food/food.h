@@ -10,17 +10,23 @@
 typedef struct
 {
     int id;
-    char food_name;
+    char *food_name;
     TIME expiry_time;
-    char action;
+    char *action;
     TIME delivery_time;
 
 }food;
 
-#define ID(F) (F).id
-#define FOOD_NAME(F) (F).food_name
-#define EXPIRY_TIME(F) (F).expiry_time
-#define LOCATION(F) (F).location
-#define DELIVERY_TIME(F) (F).delivery_time
+#define FoodId(F) (F).id
+#define FoodName(F) (F).food_name
+#define FoodExpiry(F) (F).expiry_time
+#define FoodAction(F) (F).action
+#define FoodDelivery(F) (F).delivery_time
+
+void CreateFood(food *x, int id, char name[], TIME expiry, char action[], TIME delivery);
+
+void DisplayFood(food x);
+
+void ReadFood_FILE(char filename[]);
 
 #endif  
