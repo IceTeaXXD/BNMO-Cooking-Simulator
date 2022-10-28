@@ -4,10 +4,10 @@
 #define TREE_H
 
 #include "../utility/boolean.h"
-#include "../matrix/matrix.h"
 #include "../liststatik/liststatik.h"
 #include "../wordmachine/charmachine.h"
 #include "../wordmachine/wordmachine.h"
+#include "../matrix/matrix.h"
 
 
 /* Definisi Type Data */

@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tree.h"
-#include "../matrix/matrix.c"
-#include "../liststatik/liststatik.c"
-#include "../wordmachine/charmachine.c"
-#include "../wordmachine/wordmachine.c"
+// #include "../liststatik/liststatik.c"
+// #include "../wordmachine/charmachine.c"
+// #include "../wordmachine/wordmachine.c"
 
 /*KONSTRUKTOR*/
 void CreateTree(Tree *T){

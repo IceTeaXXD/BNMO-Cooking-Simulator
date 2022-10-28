@@ -326,7 +326,7 @@ void expandList_ListDin(ListDin *l, int num)
     NEFF(*l) = tempNeff;
    
     int i;
-    for (i = 0; i < listLength(temp); i++) {
+    for (i = 0; i < listLength_ListDin(temp); i++) {
         ELMT(*l, i) = ELMT(temp, i);
     }
 }
