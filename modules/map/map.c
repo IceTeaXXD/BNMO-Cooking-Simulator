@@ -61,10 +61,10 @@ void displayMap(Matrix m){
     }
 }            
         
-void readMap(Matrix *m){
+void ReadMap_FILE(Matrix *m, char filename[]){
     // read file
     int i,j,k;
-    STARTWORD_FILE("../../cfg/map.txt");
+    STARTWORD_FILE(filename);
     // the first line is number of row and cols
     int row,col;
     row = WordToInt(currentWord);
@@ -76,34 +76,27 @@ void readMap(Matrix *m){
     createMatrix(row,col,m);
 
     for (i = 0 ; i < row ; i++){
-        for (j = 1; j <= col ; j++){
+        for (j = 0; j < col ; j++){
             if (currentWord.TabWord[j] == '#'){
-                MATRIXELMT(*m,i,j-1) = 1;
+                MATRIXELMT(*m,i,j) = 1;
             }else if (currentWord.TabWord[j] == 'S'){
-                MATRIXELMT(*m,i,j-1) = 2;
+                MATRIXELMT(*m,i,j) = 2;
             }else if (currentWord.TabWord[j] == 'T'){
-                MATRIXELMT(*m,i,j-1) = 3;
+                MATRIXELMT(*m,i,j) = 3;
             }else if (currentWord.TabWord[j] == 'M'){
-                MATRIXELMT(*m,i,j-1) = 4;
+                MATRIXELMT(*m,i,j) = 4;
             }else if (currentWord.TabWord[j] == 'C'){
-                MATRIXELMT(*m,i,j-1) = 5;
+                MATRIXELMT(*m,i,j) = 5;
             }else if (currentWord.TabWord[j] == 'F'){
-                MATRIXELMT(*m,i,j-1) = 6;
+                MATRIXELMT(*m,i,j) = 6;
             }else if (currentWord.TabWord[j] == 'B'){
-                MATRIXELMT(*m,i,j-1) = 7;
+                MATRIXELMT(*m,i,j) = 7;
             }else if (currentWord.TabWord[j] == 'X'){
-                MATRIXELMT(*m,i,j-1) = 8;
+                MATRIXELMT(*m,i,j) = 8;
             }
         }
         if (i < row-1){
             ADVWORD();
         }
     }
-}
-
-int main(){
-    Matrix m;
-    readMap(&m);
-    displayMap(m);
-    return 0;
 }
