@@ -33,4 +33,28 @@ typedef struct {
 /* Setiap elemen dengan addressTree P dapat diacu Info(P), FirstChild(P), NextSibling(P) */
 /* Elemen terakhir pohon : jika NextSibling(P) = Nil, maka P adalah elemen terakhir pohon */
 
+void CreateTree(Tree *T);
+
+addressTree Alokasi(int X);
+
+void Dealokasi(addressTree P);
+
+void AddChild(addressTree *P, addressTree C);
+
+void AddSibling(addressTree *P, addressTree S);
+
+void printSiblings(addressTree P);
+
+void printChild(addressTree P);
+
+void printTree (addressTree P, int h);
+
+boolean isTreeElmt (addressTree P, int X);
+
+addressTree toAddress (addressTree P, int X);
+
+int Treemachine(char string[], Matrix *m);
+
+void matrixToTree (Matrix m, int N, Tree *T);
+
 #endif
