@@ -15,13 +15,13 @@ void CreatePoint (POINT * P, float X, float Y)
 void BacaPOINT (POINT * P)
 {
     float X, Y;
-    scanf("%f %f", &X, &Y);
+    scanf("%d %d", &X, &Y);
     CreatePoint(P, X, Y);
 }
 
 void TulisPOINT(POINT P)
 {
-    printf("(%.2f,%.2f)",Absis(P),Ordinat(P));
+    printf("(%d,%d)\n",Absis(P),Ordinat(P));
 }
 
 boolean EQ (POINT P1, POINT P2)
