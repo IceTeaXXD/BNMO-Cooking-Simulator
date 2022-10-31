@@ -43,9 +43,13 @@ void ADV()
        /* Algoritma */
        retval = fscanf(pita, "%c", &currentChar);
        EOP = (currentChar == CHARMARK);
-       if (EOP)
-       {
-              EndOfFile = true;
-              fclose(pita);
-       }
+       // if (EOP)
+       // {
+       //        EndOfFile = true;
+       //        fclose(pita);
+       // }
+}
+
+void END(){
+       fclose(pita);
 }

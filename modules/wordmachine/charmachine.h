@@ -6,7 +6,7 @@
 
 #include "../utility/boolean.h"
 
-#define LineMARK '\n'
+#define LineMARK 10
 #define CHARMARK '.'
 /* State Mesin */
 extern char currentChar;

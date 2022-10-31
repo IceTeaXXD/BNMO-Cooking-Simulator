@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "implementasiadt.h"
+#include "implementasiadt.h"
 //buat run pake yang bawah aja, nanti edit
-//#include "../adt.h"
-
+//#include "../modules/adt.h"
 int main (){
     //inisiasi program
     printf("                    . .:.:.:.:. .:\\     /:. .:.:.:.:. ,\n");
@@ -33,6 +32,45 @@ int main (){
     printf(".:.:,' \\/\\/--\\/--------------------------------------------`._',;'`. `.:.:.\n");
     printf(":.,' ,' ,'  ,'  /   /   /   ,-------------------.   \\   \\   \\  `. `.`. `..:\n");
     printf(",' ,'  '   /   /   /   /   //                   \\\\   \\   \\   \\   \\  ` `..:\n");
-    //memulai program
+    //KAMUS PRIMITIVE
+    char keluar[NMax]="EXIT";
+    char mulai[NMax]="START";
+    char inputinit[NMax];
+    int i;
+    //KAMUS ADT
+    Word init;
+    Matrix m;
+    POINT S;
+    //ALGORITMA MAIN
+    printf("================================================\n");
+    printf("================================================\n");
+    printf("Please insert START to initiate the program\n");
+    STARTWORD();
+    for (i=0; i<currentWord.Length;i++){
+        inputinit[i]=currentWord.TabWord[i];
+    }
+    while (!compareString(currentWord,mulai))
+        {
+            currentWord=init;
+            printf("Wrong Command\n");
+            printf("Please insert START to initiate the program\n");
+            STARTWORD();
+            for (i=0; i<currentWord.Length;i++){
+                inputinit[i]=currentWord.TabWord[i];
+            }
+        }
+    while (!compareString(currentWord,keluar))
+    {
+        ReadMap_FILE(&m,&S, "../modules/map/testMap.txt");
+        displayMap(m);
+        printf("Enter Command: ");
+        /*
+        
+        progamm disini ya ges ya
 
+
+        */
+        //startword yang bawah ini buat exit
+        STARTWORD();
+    }
 }

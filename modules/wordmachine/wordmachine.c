@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include "charmachine.h"
 #include "wordmachine.h"
+#include "charmachine.c"
 
 boolean EndWord;
 Word currentWord;
@@ -111,3 +113,39 @@ void ADVNEWLINE(){
         CopyWord();
     }
 }
+
+Word stringToWord(char str[], int len)
+{
+    int i;
+    Word strWord;
+
+    strWord.Length = len;
+    for (i = 0; i < len; i++)
+    {
+        strWord.TabWord[i] = str[i];
+    }
+
+    return strWord;
+}
+
+/*membandingkan string*/
+boolean compareString(Word str1, char str2[])
+{
+    int i;
+   //  if (str1.Length != str2.Length)
+   //  {
+   //      return false;
+   //  }
+
+   for (i = 0; i < str1.Length; i++)
+   {
+      if (str1.TabWord[i] != str2[i])
+      {
+         return false;
+      }
+   }
+
+   return true;
+}
+
+

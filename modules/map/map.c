@@ -1,7 +1,3 @@
-#include "../wordmachine/wordmachine.c"
-#include "../wordmachine/charmachine.c"
-#include "../matrix/matrix.c"
-#include "../point/point.c"
 #include <stdio.h>
 
 char IntToMap(char c){

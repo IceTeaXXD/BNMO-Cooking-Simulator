@@ -52,4 +52,7 @@ int WordToInt(Word string);
 
 void ADVNEWLINE();
 
+Word stringToWord(char str[], int len);
+
+boolean compareString(Word str1, char str2[]);
 #endif
