@@ -7,28 +7,33 @@ int main(){
     displayMap(m);
     TulisPOINT(S);
     char move;
+    boolean flag = true;
 
-    while(true){
-        scanf("%c", move);
-        if(move=='w'){
+    while (flag){
+        scanf("%c", &move);
+        if (move == 'w'){
             moveNorth(&m, &S);
+            displayMap(m);
+            TulisPOINT(S);
         }
-        else if(move=='a'){
-            moveWest(&m, &S);
-        }
-        else if(move=='s'){
+        else if (move == 's'){
             moveSouth(&m, &S);
+            displayMap(m);
+            TulisPOINT(S);
         }
-        else if(move=='d'){
+        else if (move == 'a'){
+            moveWest(&m, &S);
+            displayMap(m);
+            TulisPOINT(S);
+        }
+        else if (move == 'd'){
             moveEast(&m, &S);
+            displayMap(m);
+            TulisPOINT(S);
         }
-        displayMap(m);
-        TulisPOINT(S);
-
-
-
+        else if (move == 'q'){
+            flag = false;
+        }
     }
-
-
     return 0;
 }
