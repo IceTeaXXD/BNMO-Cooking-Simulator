@@ -6,7 +6,7 @@
 // #define M_PI 3.14159265358979323846264338327950288
 // #endif
 
-void CreatePoint (POINT * P, float X, float Y)
+void CreatePoint (POINT * P, int X, int Y)
 {
     Absis(*P) = X;
     Ordinat(*P) = Y;

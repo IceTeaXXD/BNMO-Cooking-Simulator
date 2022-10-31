@@ -1,6 +1,7 @@
 #include "../wordmachine/wordmachine.c"
 #include "../wordmachine/charmachine.c"
 #include "../matrix/matrix.c"
+#include "../point/point.c"
 #include <stdio.h>
 
 char IntToMap(char c){
@@ -61,7 +62,7 @@ void displayMap(Matrix m){
     }
 }            
         
-void ReadMap_FILE(Matrix *m, char filename[]){
+void ReadMap_FILE(Matrix *m, POINT *S, char filename[]){
     // read file
     int i,j,k;
     STARTWORD_FILE(filename);
@@ -81,6 +82,7 @@ void ReadMap_FILE(Matrix *m, char filename[]){
                 MATRIXELMT(*m,i,j) = 1;
             }else if (currentWord.TabWord[j] == 'S'){
                 MATRIXELMT(*m,i,j) = 2;
+                CreatePoint(&*S, j, i);
             }else if (currentWord.TabWord[j] == 'T'){
                 MATRIXELMT(*m,i,j) = 3;
             }else if (currentWord.TabWord[j] == 'M'){
@@ -98,5 +100,49 @@ void ReadMap_FILE(Matrix *m, char filename[]){
         if (i < row-1){
             ADVWORD();
         }
+    }
+}
+
+void moveNorth(Matrix *m, POINT *S)
+{
+    if(MATRIXELMT(*m, Ordinat(*S)-1, Absis(*S)) == 1){
+        Ordinat(*S)--;
+        MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
+        MATRIXELMT(*m, Ordinat(*S)+1, Absis(*S)) = 1;
+    }else{
+        printf("gabisa ler\n");
+    }
+}
+
+void moveSouth(Matrix *m, POINT *S)
+{
+    if(MATRIXELMT(*m, Ordinat(*S)+1, Absis(*S)) == 1){
+        Ordinat(*S)++;
+        MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
+        MATRIXELMT(*m, Ordinat(*S)-1, Absis(*S)) = 1;
+    }else{
+        printf("gabisa ler\n");
+    }
+}
+
+void moveEast(Matrix *m, POINT *S)
+{
+    if(MATRIXELMT(*m, Ordinat(*S), Absis(*S)+1) == 1){
+        Absis(*S)++;
+        MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
+        MATRIXELMT(*m, Ordinat(*S), Absis(*S)-1) = 1;
+    }else{
+        printf("gabisa ler\n");
+    }
+}
+
+void moveWest(Matrix *m, POINT *S)
+{
+    if(MATRIXELMT(*m, Ordinat(*S), Absis(*S)-1) == 1){
+        Absis(*S)--;
+        MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
+        MATRIXELMT(*m, Ordinat(*S), Absis(*S)+1) = 1;
+    }else{
+        printf("gabisa ler\n");
     }
 }
