@@ -149,20 +149,33 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
     //acquiring N
     N = WordToInt(currentWord);
     ADVWORD();
-    int i, j, k, id;
-    char name[NMax], action[NMax];
-    TIME expiry, delivery;
-    printf("Makanan yang terbentuk:\n");
+    int i;
+    if (N == 0) {
+        printf("N=0\n");
+    } else {
+        printf("N=%d\n",N);
+    }
     for (i = 0; i<N; i++){
+        char name[NMax] = " ", action[NMax]=" ";
+        int j=0, k, id=0, p;
+        int DDexp=0, HHexp=0, MMexp=0;
+        int DDdlv=0, HHdlv=0, MMdlv=0;
+        Word NameTemp;
+        TIME expiry, delivery;
         food x;
         id = WordToInt(currentWord); //Food ID
         ADVWORD();
-        for (j = 0; j < currentWord.Length; j++) {
-            name[j] = currentWord.TabWord[j];       //Food Name
+        NameTemp = currentWord;
+        ADVWORD();
+        while (!WordIsInt(currentWord)){
+            NameTemp = MergeWord(NameTemp, currentWord);
+            ADVWORD();
+        }
+        for (p=0;p<NameTemp.Length;p++){
+            name[j]=NameTemp.TabWord[p];
+            j++;
         }
         name[j]='\0';
-        ADVWORD();
-        int DDexp, HHexp, MMexp;
         DDexp = WordToInt(currentWord);
         ADVWORD();
         HHexp = WordToInt(currentWord);
@@ -170,7 +183,6 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
         MMexp = WordToInt(currentWord);
         CreateTime(&expiry, DDexp, HHexp, MMexp);   //Food expiry
         ADVWORD();
-        int DDdlv, HHdlv, MMdlv;
         DDdlv = WordToInt(currentWord);
         ADVWORD();
         HHdlv = WordToInt(currentWord);
@@ -183,8 +195,7 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
         }
         action[k] = '\0';
         ADVWORD();
-        CreateFood(&x, id, name, expiry, action, delivery); 
-        //insertLast_ListFoodStatik(listfood, x);
+        CreateFood(&x, id, name, expiry, action, delivery);
         DisplayFood(x);
         printf("\n");
     }

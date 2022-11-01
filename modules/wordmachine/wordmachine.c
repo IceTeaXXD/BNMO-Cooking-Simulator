@@ -148,4 +148,25 @@ boolean compareString(Word str1, char str2[])
    return true;
 }
 
+boolean WordIsInt(Word kata){
+   int i;
+   boolean check=false;
+   for (i=0; i<kata.Length; i++){
+      if (kata.TabWord[i]>=48&&kata.TabWord[i]<=57){
+         check = true;
+      }
+   }
+   return check;
+}
 
+Word MergeWord(Word kata1, Word kata2){
+   int i;
+   Word result={"",0};
+   result=kata1;
+   result.Length += kata2.Length+1;
+   result.TabWord[kata1.Length] = BLANK;
+   for (i=0;i<kata2.Length;i++){
+      result.TabWord[kata1.Length+1+i]=kata2.TabWord[i];
+   }
+   return result;
+}
