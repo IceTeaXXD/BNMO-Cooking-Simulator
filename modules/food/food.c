@@ -4,7 +4,7 @@
 #include "../wordmachine/wordmachine.c"
 //#include "../wordmachine/charmachine.c"
 
-void CreateFood(food *x, int id, char name[], TIME expiry, char action[], TIME delivery){
+void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery){
     FoodId(*x) = id;
     FoodName(*x) = name;
     FoodExpiry(*x) = expiry;
@@ -13,9 +13,13 @@ void CreateFood(food *x, int id, char name[], TIME expiry, char action[], TIME d
 }
 
 void DisplayFood(food x){
-    printf("%d %s ",FoodId(x), FoodName(x));
+    printf("%d ",FoodId(x));
+    PrintWord(FoodName(x));
+    printf(" ");
     TulisTIME(FoodExpiry(x));
-    printf(" %s ",FoodAction(x));
+    printf(" ");
+    PrintWord(FoodAction(x));
+    printf(" ");
     TulisTIME(FoodDelivery(x));
 }
 
@@ -67,7 +71,7 @@ void printList_ListFoodStatik(ListFoodStatik l){
     char *s;
     printf("[");
     for (i = 0; i < listLength_ListFoodStatik(l); i++) {
-        printf("%s", FoodName(LISTELMT(l, i)));
+        PrintWord(FoodName(LISTELMT(l,i)));
         /*for (s = FoodName(LISTELMT(l, i))[0]; *s != '\0'; s++)
         {
             printf("%c", *s);
@@ -156,7 +160,7 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
         printf("N=%d\n",N);
     }
     for (i = 0; i<N; i++){
-        char name[NMax] = " ", action[NMax]=" ";
+        Word name, action;
         int j=0, k, id=0, p;
         int DDexp=0, HHexp=0, MMexp=0;
         int DDdlv=0, HHdlv=0, MMdlv=0;
@@ -171,11 +175,12 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
             NameTemp = MergeWord(NameTemp, currentWord);
             ADVWORD();
         }
-        for (p=0;p<NameTemp.Length;p++){
-            name[j]=NameTemp.TabWord[p];
-            j++;
-        }
-        name[j]='\0';
+        name = NameTemp;
+        // for (p=0;p<NameTemp.Length;p++){
+        //     name[j]=NameTemp.TabWord[p];
+        //     j++;
+        // }
+        // name[j]='\0';
         DDexp = WordToInt(currentWord);
         ADVWORD();
         HHexp = WordToInt(currentWord);
@@ -190,12 +195,14 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
         MMdlv = WordToInt(currentWord);
         CreateTime(&delivery, DDdlv, HHdlv, MMdlv); //Food delivery
         ADVWORD();
-        for (k = 0; k < currentWord.Length; k++) {
-            action[k] = currentWord.TabWord[k];       //Food action
-        }
-        action[k] = '\0';
+        action = currentWord;
+        // for (k = 0; k < currentWord.Length; k++) {
+        //     action[k] = currentWord.TabWord[k];       //Food action
+        // }
+        // action[k] = '\0';
         ADVWORD();
         CreateFood(&x, id, name, expiry, action, delivery);
+        insertLast_ListFoodStatik(listfood, x);
         DisplayFood(x);
         printf("\n");
     }

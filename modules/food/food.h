@@ -6,14 +6,20 @@
 
 #include "../utility/boolean.h"
 #include "../time/time.h"
+#include "../wordmachine/wordmachine.h"
 
 typedef struct
 {
-    int id;
-    char *food_name;
-    TIME expiry_time;
-    char *action;
-    TIME delivery_time;
+   int id;
+   Word food_name;
+   TIME expiry_time;
+   Word action;
+   TIME delivery_time;
+   //  int id;
+   //  char *food_name;
+   //  TIME expiry_time;
+   //  char *action;
+   //  TIME delivery_time;
 
 }food;
 
@@ -42,7 +48,7 @@ typedef struct {
 #define FoodDelivery(F) (F).delivery_time
 #define LISTELMT(l, i) (l).contents[(i)]
 
-void CreateFood(food *x, int id, char name[], TIME expiry, char action[], TIME delivery);
+void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery);
 
 void DisplayFood(food x);
 

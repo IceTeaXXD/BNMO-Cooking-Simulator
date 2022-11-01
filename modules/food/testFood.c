@@ -13,6 +13,8 @@ int main(){
     ListFoodStatik l1;
     CreateListFoodStatik(&l1);
     ReadFood_FILE("../../cfg/food.txt", &l1);
+    printf("List Length: %d\n", listLength_ListFoodStatik(l1));
+    printList_ListFoodStatik(l1);
     // Word k1,k2,k3;
     // int j=0;
     // char name[50];
