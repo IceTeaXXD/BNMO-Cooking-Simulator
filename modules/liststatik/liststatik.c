@@ -8,8 +8,9 @@ void CreateListStatik(ListStatik *l)
 /* Proses: Inisialisasi semua elemen List l dengan LISTMARK */
 {
     int i;
-    for (i = 0; i < CAPACITY; i++)
+    for (i = 0; i < CAPACITY; i++){
         LISTELMT(*l, i) = LISTMARK;
+    }
 }
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
