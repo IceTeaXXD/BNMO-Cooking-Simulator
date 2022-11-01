@@ -41,11 +41,13 @@ int main (){
     Word init;
     Matrix m;
     POINT S;
+    ReadMap_FILE(&m,&S, "../modules/map/testMap.txt");
     //ALGORITMA MAIN
     printf("================================================\n");
     printf("================================================\n");
     printf("Please insert START to initiate the program\n");
     STARTWORD();
+    system("cls"); 
     for (i=0; i<currentWord.Length;i++){
         inputinit[i]=currentWord.TabWord[i];
     }
@@ -55,22 +57,45 @@ int main (){
             printf("Wrong Command\n");
             printf("Please insert START to initiate the program\n");
             STARTWORD();
+            system("cls"); 
             for (i=0; i<currentWord.Length;i++){
                 inputinit[i]=currentWord.TabWord[i];
             }
         }
     while (!compareString(currentWord,keluar))
     {
-        ReadMap_FILE(&m,&S, "../modules/map/testMap.txt");
-        displayMap(m);
         printf("Enter Command: ");
-        /*
         
-        progamm disini ya ges ya
-
-
-        */
-        //startword yang bawah ini buat exit
+        // progamm disini ya ges ya
+        // check if currentword = NORTH 
         STARTWORD();
+        if (compareString(currentWord,"w")){
+            moveNorth(&m,&S);
+            displayMap(m);
+            TulisPOINT(S);
+            printf("Moving North\n");
+        }
+        else if (compareString(currentWord,"s")){
+            moveSouth(&m,&S);
+            displayMap(m);
+            TulisPOINT(S);
+            printf("Moving South\n");
+        }
+        else if (compareString(currentWord,"d")){
+            moveEast(&m,&S);
+            displayMap(m);
+            TulisPOINT(S);
+            printf("Moving East\n");
+        }
+        else if (compareString(currentWord,"a")){
+            moveWest(&m,&S);
+            displayMap(m);
+            TulisPOINT(S);
+            printf("Moving West\n");
+        }
+        else{
+            printf("\nWrong Command\n");
+        }
+        //startword yang bawah ini buat exit
     }
 }

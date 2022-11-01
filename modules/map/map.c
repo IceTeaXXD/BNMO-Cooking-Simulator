@@ -1,3 +1,7 @@
+// #include "../wordmachine/wordmachine.c"
+// #include "../wordmachine/charmachine.c"
+// #include "../matrix/matrix.c"
+// #include "../point/point.c"
 #include <stdio.h>
 
 char IntToMap(char c){
@@ -106,7 +110,7 @@ void moveNorth(Matrix *m, POINT *S)
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
         MATRIXELMT(*m, Ordinat(*S)+1, Absis(*S)) = 1;
     }else{
-        printf("gabisa ler\n");
+        printf("Obstacle Ahead!\n");
     }
 }
 
@@ -117,7 +121,7 @@ void moveSouth(Matrix *m, POINT *S)
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
         MATRIXELMT(*m, Ordinat(*S)-1, Absis(*S)) = 1;
     }else{
-        printf("gabisa ler\n");
+        printf("Obstacle Ahead!\n");
     }
 }
 
@@ -128,7 +132,7 @@ void moveEast(Matrix *m, POINT *S)
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)-1) = 1;
     }else{
-        printf("gabisa ler\n");
+        printf("Obstacle Ahead!\n");
     }
 }
 
@@ -139,6 +143,6 @@ void moveWest(Matrix *m, POINT *S)
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)+1) = 1;
     }else{
-        printf("gabisa ler\n");
+        printf("Obstacle Ahead!\n");
     }
 }
