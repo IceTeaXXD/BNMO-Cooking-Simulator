@@ -20,7 +20,7 @@
 
 /* Definisi elemen dan koleksi objek */
 typedef int ListStatik_ElType;  /* type elemen List */
-typedef int IdxType;
+typedef int ListStatik_IdxType;
 typedef struct {
    ListStatik_ElType contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListStatik;
@@ -50,18 +50,18 @@ int listLength_ListStatik(ListStatik l);
 /* Mengirimkan nol jika List kosong */  
 
 /* *** Selektor INDEKS *** */
-IdxType getFirstIdx_ListStatik(ListStatik l);
+ListStatik_IdxType getFirstIdx_ListStatik(ListStatik l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l pertama */
-IdxType getLastIdx_ListStatik(ListStatik l);
+ListStatik_IdxType getLastIdx_ListStatik(ListStatik l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
 
 /* ********** Test Indeks yang valid ********** */
-boolean isIdxValid_ListStatik(ListStatik l, IdxType i);
+boolean isIdxValid_ListStatik(ListStatik l, ListStatik_IdxType i);
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas List l */
 /* yaitu antara indeks yang terdefinisi utk container*/
-boolean isIdxEff_ListStatik(ListStatik l, IdxType i);
+boolean isIdxEff_ListStatik(ListStatik l, ListStatik_IdxType i);
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
 /* yaitu antara 0..length(l)-1 */
 
@@ -130,7 +130,7 @@ void insertFirst_ListStatik(ListStatik *l, ListStatik_ElType val);
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen pertama l yang baru */
 /* *** Menambahkan elemen pada index tertentu *** */
-void insertAt_ListStatik(ListStatik *l, ListStatik_ElType val, IdxType idx);
+void insertAt_ListStatik(ListStatik *l, ListStatik_ElType val, ListStatik_IdxType idx);
 /* Proses: Menambahkan val sebagai elemen pada index idx List */
 /* I.S. List l tidak kosong dan tidak penuh, idx merupakan index yang valid di l */
 /* F.S. val adalah elemen yang disisipkan pada index idx l */
@@ -149,7 +149,7 @@ void deleteFirst_ListStatik(ListStatik *l, ListStatik_ElType *val);
 /*      Banyaknya elemen List berkurang satu */
 /*      List l mungkin menjadi kosong */
 /* *** Menghapus elemen pada index tertentu *** */
-void deleteAt_ListStatik(ListStatik *l, ListStatik_ElType *val, IdxType idx);
+void deleteAt_ListStatik(ListStatik *l, ListStatik_ElType *val, ListStatik_IdxType idx);
 /* Proses : Menghapus elemen pada index idx List */
 /* I.S. List tidak kosong, idx adalah index yang valid di l */
 /* F.S. val adalah nilai elemen pada index idx l sebelum penghapusan, */

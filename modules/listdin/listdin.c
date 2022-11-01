@@ -37,14 +37,14 @@ int listLength_ListDin(ListDin l)
 }
 
 /* *** Selektor INDEKS *** */
-IdxType getFirstIdx_ListDin(ListDin l)
+ListDin_IdxType getFirstIdx_ListDin(ListDin l)
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l pertama */
 {
     return 0;
 }
 
-IdxType getLastIdx_ListDin(ListDin l)
+ListDin_IdxType getLastIdx_ListDin(ListDin l)
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
 {
@@ -52,14 +52,14 @@ IdxType getLastIdx_ListDin(ListDin l)
 }
 
 /* ********** Test Indeks yang valid ********** */
-boolean isIdxValid_ListDin(ListDin l, IdxType i)
+boolean isIdxValid_ListDin(ListDin l, ListDin_IdxType i)
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas list l */
 /* yaitu antara indeks yang terdefinisi utk container*/
 {
     return (i >= 0 && i < LISTDIN_CAPACITY(l));
 }
 
-boolean isIdxEff_ListDin(ListDin l, IdxType i)
+boolean isIdxEff_ListDin(ListDin l, ListDin_IdxType i)
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk list l */
 /* yaitu antara 0..NEFF(l) */
 {
@@ -170,14 +170,14 @@ boolean isListEqual_ListDin(ListDin l1, ListDin l2)
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */
-IdxType indexOf_ListDin(ListDin l, ListDin_ElType val)
+ListDin_IdxType indexOf_ListDin(ListDin l, ListDin_ElType val)
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = val */
 /* Jika tidak ada, mengirimkan IDX_UNDEF */
 /* Menghasilkan indeks tak terdefinisi (IDX_UNDEF) jika List l kosong */
 /* Skema Searching yang digunakan bebas */
 {
-    IdxType i = 0;
+    ListDin_IdxType i = 0;
     boolean found = false;
     while (!found && i < NEFF(l)) {
         if (ELMT(l, i) == val) {

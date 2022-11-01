@@ -17,7 +17,7 @@
 
 /* Definisi elemen dan koleksi objek */
 typedef int ListDin_ElType; /* type elemen list */
-typedef int IdxType;
+typedef int ListDin_IdxType;
 typedef struct
 {
     ListDin_ElType *buffer; /* memori tempat penyimpan elemen (container) */
@@ -60,18 +60,18 @@ int listLength_ListDin(ListDin l);
 /* *** Daya tampung container *** */
 
 /* *** Selektor INDEKS *** */
-IdxType getFirstIdx_ListDin(ListDin l);
+ListDin_IdxType getFirstIdx_ListDin(ListDin l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l pertama */
-IdxType getLastIdx_ListDin(ListDin l);
+ListDin_IdxType getLastIdx_ListDin(ListDin l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
 
 /* ********** Test Indeks yang valid ********** */
-boolean isIdxValid_ListDin(ListDin l, IdxType i);
+boolean isIdxValid_ListDin(ListDin l, ListDin_IdxType i);
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas list l */
 /* yaitu antara indeks yang terdefinisi utk container*/
-boolean isIdxEff_ListDin(ListDin l, IdxType i);
+boolean isIdxEff_ListDin(ListDin l, ListDin_IdxType i);
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk list */
 /* yaitu antara 0..NEFF(l) */
 
@@ -118,7 +118,7 @@ boolean isListEqual_ListDin(ListDin l1, ListDin l2);
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */
-IdxType indexOf_ListDin(ListDin l, ListDin_ElType val);
+ListDin_IdxType indexOf_ListDin(ListDin l, ListDin_ElType val);
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = val */
 /* Jika tidak ada, mengirimkan IDX_UNDEF */
