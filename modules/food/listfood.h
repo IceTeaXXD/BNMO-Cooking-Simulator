@@ -1,21 +1,14 @@
-/* ADT Food */
-/*Memiliki data ID makanan, Nama makanan, Waktu kedaluwarsa, Lokasi aksi, dan Lama pengiriman.*/
+/* MODUL LIST INTEGER STATIK DENGAN ELEMEN POSITIF */
+/* Berisi definisi dan semua primitif pemrosesan list integer statik dengan elemen positif */
+/* Penempatan elemen selalu rapat kiri */
+/* Banyaknya elemen didefinisikan secara implisit, memori list statik */
 
-#ifndef FOOD_H
-#define FOOD_H
+#ifndef ListFoodStatik_H
+#define ListFoodStatik_H
 
 #include "../utility/boolean.h"
-#include "../time/time.h"
-
-typedef struct
-{
-    int id;
-    char *food_name;
-    TIME expiry_time;
-    char *action;
-    TIME delivery_time;
-
-}food;
+#include "food.h"
+#include <stdio.h>
 
 /*  Kamus Umum */
 #define CAPACITY 100
@@ -31,25 +24,18 @@ typedef int IdxType;
 typedef struct {
    ElType contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListFoodStatik;
+/* Indeks yang digunakan [0..CAPACITY-1] */
+/* Jika l adalah ListFoodStatik, cara deklarasi dan akses: */
+/* Deklarasi : l : ListFoodStatik */
+/* Maka cara akses: 
+   ELMT(l,i) untuk mengakses elemen ke-i */
+/* Definisi : 
+   List kosong: semua elemen bernilai MARK
+   Definisi elemen pertama: ELMT(l,i) dengan i=0 */
 
-
-
-
-#define FoodId(F) (F).id
-#define FoodName(F) (F).food_name
-#define FoodExpiry(F) (F).expiry_time
-#define FoodAction(F) (F).action
-#define FoodDelivery(F) (F).delivery_time
+/* ********** SELEKTOR ********** */
 #define LISTELMT(l, i) (l).contents[(i)]
 
-void CreateFood(food *x, int id, char name[], TIME expiry, char action[], TIME delivery);
-
-void DisplayFood(food x);
-
-void ReadFood_FILE(char filename[], ListFoodStatik *listfood);
-
-/*-------------------------------------*/
-/*-------------List Food---------------*/
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
 void CreateListFoodStatik(ListFoodStatik *l);
@@ -107,5 +93,6 @@ void insertLast_ListFoodStatik(ListFoodStatik *l, ElType val);
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 
-#endif  
+void ReadFood_FILE(char filename[], ListFoodStatik *listfood);
 
+#endif
