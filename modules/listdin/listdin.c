@@ -170,7 +170,7 @@ boolean isListEqual_ListDin(ListDin l1, ListDin l2)
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */
-IdxType indexOf_ListDin(ListDin l, ElType val)
+IdxType indexOf_ListDin(ListDin l, ListDin_ElType val)
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = val */
 /* Jika tidak ada, mengirimkan IDX_UNDEF */
@@ -195,7 +195,7 @@ IdxType indexOf_ListDin(ListDin l, ElType val)
 }
 
 /* ********** NILAI EKSTREM ********** */
-void extremeValues_ListDin(ListDin l, ElType *max, ElType *min)
+void extremeValues_ListDin(ListDin l, ListDin_ElType *max, ListDin_ElType *min)
 /* I.S. List l tidak kosong */
 /* F.S. max berisi nilai maksimum l;
         min berisi nilai minimum l */
@@ -228,19 +228,19 @@ void copyList_ListDin(ListDin lIn, ListDin *lOut)
     NEFF(*lOut) = NEFF(lIn);
 }
 
-ElType sumList_ListDin(ListDin l)
+ListDin_ElType sumList_ListDin(ListDin l)
 /* Menghasilkan hasil penjumlahan semua elemen l */
 /* Jika l kosong menghasilkan 0 */
 {
     int i;
-    ElType sum = 0;
+    ListDin_ElType sum = 0;
     for (i = 0; i < NEFF(l); i++) {
         sum += ELMT(l, i);
     }
     return sum;
 }
 
-int countVal_ListDin(ListDin l, ElType val)
+int countVal_ListDin(ListDin l, ListDin_ElType val)
 /* Menghasilkan berapa banyak kemunculan val di l */
 /* Jika l kosong menghasilkan 0 */
 {
@@ -263,7 +263,7 @@ void sort_ListDin(ListDin *l, boolean asc)
    algoritma bebas */
 {
     int i, j;
-    ElType temp;
+    ListDin_ElType temp;
     for (i = 0; i < NEFF(*l) - 1; i++) {
         for (j = i + 1; j < NEFF(*l); j++) {
             if (asc) {
@@ -285,7 +285,7 @@ void sort_ListDin(ListDin *l, boolean asc)
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertLast_ListDin(ListDin *l, ElType val)
+void insertLast_ListDin(ListDin *l, ListDin_ElType val)
 /* Proses: Menambahkan val sebagai elemen terakhir list */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
@@ -296,7 +296,7 @@ void insertLast_ListDin(ListDin *l, ElType val)
 }
 
 /* ********** MENGHAPUS ELEMEN ********** */
-void deleteLast_ListDin(ListDin *l, ElType *val)
+void deleteLast_ListDin(ListDin *l, ListDin_ElType *val)
 /* Proses : Menghapus elemen terakhir list */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */

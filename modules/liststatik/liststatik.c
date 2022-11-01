@@ -160,7 +160,7 @@ boolean isListEqual_ListStatik(ListStatik l1, ListStatik l2)
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */
-int indexOf_ListStatik(ListStatik l, ElType val)
+int indexOf_ListStatik(ListStatik l, ListStatik_ElType val)
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan LISTELMT(l,i) = val */
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
@@ -183,7 +183,7 @@ int indexOf_ListStatik(ListStatik l, ElType val)
 }
 
 /* ********** NILAI EKSTREM ********** */
-void extremeValues_ListStatik(ListStatik l, ElType *max, ElType *min)
+void extremeValues_ListStatik(ListStatik l, ListStatik_ElType *max, ListStatik_ElType *min)
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
@@ -203,7 +203,7 @@ void extremeValues_ListStatik(ListStatik l, ElType *max, ElType *min)
 
 /* ********** MENAMBAH ELEMEN ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertFirst_ListStatik(ListStatik *l, ElType val)
+void insertFirst_ListStatik(ListStatik *l, ListStatik_ElType val)
 /* Proses: Menambahkan val sebagai elemen pertama List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen pertama l yang baru */
@@ -216,7 +216,7 @@ void insertFirst_ListStatik(ListStatik *l, ElType val)
     LISTELMT(*l, 0) = val;
 }
 
-void insertAt_ListStatik(ListStatik *l, ElType val, IdxType idx)
+void insertAt_ListStatik(ListStatik *l, ListStatik_ElType val, IdxType idx)
 /* Proses: Menambahkan val sebagai elemen pada index idx List */
 /* I.S. List l tidak kosong dan tidak penuh, idx merupakan index yang valid di l */
 /* F.S. val adalah elemen yang disisipkan pada index idx l */
@@ -228,7 +228,7 @@ void insertAt_ListStatik(ListStatik *l, ElType val, IdxType idx)
     LISTELMT(*l, idx) = val;
 }
 
-void insertLast_ListStatik(ListStatik *l, ElType val)
+void insertLast_ListStatik(ListStatik *l, ListStatik_ElType val)
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
@@ -239,7 +239,7 @@ void insertLast_ListStatik(ListStatik *l, ElType val)
 
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
-void deleteFirst_ListStatik(ListStatik *l, ElType *val)
+void deleteFirst_ListStatik(ListStatik *l, ListStatik_ElType *val)
 /* Proses : Menghapus elemen pertama List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen pertama l sebelum penghapusan, */
@@ -257,7 +257,7 @@ void deleteFirst_ListStatik(ListStatik *l, ElType *val)
 }
 
 /* *** Menghapus elemen pada index tertentu *** */
-void deleteAt_ListStatik(ListStatik *l, ElType *val, IdxType idx)
+void deleteAt_ListStatik(ListStatik *l, ListStatik_ElType *val, IdxType idx)
 /* Proses : Menghapus elemen pada index idx List */
 /* I.S. List tidak kosong, idx adalah index yang valid di l */
 /* F.S. val adalah nilai elemen pada index idx l sebelum penghapusan, */
@@ -275,7 +275,7 @@ void deleteAt_ListStatik(ListStatik *l, ElType *val, IdxType idx)
         LISTELMT(*l, listLength_ListStatik(*l) - 1) = LISTMARK;
 }
 
-void deleteLast_ListStatik(ListStatik *l, ElType *val)
+void deleteLast_ListStatik(ListStatik *l, ListStatik_ElType *val)
 /* Proses : Menghapus elemen terakhir List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
@@ -297,7 +297,7 @@ void sortList_ListStatik(ListStatik *l, boolean asc)
    algoritma bebas */
 {
     int i, j;
-    ElType temp;
+    ListStatik_ElType temp;
     for (i = 0; i < listLength_ListStatik(*l) - 1; i++) {
         for (j = i + 1; j < listLength_ListStatik(*l); j++) {
             if (asc) {
