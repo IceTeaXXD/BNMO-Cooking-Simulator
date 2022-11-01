@@ -203,8 +203,8 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
         ADVWORD();
         CreateFood(&x, id, name, expiry, action, delivery);
         insertLast_ListFoodStatik(listfood, x);
-        DisplayFood(x);
-        printf("\n");
+        //DisplayFood(x);
+        //printf("\n");
     }
 }
 
