@@ -55,4 +55,6 @@ void ADVNEWLINE();
 Word stringToWord(char str[], int len);
 
 boolean compareString(Word str1, char str2[]);
+
+void PrintWord(Word kata);
 #endif
