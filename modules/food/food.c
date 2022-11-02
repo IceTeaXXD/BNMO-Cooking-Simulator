@@ -13,14 +13,14 @@ void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME deliv
 }
 
 void DisplayFood(food x){
-    printf("%d ",FoodId(x));
+    //printf("%d ",FoodId(x));
     PrintWord(FoodName(x));
-    printf(" ");
-    TulisTIME(FoodExpiry(x));
-    printf(" ");
+    printf(" - ");
+    Timetokata(FoodExpiry(x));
+    printf(" - ");
     PrintWord(FoodAction(x));
-    printf(" ");
-    TulisTIME(FoodDelivery(x));
+    printf(" - ");
+    Timetokata(FoodDelivery(x));
 }
 
 /*-------------------------------------*/

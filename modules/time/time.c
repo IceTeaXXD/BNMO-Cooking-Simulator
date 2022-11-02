@@ -107,3 +107,20 @@ long Durasi (TIME TAw, TIME TAkh)
         return Diff;
     }
 }
+
+void Timetokata(TIME waktu)
+{
+    if (Day(waktu) > 0){
+        printf("%d Hari ", Day(waktu));
+    }
+    if (Hour(waktu) > 0){
+        printf("%d Jam ", Hour(waktu));
+    }
+    if (MM(waktu) > 0){
+        printf("%d menit", MM(waktu));
+    }
+    if (Day(waktu) == 0 && Hour(waktu) == 0 && MM(waktu) == 0){
+        printf("0");
+    }
+    }
+   
