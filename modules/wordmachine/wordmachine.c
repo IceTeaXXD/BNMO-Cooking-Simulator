@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "charmachine.h"
 #include "wordmachine.h"
 #include "charmachine.c"
@@ -171,15 +172,15 @@ Word MergeWord(Word kata1, Word kata2){
    return result;
 }
 
-// char WordToStr(Word kata){
-//    int i;
-//    char result[NMax];
-//    for (i = 0; i<kata.Length;i++){
-//       result[i] = kata.TabWord[i];
-//    }
-//    result[i] = '\0';
-//    return result;
-// }
+char* WordToStr(Word kata){
+   char* str = (char*) malloc (kata.Length+1);
+   int i;
+   for (i = 0; i<kata.Length;i++){
+      str[i] = kata.TabWord[i];
+   }
+   str[kata.Length] = '\0';
+   return str;
+}
 
 void PrintWord(Word kata){
    int i;
