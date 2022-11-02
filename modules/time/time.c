@@ -119,6 +119,8 @@ void Timetokata(TIME waktu)
     if (MM(waktu) > 0){
         printf("%d menit", MM(waktu));
     }
-        
+    if (Day(waktu) == 0 && Hour(waktu) == 0 && MM(waktu) == 0){
+        printf("0");
+    }
     }
    
