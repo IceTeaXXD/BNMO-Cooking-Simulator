@@ -5,7 +5,7 @@
 #include "../modules/listdin/listdin.c"
 #include "../modules/liststatik/liststatik.c"
 #include "../modules/point/point.c"
-#include "../modules/prioqueue/prioqueuetime.c"
+//#include "../modules/prioqueue/prioqueueinv.c"
 #include "../modules/stack/stack.c"
 #include "../modules/time/time.c"
 #include "../modules/tree/tree.c"

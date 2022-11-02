@@ -19,8 +19,10 @@ int main(){
     printf("List Length: %d\n", listLength_ListFoodStatik(l1));
     for (int i = 0; i < listLength_ListFoodStatik(l1); i++){
         Enqueue_Prioqueue(&inv, LISTELMT(l1,i));
+        DisplayFood(LISTELMT(l1,i));
+        printf("\n");
     }
-    PrintPrioqueueinv(inv);
+    //PrintPrioqueueinv(inv);
     //printList_ListFoodStatik(l1);
     // Word k1,k2,k3;
     // int j=0;
