@@ -38,9 +38,12 @@ int main (){
     char inputinit[NMax];
     int i;
     //KAMUS ADT
+    Word titiK={".",1};
     Word init;
     Matrix m;
     POINT S;
+    Word nameTemp;
+    player p;
     ReadMap_FILE(&m,&S, "../modules/map/testMap.txt");
     //ALGORITMA MAIN
     printf("================================================\n");
@@ -52,50 +55,50 @@ int main (){
         inputinit[i]=currentWord.TabWord[i];
     }
     while (!compareString(currentWord,mulai))
-        {
-            currentWord=init;
-            printf("Wrong Command\n");
-            printf("Please insert START to initiate the program\n");
-            STARTWORD();
-            system("cls"); 
-            for (i=0; i<currentWord.Length;i++){
-                inputinit[i]=currentWord.TabWord[i];
-            }
+    {
+        currentWord=init;
+        printf("Wrong Command\n");
+        printf("Please insert START to initiate the program\n");
+        STARTWORD();
+        system("cls"); 
+        for (i=0; i<currentWord.Length;i++){
+           inputinit[i]=currentWord.TabWord[i];
         }
+    }
+    currentWord=init;
     while (!compareString(currentWord,keluar))
     {
+        //printf("%s di posisi: ", USERNAME(p));
+        TulisPOINT(S);
+        displayMap(m);
         printf("Enter Command: ");
-        
         // progamm disini ya ges ya
         // check if currentword = NORTH 
         STARTWORD();
-        if (compareString(currentWord,"w")){
-            moveNorth(&m,&S);
-            displayMap(m);
-            TulisPOINT(S);
+        if (compareString(currentWord,"NORTH")){
+            //system("cls");
             printf("Moving North\n");
+            moveNorth(&m,&S);
         }
-        else if (compareString(currentWord,"s")){
-            moveSouth(&m,&S);
-            displayMap(m);
-            TulisPOINT(S);
+        else if (compareString(currentWord,"SOUTH")){
+            //system("cls");
             printf("Moving South\n");
+            moveSouth(&m,&S);
         }
-        else if (compareString(currentWord,"d")){
-            moveEast(&m,&S);
-            displayMap(m);
-            TulisPOINT(S);
+        else if (compareString(currentWord,"EAST")){
+            //system("cls");
             printf("Moving East\n");
+            moveEast(&m,&S);
         }
-        else if (compareString(currentWord,"a")){
-            moveWest(&m,&S);
-            displayMap(m);
-            TulisPOINT(S);
+        else if (compareString(currentWord,"WEST")){
+            //system("cls");
             printf("Moving West\n");
+            moveWest(&m,&S);
         }
         else{
-            printf("\nWrong Command\n");
+            //system("cls");
+            printf("Wrong Command\n");
         }
-        //startword yang bawah ini buat exit
+        currentWord=init;
     }
 }
