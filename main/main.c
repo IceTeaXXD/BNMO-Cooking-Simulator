@@ -3,8 +3,7 @@
 #include "implementasiadt.h"
 //buat run pake yang bawah aja, nanti edit
 //#include "../modules/adt.h"
-int main (){
-    //inisiasi program
+void initiate(){
     printf("                    . .:.:.:.:. .:\\     /:. .:.:.:.:. ,\n");
     printf("               .-._  `..:.:. . .:.:`- -':.:. . .:.:.,'  _.-.\n");
     printf("              .:.:.`-._`-._..-''_...---..._``-.._.-'_.-'.:.:.\n");
@@ -32,76 +31,76 @@ int main (){
     printf(".:.:,' \\/\\/--\\/--------------------------------------------`._',;'`. `.:.:.\n");
     printf(":.,' ,' ,'  ,'  /   /   /   ,-------------------.   \\   \\   \\  `. `.`. `..:\n");
     printf(",' ,'  '   /   /   /   /   //                   \\\\   \\   \\   \\   \\  ` `..:\n");
+    printf("================================================\n");
+    printf("================================================\n");
+}
+
+int main (){
+    //inisiasi program
     //KAMUS PRIMITIVE
+    initiate();
     char keluar[NMax]="EXIT";
     char mulai[NMax]="START";
-    char inputinit[NMax];
+    char input[NMax];
     int i;
     //KAMUS ADT
     Word titiK={".",1};
     Word init;
     Matrix m;
-    POINT S;
+    //POINT S;
     Word nameTemp;
     player p;
-    ReadMap_FILE(&m,&S, "../modules/map/testMap.txt");
+    ReadMap_FILE(&m,&LOC(p), "../modules/map/testMap.txt");
     //ALGORITMA MAIN
-    printf("================================================\n");
-    printf("================================================\n");
     printf("Please insert START to initiate the program\n");
-    STARTWORD();
+    STARTSENTENCE();
     system("cls"); 
-    for (i=0; i<currentWord.Length;i++){
-        inputinit[i]=currentWord.TabWord[i];
-    }
     while (!compareString(currentWord,mulai))
     {
+        initiate();
         currentWord=init;
         printf("Wrong Command\n");
         printf("Please insert START to initiate the program\n");
-        STARTWORD();
+        STARTSENTENCE();
         system("cls"); 
-        for (i=0; i<currentWord.Length;i++){
-           inputinit[i]=currentWord.TabWord[i];
-        }
     }
     currentWord=init;
     printf("================================================\n");
     printf("Masukkan Username : ");
-    STARTWORD(); 
+    STARTSENTENCE();
     p.username = WordToStr(currentWord);
+    currentWord=init;
     while (!compareString(currentWord,keluar))
     {
         printf("================================================\n");
         printf("%s di posisi: ",p.username);
-        TulisPOINT(S);
+        TulisPOINT(LOC(p));
         printf("Waktu: ");
         printf("\n");
         printf("Notifikasi: ");
         printf("\n");
         displayMap(m);
         printf("================================================\n");
-
         printf("Enter Command: ");
-        STARTWORD();
-        if (compareString(currentWord,"MOVE")){
-            STARTWORD(); 
-            if (compareString(currentWord,"NORTH")){
-                moveNorth(&m,&S);
-            }
-            else if (compareString(currentWord,"SOUTH")){
-                moveSouth(&m,&S);
-            }
-            else if (compareString(currentWord,"EAST")){
-                moveEast(&m,&S);
-            }
-            else if (compareString(currentWord,"WEST")){
-                moveWest(&m,&S);
-            }
+        STARTSENTENCE(); 
+        if (compareString(currentWord,"MOVE NORTH")){
+            moveNorth(&m,&LOC(p));
         }
-        // press enter to continue
-        printf("Press (.) to continue...");
-        STARTWORD();
+        else if (compareString(currentWord,"MOVE SOUTH")){
+            moveSouth(&m,&LOC(p));
+        }
+        else if (compareString(currentWord,"MOVE EAST")){
+            moveEast(&m,&LOC(p));
+        }
+        else if (compareString(currentWord,"MOVE WEST")){
+            moveWest(&m,&LOC(p));
+        } else {
+            printf("Unidentified Command\n");
+        }
+        currentWord=init;
+        printf("press <enter> to continue\n");
+        STARTSENTENCE();
+        currentWord=init;
         system("cls");
     }
 }
