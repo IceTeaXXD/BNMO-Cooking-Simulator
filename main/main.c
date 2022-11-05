@@ -66,39 +66,42 @@ int main (){
         }
     }
     currentWord=init;
+    printf("================================================\n");
+    printf("Masukkan Username : ");
+    STARTWORD(); 
+    p.username = WordToStr(currentWord);
     while (!compareString(currentWord,keluar))
     {
-        //printf("%s di posisi: ", USERNAME(p));
+        printf("================================================\n");
+        printf("%s di posisi: ",p.username);
         TulisPOINT(S);
+        printf("Waktu: ");
+        printf("\n");
+        printf("Notifikasi: ");
+        printf("\n");
         displayMap(m);
+        printf("================================================\n");
+
         printf("Enter Command: ");
-        // progamm disini ya ges ya
-        // check if currentword = NORTH 
         STARTWORD();
-        if (compareString(currentWord,"NORTH")){
-            //system("cls");
-            printf("Moving North\n");
-            moveNorth(&m,&S);
+        if (compareString(currentWord,"MOVE")){
+            STARTWORD(); 
+            if (compareString(currentWord,"NORTH")){
+                moveNorth(&m,&S);
+            }
+            else if (compareString(currentWord,"SOUTH")){
+                moveSouth(&m,&S);
+            }
+            else if (compareString(currentWord,"EAST")){
+                moveEast(&m,&S);
+            }
+            else if (compareString(currentWord,"WEST")){
+                moveWest(&m,&S);
+            }
         }
-        else if (compareString(currentWord,"SOUTH")){
-            //system("cls");
-            printf("Moving South\n");
-            moveSouth(&m,&S);
-        }
-        else if (compareString(currentWord,"EAST")){
-            //system("cls");
-            printf("Moving East\n");
-            moveEast(&m,&S);
-        }
-        else if (compareString(currentWord,"WEST")){
-            //system("cls");
-            printf("Moving West\n");
-            moveWest(&m,&S);
-        }
-        else{
-            //system("cls");
-            printf("Wrong Command\n");
-        }
-        currentWord=init;
+        // press enter to continue
+        printf("Press (.) to continue...");
+        STARTWORD();
+        system("cls");
     }
 }

@@ -11,7 +11,7 @@
 
 typedef struct
 {
-    char username[100];
+    char* username;
     POINT loc;
     ListStatik inventory;
 }player;
