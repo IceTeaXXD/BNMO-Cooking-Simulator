@@ -45,6 +45,11 @@ void CopyWord();
           currentChar = BLANK atau currentChar = CHARMARK;
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+void CopyWordSpasi();
+/*untuk scan kalimat (banyak kata dengan spasi) dengan enter sebagai end(bukan titik)
+
+Max charnya masih sama kaya STARTWORD karena NMaxnya sama (50)*/
+void STARTSENTENCE();
 
 void STARTWORD_FILE(char filename[]);
 
