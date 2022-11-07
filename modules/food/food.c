@@ -208,7 +208,7 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
     }
 }
 
-void BUY(ListFoodStatik *Foods){
+void BUY(ListFoodStatik *Foods, Prioqueueinv *Delivery){
     printf("======================\n");
     printf("=        BUY         =\n");
     printf("======================\n");
@@ -248,6 +248,7 @@ void BUY(ListFoodStatik *Foods){
                         printf(" akan diantar dalam ");
                         Timetokata(FoodDelivery(LISTELMT(*Foods, i)));
                         printf(".\n");
+                        Enqueue_Prioqueue(Delivery, LISTELMT(*Foods, i));
                         break;
                     }
                 }
