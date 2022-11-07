@@ -28,6 +28,11 @@ void TulisTIME (TIME T)
     printf("%02d:%02d:%02d", T.DD, T.HH, T.MM);
 }
 
+void TulisTIME2 (TIME T)
+{
+    printf("%d.%02d", T.HH, T.MM);
+}
+
 long TIMEToMenit (TIME T)
 {
     return (T.DD*1440 + T.HH*60 + T.MM);
@@ -110,17 +115,50 @@ long Durasi (TIME TAw, TIME TAkh)
 
 void Timetokata(TIME waktu)
 {
-    if (Day(waktu) > 0){
-        printf("%d Hari ", Day(waktu));
+    if (Day(waktu) > 0 && Hour(waktu) == 0 && MM(waktu) == 0)
+    {
+        printf("%d hari", waktu.DD);
     }
-    if (Hour(waktu) > 0){
-        printf("%d Jam ", Hour(waktu));
+    else if (Day(waktu) > 0 && Hour(waktu) > 0 && MM(waktu) == 0)
+    {
+        printf("%d hari %d jam", waktu.DD, waktu.HH);
     }
-    if (MM(waktu) > 0){
-        printf("%d menit", MM(waktu));
+    else if (Day(waktu) > 0 && Hour(waktu) > 0 && MM(waktu) > 0)
+    {
+        printf("%d hari %d jam %d menit", waktu.DD, waktu.HH, waktu.MM);
     }
-    if (Day(waktu) == 0 && Hour(waktu) == 0 && MM(waktu) == 0){
-        printf("0");
+    else if (Day(waktu) == 0 && Hour(waktu) > 0 && MM(waktu) == 0)
+    {
+        printf("%d jam", waktu.HH);
     }
+    else if (Day(waktu) == 0 && Hour(waktu) > 0 && MM(waktu) > 0)
+    {
+        printf("%d jam %d menit", waktu.HH, waktu.MM);
     }
+    else if (Day(waktu) == 0 && Hour(waktu) == 0 && MM(waktu) > 0)
+    {
+        printf("%d menit", waktu.MM);
+    }
+}
+
+    // if (Day(waktu) > 0){
+    //     printf("%d Hari ", Day(waktu));
+    // }
+    // if (Hour(waktu) > 0){
+    //     printf("%d Jam ", Hour(waktu));
+    // }
+    // if (MM(waktu) > 0){
+    //     printf("%d menit", MM(waktu));
+    // }
+    // if (Day(waktu) == 0 && Hour(waktu) == 0 && MM(waktu) == 0){
+    //     printf("0");
+    // }
    
+void TambahTime (TIME * T, int DD, int HH, int MM)
+// menambah time dengan DD hari, HH jam, MM menit
+{
+    int menit;
+    menit = TIMEToMenit(*T);
+    menit += (DD*1440 + HH*60 + MM);
+    *T = MenitToTIME(menit);
+}

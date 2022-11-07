@@ -52,7 +52,7 @@ void TulisTIME (TIME T);
 /* F.S. : Nilai T ditulis dg format DDD:HH:MM */
 /* Proses : menulis nilai setiap komponen T ke layar dalam format DDD:HH:MM
    tanpa karakter apa pun di depan atau belakangnya, termasuk spasi, enter, dll.*/ 
-
+void TulisTIME2 (TIME T);
 /* ***************************************************************** */
 /* KELOMPOK KONVERSI TERHADAP TYPE                                   */
 /* ***************************************************************** */
@@ -92,5 +92,7 @@ long Durasi (TIME TAw, TIME TAkh);
 /* Jika TAw > TAkh, maka TAkh adalah 1 hari setelah TAw */
 
 void Timetokata(TIME waktu);
+
+void TambahTime (TIME * T, int DD, int HH, int MM);
 
 #endif
