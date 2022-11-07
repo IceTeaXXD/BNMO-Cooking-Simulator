@@ -199,7 +199,6 @@ int main (){
         if (tambahTime){
             timeLogic(0,0,1,&GameTime,&Delivery,&p.inventory);
         }
-        currentWord=init;
         printf("press <enter> to continue\n");
         STARTSENTENCE();
         system("cls");
