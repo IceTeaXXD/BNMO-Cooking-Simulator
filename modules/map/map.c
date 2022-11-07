@@ -103,46 +103,50 @@ void ReadMap_FILE(Matrix *m, POINT *S, char filename[]){
     }
 }
 
-void moveNorth(Matrix *m, POINT *S)
+void moveNorth(Matrix *m, POINT *S, boolean *commandValid)
 {
     if(MATRIXELMT(*m, Ordinat(*S)-1, Absis(*S)) == 1){
         Ordinat(*S)--;
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
         MATRIXELMT(*m, Ordinat(*S)+1, Absis(*S)) = 1;
     }else{
+        *commandValid = false;
         printf("Obstacle Ahead!\n");
     }
 }
 
-void moveSouth(Matrix *m, POINT *S)
+void moveSouth(Matrix *m, POINT *S, boolean *commandValid)
 {
     if(MATRIXELMT(*m, Ordinat(*S)+1, Absis(*S)) == 1){
         Ordinat(*S)++;
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
         MATRIXELMT(*m, Ordinat(*S)-1, Absis(*S)) = 1;
     }else{
+        *commandValid = false;
         printf("Obstacle Ahead!\n");
     }
 }
 
-void moveEast(Matrix *m, POINT *S)
+void moveEast(Matrix *m, POINT *S, boolean *commandValid)
 {
     if(MATRIXELMT(*m, Ordinat(*S), Absis(*S)+1) == 1){
         Absis(*S)++;
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)-1) = 1;
     }else{
+        *commandValid = false;
         printf("Obstacle Ahead!\n");
     }
 }
 
-void moveWest(Matrix *m, POINT *S)
+void moveWest(Matrix *m, POINT *S, boolean *commandValid)
 {
     if(MATRIXELMT(*m, Ordinat(*S), Absis(*S)-1) == 1){
         Absis(*S)--;
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)) = 2;
         MATRIXELMT(*m, Ordinat(*S), Absis(*S)+1) = 1;
     }else{
+        *commandValid = false;
         printf("Obstacle Ahead!\n");
     }
 }
