@@ -4,7 +4,7 @@
 //buat run pake yang bawah aja, nanti edit
 //#include "../modules/adt.h"
 void initiate(){
-    system("cls"); 
+    //system("cls");
     printf("                    . .:.:.:.:. .:\\     /:. .:.:.:.:. ,\n");
     printf("               .-._  `..:.:. . .:.:`- -':.:. . .:.:.,'  _.-.\n");
     printf("              .:.:.`-._`-._..-''_...---..._``-.._.-'_.-'.:.:.\n");
@@ -85,6 +85,7 @@ int main (){
     ReadMap_FILE(&m,&LOC(p), "../modules/map/testMap.txt");
 
     // Delivery
+    CreatePlayer(&p);
     Prioqueueinv Delivery;
     ListFoodStatik Foods;
     CreateListFoodStatik(&Foods);
@@ -137,8 +138,9 @@ int main (){
         printf("%c%c MOVE WEST\n",204,205);
         //prinf buat command kalo ke M,T,C,F,B,DLL);
         printf("%c Others:\n",204);
-        printf("%c%c INVENTORY\n",204,205);
         printf("%c%c BUY\n",204,205);
+        printf("%c%c DELIVERY\n",204,205);
+        printf("%c%c INVENTORY\n",204,205);
         printf("%c%c WAIT <JAM> <MENIT>\n",204,205);
         printf("%c Exit Program\n",204);
         printf("%c%c EXIT\n",200,205);
@@ -157,10 +159,15 @@ int main (){
         else if (compareString(currentWord,"MOVE WEST")){
             moveWest(&m,&LOC(p),&tambahTime);
         } 
-        else if (compareString(currentWord,"INVENTORY")){
+        else if (compareString(currentWord,"DELIVERY")){
             tambahTime = false;
             PrintPrioqueueinv(Delivery);
+        } 
+        else if (compareString(currentWord,"INVENTORY")){
+            tambahTime = false;
+            PrintPrioqueueinv(p.inventory);
         }
+        
         else if (compareString(currentWord,"BUY")){
             BUY(&Foods, &Delivery);
         }

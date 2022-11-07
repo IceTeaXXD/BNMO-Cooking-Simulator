@@ -20,4 +20,7 @@ typedef struct
 #define LOC(P) (P).loc
 #define INVENTORY(P) (P).inventory
 
+
+void CreatePlayer(player *p);
+
 #endif  

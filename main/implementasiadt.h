@@ -13,5 +13,6 @@
 #include "../modules/wordmachine/wordmachine.c"
 #include "../modules/matrix/matrix.c"
 #include "../modules/food/food.c"
+#include "../modules/simulator/simulator.c"
 
 #endif

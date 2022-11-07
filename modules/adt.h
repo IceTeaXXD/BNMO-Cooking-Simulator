@@ -12,5 +12,6 @@
 #include "./wordmachine/wordmachine.h"
 #include "./listdin/listdin.h"
 #include "./tree/tree.h"
+#include "./utility/undoredo.h"
 
 #endif

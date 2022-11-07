@@ -167,6 +167,7 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
 {
     TIME temp;
     int deliveryTime;
+    food f;
     // add time to gameTime
     TambahTime(gameTime, DD, HH, MM);
 
@@ -181,6 +182,8 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
         }
         else{
             Delivery->T[i].delivery_time = MenitToTIME(0);
+            Dequeue_Prioqueue(Delivery, &f);
+            Enqueue_Prioqueue(Inventory,f);
         }
     }
 
