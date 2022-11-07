@@ -162,3 +162,30 @@ void TambahTime (TIME * T, int DD, int HH, int MM)
     menit += (DD*1440 + HH*60 + MM);
     *T = MenitToTIME(menit);
 }
+
+void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, Prioqueueinv *Inventory)
+{
+    TIME temp;
+    int deliveryTime;
+    // add time to gameTime
+    TambahTime(gameTime, DD, HH, MM);
+
+    // reduce time in fooddelivery
+    int i;
+    int timeAdded = DD*1440 + HH*60 + MM;
+    for (i = 0 ; i < Delivery->MaxElQ ; i++){
+        temp = Delivery->T[i].delivery_time;
+        deliveryTime = TIMEToMenit(temp);
+        if (deliveryTime - timeAdded > 0){
+            Delivery->T[i].delivery_time = PrevNMenit(temp, timeAdded);
+        }
+        else{
+            Delivery->T[i].delivery_time = MenitToTIME(0);
+        }
+    }
+
+    // reduce time in inventory
+    for (i = 0 ; i < Inventory->MaxElQ ; i++){
+        Inventory->T[i].expiry_time = PrevNMenit(Inventory->T[i].expiry_time, MM);
+    }
+}
