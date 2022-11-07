@@ -4,6 +4,7 @@
 //buat run pake yang bawah aja, nanti edit
 //#include "../modules/adt.h"
 void initiate(){
+    system("cls"); 
     printf("                    . .:.:.:.:. .:\\     /:. .:.:.:.:. ,\n");
     printf("               .-._  `..:.:. . .:.:`- -':.:. . .:.:.,'  _.-.\n");
     printf("              .:.:.`-._`-._..-''_...---..._``-.._.-'_.-'.:.:.\n");
@@ -35,6 +36,7 @@ void initiate(){
     printf("================================================\n");
 }
 void terminate(){
+    system("cls"); 
     printf("                    . .:.:.:.:. .:\\     /:. .:.:.:.:. ,\n");
     printf("               .-._  `..:.:. . .:.:`- -':.:. . .:.:.,'  _.-.\n");
     printf("              .:.:.`-._`-._..-''_...---..._``-.._.-'_.-'.:.:.\n");
@@ -72,6 +74,7 @@ int main (){
     char mulai[NMax]="START";
     char input[NMax];
     int i;
+    boolean tambahTime;
     //KAMUS ADT
     Word titiK={".",1};
     Word init;
@@ -80,6 +83,21 @@ int main (){
     Word nameTemp;
     player p;
     ReadMap_FILE(&m,&LOC(p), "../modules/map/testMap.txt");
+
+    // INVENTORY
+    Prioqueueinv Q;
+    ListFoodStatik Foods;
+    CreateListFoodStatik(&Foods);
+    MakeEmpty_Prioqueue(&Q,100);
+    ReadFood_FILE("../cfg/food.txt", &Foods);
+    for (i = 0 ; i < listLength_ListFoodStatik(Foods); i++){
+        Enqueue_Prioqueue(&Q, LISTELMT(Foods,i));
+    }
+
+    // GAME TIME
+    TIME GameTime;
+    CreateTime(&GameTime, 0, 0, 0);
+
     //ALGORITMA MAIN
     printf("Please insert START to initiate the program\n");
     STARTSENTENCE();
@@ -101,11 +119,13 @@ int main (){
     currentWord=init;
     while (!compareString(currentWord,keluar))
     {
+        tambahTime = true;
         currentWord=init;
         printf("================================================\n");
         printf("%s di posisi: ",p.username);
         TulisPOINT(LOC(p));
         printf("Waktu: ");
+        TulisTIME2(GameTime);
         printf("\n");
         printf("Notifikasi: ");
         printf("\n");
@@ -118,27 +138,43 @@ int main (){
         printf("%c%c MOVE SOUTH\n",204,205);
         printf("%c%c MOVE WEST\n",204,205);
         //prinf buat command kalo ke M,T,C,F,B,DLL);
+        printf("%c Others:\n",204);
+        printf("%c%c INVENTORY\n",204,205);
+        printf("%c%c BUY\n",204,205);
         printf("%c Exit Program\n",204);
         printf("%c%c EXIT\n",200,205);
-        printf("Enter Command: ");
+        
+        printf("\nENTER COMMAND: ");
         STARTSENTENCE(); 
         if (compareString(currentWord,"MOVE NORTH")){
-            moveNorth(&m,&LOC(p));
+            moveNorth(&m,&LOC(p),&tambahTime);
         }
         else if (compareString(currentWord,"MOVE SOUTH")){
-            moveSouth(&m,&LOC(p));
+            moveSouth(&m,&LOC(p),&tambahTime);
         }
         else if (compareString(currentWord,"MOVE EAST")){
-            moveEast(&m,&LOC(p));
+            moveEast(&m,&LOC(p),&tambahTime);
         }
         else if (compareString(currentWord,"MOVE WEST")){
-            moveWest(&m,&LOC(p));
+            moveWest(&m,&LOC(p),&tambahTime);
         } 
+        else if (compareString(currentWord,"INVENTORY")){
+            tambahTime = true;
+            PrintPrioqueueinv(Q);
+        }
+        else if (compareString(currentWord,"BUY")){
+            tambahTime = true;
+            BUY(&Foods);
+        }
         else if (compareString(currentWord,keluar)){
             terminate();
             break;
         } else {
+            tambahTime = false;
             printf("Unidentified Command\n");
+        }
+        if (tambahTime){
+            TambahTime(&GameTime,0,0,1);
         }
         currentWord=init;
         printf("press <enter> to continue\n");
