@@ -150,3 +150,48 @@ void moveWest(Matrix *m, POINT *S, boolean *commandValid)
         printf("Obstacle Ahead!\n");
     }
 }
+
+boolean isTelepon (Matrix m, POINT S)
+{
+    if (MATRIXELMT(m, Ordinat(S) == 1, Absis(S) == 3) || (MATRIXELMT(m, Ordinat(S) == 0, Absis(S) == 4)) || (MATRIXELMT(m, Ordinat(S) == 1, Absis(S) == 5)) || (MATRIXELMT(m, Ordinat(S) == 2, Absis(S) == 4))){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+boolean isMix (Matrix m, POINT S)
+{
+    if (MATRIXELMT(m, Ordinat(S) == 2, Absis(S) == 0) || (MATRIXELMT(m, Ordinat(S) == 1, Absis(S) == 1)) || (MATRIXELMT(m, Ordinat(S) == 3, Absis(S) == 1)) || (MATRIXELMT(m, Ordinat(S) == 2, Absis(S) == 2))){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+boolean isChop (Matrix m, POINT S)
+{
+    if (MATRIXELMT(m, Ordinat(S) == 6, Absis(S) == 7) || (MATRIXELMT(m, Ordinat(S) == 5, Absis(S) == 8)) || (MATRIXELMT(m, Ordinat(S) == 6, Absis(S) == 9)) || (MATRIXELMT(m, Ordinat(S) == 7, Absis(S) == 8))){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+boolean iSFry (Matrix m, POINT S)
+{   
+    if (MATRIXELMT(m, Ordinat(S) == 7, Absis(S) == 5) || (MATRIXELMT(m, Ordinat(S) == 6, Absis(S) == 6)) || (MATRIXELMT(m, Ordinat(S) == 7, Absis(S) == 7)) || (MATRIXELMT(m, Ordinat(S) == 8, Absis(S) == 6))){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+boolean isBuy (Matrix m, POINT S)
+{
+    if (MATRIXELMT(m, Ordinat(S) == 9, Absis(S) == 5) || (MATRIXELMT(m, Ordinat(S) == 8, Absis(S) == 6)) || (MATRIXELMT(m, Ordinat(S) == 9, Absis(S) == 7))){
+        return true;
+    }else{
+        return false;
+    }
+}
