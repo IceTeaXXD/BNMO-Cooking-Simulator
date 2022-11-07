@@ -115,7 +115,6 @@ int main (){
     printf("Masukkan Username : ");
     STARTSENTENCE();
     p.username = WordToStr(currentWord);
-    currentWord=init;
     while (!compareString(currentWord,keluar))
     {
         tambahTime = true;
