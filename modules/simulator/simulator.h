@@ -7,13 +7,13 @@
 #include "../utility/boolean.h"
 #include "../point/point.h"
 #include "../liststatik/liststatik.h"
-
+#include "../prioqueue/prioqueueinv.h"
 
 typedef struct
 {
     char* username;
     POINT loc;
-    ListStatik inventory;
+    Prioqueueinv inventory;
 }player;
 
 #define USERNAME(P) (P).username
