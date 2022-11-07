@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "prioqueuefood.c"
+#include "../wordmachine/wordmachine.c"
 
 int main(){
     PrioQueueFood q;
