@@ -172,7 +172,6 @@ int main (){
         }
         // WAIT 10 11
         else if (compareString(currentWord,"WAIT")){
-            currentWord = init;
             printf("Masukkan jam: ");
             STARTSENTENCE();
             int jam = WordToInt(currentWord);

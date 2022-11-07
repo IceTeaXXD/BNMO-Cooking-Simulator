@@ -79,7 +79,22 @@ void Enqueue_Prioqueue(Prioqueueinv *Q, food X){
         printf("Queue is full\n");
     }
     else {
-        found = false;
+        Tail(*Q) = Tail(*Q) == MaxElQ(*Q) - 1 ? 0 : Tail(*Q) + 1;
+        InfoTail(*Q) = X;
+        i = Tail(*Q);
+        j = (i == 0) ? MaxElQ(*Q) - 1 : i - 1;
+        while (i != Head(*Q) && TIMEToMenit(FoodExpiry(Elmt(*Q, i))) < TIMEToMenit(FoodExpiry(Elmt(*Q, j)))){
+            temp = Elmt(*Q, i);
+            Elmt(*Q, i) = Elmt(*Q, j);
+            Elmt(*Q, j) = temp;
+            i = j;
+            j = (i == 0) ? MaxElQ(*Q) - 1 : i - 1;
+        }
+    
+
+
+     /*--------------------------------------------------------*/   
+    /*    found = false;
         idx = Head(*Q);
         while ((idx != Tail(*Q)) && (!found)){
             int food_expired = TIMEToMenit(X.expiry_time);
@@ -106,7 +121,7 @@ void Enqueue_Prioqueue(Prioqueueinv *Q, food X){
             InfoTail(*Q) = X;
         }
     }
-    // }
+    // } */ }
 }
 /* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan time */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
@@ -122,6 +137,7 @@ void Dequeue_Prioqueue (Prioqueueinv * Q, food * X){
         *X = InfoHead(*Q);
         Head(*Q) = (Head(*Q) == MaxElQ(*Q) - 1) ? 0 : Head(*Q) + 1;
     }
+    
 }
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
@@ -134,17 +150,23 @@ void PrintPrioqueueinv (Prioqueueinv Q){
     if (IsEmpty_Prioqueue(Q)){
         printf("Queue is empty\n");
     }
-    else{
+    else {
         i = Head(Q);
         int idx = 1;
+        boolean flag = true;
         while (i != Tail(Q)){
+            flag = false;
             printf("%d. ",idx);
             idx++;
+
             PrintWord(FoodName(Q.T[i]));
             printf(" (");
             Timetokata(FoodDelivery(Q.T[i]));
             printf(")\n");
             i = (i + 1) % MaxElQ(Q);
+        }
+        if (flag){
+            printf("Queue is empty\n");
         }
     }
 }

@@ -1,8 +1,8 @@
 #include "food.h"
 #include "../utility/boolean.h"
-#include "../prioqueue/prioqueueinv.h"
-// #include "../time/time.c"
-// #include "../wordmachine/wordmachine.c"
+//#include "../prioqueue/prioqueueinv.h"
+//#include "../time/time.c"
+//#include "../wordmachine/wordmachine.c"
 //#include "../wordmachine/charmachine.c"
 
 void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery){

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "time.h"
+
 boolean IsTIMEValid(int D, int H, int M)
 {
     return ((D>=0) && (H>=0) && (H<=23) && (M>=0) && (M<=59));
@@ -168,20 +169,58 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
     int timeAdded = DD*1440 + HH*60 + MM;
     int i;
     food temp;
+    int temptime;
     TambahTime(gameTime, DD, HH, MM);
     int n = NBElmt_Prioqueue(*Delivery)-1;
+    int n1 = NBElmt_Prioqueue(*Inventory)-1;
     for (i = 0; i < n; i++)
     {
         int deliveryTime = TIMEToMenit(Delivery->T[i].delivery_time);
         if (deliveryTime - timeAdded <= 0)
         {
-            Dequeue_Prioqueue(Delivery, &temp);
-            DisplayFood(temp);
-            // Enqueue_Prioqueue(Inventory, temp);
+            if (NBElmt_Prioqueue(*Delivery) == 1){
+                
+            } else {
+                //printf("%d", deliveryTime - timeAdded);
+                Dequeue_Prioqueue(Delivery, &temp);
+                //printf("%d", NBElmt_Prioqueue(*Delivery)-1);
+                temptime = TIMEToMenit(FoodExpiry(temp));
+                temptime += (deliveryTime - timeAdded);
+                //printf("%d", temptime);
+                if (temptime > 0) {
+                    //DisplayFood(temp);
+                    //FoodExpiry(temp) = MenitToTIME(temptime);
+                    //DisplayFood(temp);
+                    //printf("\n");
+                    Enqueue_Prioqueue(Inventory, temp);
+                    Inventory->T[i].expiry_time = MenitToTIME(temptime);
+                }
+            }   
         }
         else if (deliveryTime - timeAdded > 0)
         {
             Delivery->T[i].delivery_time= MenitToTIME(deliveryTime - timeAdded);
         }
     }
+    if (n1 != 0){
+        for (i = 0; i < n1; i++){
+            int inventoryTime = TIMEToMenit(Inventory->T[i].expiry_time);
+            if (inventoryTime - timeAdded <= 0)
+        {
+            if (NBElmt_Prioqueue(*Inventory) == 1){
+                Dequeue_Prioqueue(Inventory, &temp);
+                MakeEmpty_Prioqueue(Inventory, 1000);
+            } else {
+                Dequeue_Prioqueue(Inventory, &temp);
+                //DisplayFood(temp);
+        
+            }
+        }
+        else if (inventoryTime - timeAdded > 0)
+        {
+            Inventory->T[i].expiry_time= MenitToTIME(inventoryTime - timeAdded);
+        } 
+        }
+    }
+
 }
