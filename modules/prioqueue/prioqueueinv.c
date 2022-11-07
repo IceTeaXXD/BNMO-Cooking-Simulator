@@ -126,7 +126,8 @@ void PrintPrioqueueinv (Prioqueueinv Q){
             //printf("%d %c\n", Time(val), Info(val));
             printf("%d. ",i);
             PrintWord(FoodName(val)); printf(" ");
-            Timetokata(FoodExpiry(val)); printf("\n");
+            // Timetokata(FoodExpiry(val)); printf(" ");
+            Timetokata(FoodDelivery(val)); printf("\n");
             i++;
         }
     }
