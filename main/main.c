@@ -84,15 +84,13 @@ int main (){
     player p;
     ReadMap_FILE(&m,&LOC(p), "../modules/map/testMap.txt");
 
-    // INVENTORY
-    Prioqueueinv Q;
+    // Delivery
+    Prioqueueinv Delivery;
     ListFoodStatik Foods;
     CreateListFoodStatik(&Foods);
-    MakeEmpty_Prioqueue(&Q,100);
+    MakeEmpty_Prioqueue(&Delivery,100);
     ReadFood_FILE("../cfg/food.txt", &Foods);
-    for (i = 0 ; i < listLength_ListFoodStatik(Foods); i++){
-        Enqueue_Prioqueue(&Q, LISTELMT(Foods,i));
-    }
+
 
     // GAME TIME
     TIME GameTime;
@@ -141,6 +139,7 @@ int main (){
         printf("%c Others:\n",204);
         printf("%c%c INVENTORY\n",204,205);
         printf("%c%c BUY\n",204,205);
+        printf("%c%c WAIT <JAM> <MENIT>\n",204,205);
         printf("%c Exit Program\n",204);
         printf("%c%c EXIT\n",200,205);
         
@@ -159,22 +158,45 @@ int main (){
             moveWest(&m,&LOC(p),&tambahTime);
         } 
         else if (compareString(currentWord,"INVENTORY")){
-            tambahTime = true;
-            PrintPrioqueueinv(Q);
+            tambahTime = false;
+            PrintPrioqueueinv(Delivery);
         }
         else if (compareString(currentWord,"BUY")){
-            tambahTime = true;
-            BUY(&Foods);
+            BUY(&Foods, &Delivery);
         }
+        else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
+            // convert the string to integer
+            int X = 0;
+            int Y = 0;
+            int i = 5;
+            while (currentWord.TabWord[i] != ' '){
+                X = X * 10 + (currentWord.TabWord[i] - '0');
+                i++;
+            }
+            i++;
+            while (currentWord.TabWord[i] != '\0' && i < 10){
+                Y = Y * 10 + (currentWord.TabWord[i] - '0');
+                i++;
+            }
+            timeLogic(0, X, Y, &GameTime, &Delivery, &p.inventory);
+            tambahTime = false;
+        }
+        else if (compareString(currentWord,"EXIT")){
+            printf("Thank you for playing!\n");
+            printf("See you next time!\n");
+            break;
+        }
+
         else if (compareString(currentWord,keluar)){
             terminate();
             break;
-        } else {
+        }
+        else {
             tambahTime = false;
             printf("Unidentified Command\n");
         }
         if (tambahTime){
-            TambahTime(&GameTime,0,0,1);
+            timeLogic(0,0,1,&GameTime,&Delivery,&p.inventory);
         }
         currentWord=init;
         printf("press <enter> to continue\n");
