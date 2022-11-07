@@ -151,47 +151,68 @@ void moveWest(Matrix *m, POINT *S, boolean *commandValid)
     }
 }
 
-boolean isTelepon (Matrix m, POINT S)
-{
-    if (MATRIXELMT(m, Ordinat(S) == 1, Absis(S) == 3) || (MATRIXELMT(m, Ordinat(S) == 0, Absis(S) == 4)) || (MATRIXELMT(m, Ordinat(S) == 1, Absis(S) == 5)) || (MATRIXELMT(m, Ordinat(S) == 2, Absis(S) == 4))){
-        return true;
-    }else{
-        return false;
-    }
+boolean isAdjacentToTelephone(Matrix m, POINT S){ // BUY
+    return (MATRIXELMT(m, Ordinat(S)-1, Absis(S)) == 3 || MATRIXELMT(m, Ordinat(S)+1, Absis(S)) == 3 || MATRIXELMT(m, Ordinat(S), Absis(S)-1) == 3 || MATRIXELMT(m, Ordinat(S), Absis(S)+1) == 3);
 }
 
-boolean isMix (Matrix m, POINT S)
-{
-    if (MATRIXELMT(m, Ordinat(S) == 2, Absis(S) == 0) || (MATRIXELMT(m, Ordinat(S) == 1, Absis(S) == 1)) || (MATRIXELMT(m, Ordinat(S) == 3, Absis(S) == 1)) || (MATRIXELMT(m, Ordinat(S) == 2, Absis(S) == 2))){
-        return true;
-    }else{
-        return false;
-    }
+boolean isAdjacentToMix(Matrix m, POINT S){ // MIX
+    return (MATRIXELMT(m, Ordinat(S)-1, Absis(S)) == 4 || MATRIXELMT(m, Ordinat(S)+1, Absis(S)) == 4 || MATRIXELMT(m, Ordinat(S), Absis(S)-1) == 4 || MATRIXELMT(m, Ordinat(S), Absis(S)+1) == 4);
 }
 
-boolean isChop (Matrix m, POINT S)
-{
-    if (MATRIXELMT(m, Ordinat(S) == 6, Absis(S) == 7) || (MATRIXELMT(m, Ordinat(S) == 5, Absis(S) == 8)) || (MATRIXELMT(m, Ordinat(S) == 6, Absis(S) == 9)) || (MATRIXELMT(m, Ordinat(S) == 7, Absis(S) == 8))){
-        return true;
-    }else{
-        return false;
-    }
+boolean isAdjacentToChop(Matrix m, POINT S){ // CHOP
+    return (MATRIXELMT(m, Ordinat(S)-1, Absis(S)) == 5 || MATRIXELMT(m, Ordinat(S)+1, Absis(S)) == 5 || MATRIXELMT(m, Ordinat(S), Absis(S)-1) == 5 || MATRIXELMT(m, Ordinat(S), Absis(S)+1) == 5);
 }
 
-boolean iSFry (Matrix m, POINT S)
-{   
-    if (MATRIXELMT(m, Ordinat(S) == 7, Absis(S) == 5) || (MATRIXELMT(m, Ordinat(S) == 6, Absis(S) == 6)) || (MATRIXELMT(m, Ordinat(S) == 7, Absis(S) == 7)) || (MATRIXELMT(m, Ordinat(S) == 8, Absis(S) == 6))){
-        return true;
-    }else{
-        return false;
-    }
+boolean isAdjacentToFry(Matrix m, POINT S){ // FRY
+    return (MATRIXELMT(m, Ordinat(S)-1, Absis(S)) == 6 || MATRIXELMT(m, Ordinat(S)+1, Absis(S)) == 6 || MATRIXELMT(m, Ordinat(S), Absis(S)-1) == 6 || MATRIXELMT(m, Ordinat(S), Absis(S)+1) == 6);
 }
 
-boolean isBuy (Matrix m, POINT S)
-{
-    if (MATRIXELMT(m, Ordinat(S) == 9, Absis(S) == 5) || (MATRIXELMT(m, Ordinat(S) == 8, Absis(S) == 6)) || (MATRIXELMT(m, Ordinat(S) == 9, Absis(S) == 7))){
-        return true;
-    }else{
-        return false;
-    }
+boolean isAdjacentToBoil(Matrix m, POINT S){ // BOIL
+    return (MATRIXELMT(m, Ordinat(S)-1, Absis(S)) == 7 || MATRIXELMT(m, Ordinat(S)+1, Absis(S)) == 7 || MATRIXELMT(m, Ordinat(S), Absis(S)-1) == 7 || MATRIXELMT(m, Ordinat(S), Absis(S)+1) == 7);
 }
+
+
+// boolean isTelepon (Matrix m, POINT S)
+// {
+//     if (MATRIXELMT(m, Ordinat(S) == 1, Absis(S) == 3) || (MATRIXELMT(m, Ordinat(S) == 0, Absis(S) == 4)) || (MATRIXELMT(m, Ordinat(S) == 1, Absis(S) == 5)) || (MATRIXELMT(m, Ordinat(S) == 2, Absis(S) == 4))){
+//         return true;
+//     }else{
+//         return false;
+//     }
+// }
+
+// boolean isMix (Matrix m, POINT S)
+// {
+//     if (MATRIXELMT(m, Ordinat(S) == 2, Absis(S) == 0) || (MATRIXELMT(m, Ordinat(S) == 1, Absis(S) == 1)) || (MATRIXELMT(m, Ordinat(S) == 3, Absis(S) == 1)) || (MATRIXELMT(m, Ordinat(S) == 2, Absis(S) == 2))){
+//         return true;
+//     }else{
+//         return false;
+//     }
+// }
+
+// boolean isChop (Matrix m, POINT S)
+// {
+//     if (MATRIXELMT(m, Ordinat(S) == 6, Absis(S) == 7) || (MATRIXELMT(m, Ordinat(S) == 5, Absis(S) == 8)) || (MATRIXELMT(m, Ordinat(S) == 6, Absis(S) == 9)) || (MATRIXELMT(m, Ordinat(S) == 7, Absis(S) == 8))){
+//         return true;
+//     }else{
+//         return false;
+//     }
+// }
+
+// boolean iSFry (Matrix m, POINT S)
+// {   
+//     if (MATRIXELMT(m, Ordinat(S) == 7, Absis(S) == 5) || (MATRIXELMT(m, Ordinat(S) == 6, Absis(S) == 6)) || (MATRIXELMT(m, Ordinat(S) == 7, Absis(S) == 7)) || (MATRIXELMT(m, Ordinat(S) == 8, Absis(S) == 6))){
+//         return true;
+//     }else{
+//         return false;
+//     }
+// }
+
+// boolean isBuy (Matrix m, POINT S)
+// {
+//     if (MATRIXELMT(m, Ordinat(S) == 9, Absis(S) == 5) || (MATRIXELMT(m, Ordinat(S) == 8, Absis(S) == 6)) || (MATRIXELMT(m, Ordinat(S) == 9, Absis(S) == 7))){
+//         return true;
+//     }else{
+//         return false;
+//     }
+// }

@@ -4,7 +4,7 @@
 //buat run pake yang bawah aja, nanti edit
 //#include "../modules/adt.h"
 void initiate(){
-    //system("cls");
+    system("cls");
     printf("                    . .:.:.:.:. .:\\     /:. .:.:.:.:. ,\n");
     printf("               .-._  `..:.:. . .:.:`- -':.:. . .:.:.,'  _.-.\n");
     printf("              .:.:.`-._`-._..-''_...---..._``-.._.-'_.-'.:.:.\n");
@@ -168,7 +168,13 @@ int main (){
         }
         
         else if (compareString(currentWord,"BUY")){
-            BUY(Foods, &Delivery);
+            if(isAdjacentToTelephone(m,p.loc)){
+                BUY(Foods, &Delivery);
+            }
+            else{
+                tambahTime = false;
+                printf("Player tidak dalam radius telephone\n");
+            }
         }
         // WAIT 10 11
         else if (compareString(currentWord,"WAIT")){
