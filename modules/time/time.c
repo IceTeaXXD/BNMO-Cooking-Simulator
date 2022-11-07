@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "time.h"
-
 boolean IsTIMEValid(int D, int H, int M)
 {
     return ((D>=0) && (H>=0) && (H<=23) && (M>=0) && (M<=59));
@@ -163,32 +162,26 @@ void TambahTime (TIME * T, int DD, int HH, int MM)
     *T = MenitToTIME(menit);
 }
 
+// LOOPING INI MASIH TOLOL KYK HAIDAR
 void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, Prioqueueinv *Inventory)
 {
-    TIME temp;
-    int deliveryTime;
-    food f;
-    // add time to gameTime
-    TambahTime(gameTime, DD, HH, MM);
-
-    // reduce time in fooddelivery
-    int i;
     int timeAdded = DD*1440 + HH*60 + MM;
-    for (i = 0 ; i < Delivery->MaxElQ ; i++){
-        temp = Delivery->T[i].delivery_time;
-        deliveryTime = TIMEToMenit(temp);
-        if (deliveryTime - timeAdded > 0){
-            Delivery->T[i].delivery_time = PrevNMenit(temp, timeAdded);
+    int i;
+    food temp;
+    TambahTime(gameTime, DD, HH, MM);
+    int n = NBElmt_Prioqueue(*Delivery)-1;
+    for (i = 0; i < n; i++)
+    {
+        int deliveryTime = TIMEToMenit(Delivery->T[i].delivery_time);
+        if (deliveryTime - timeAdded <= 0)
+        {
+            Dequeue_Prioqueue(Delivery, &temp);
+            DisplayFood(temp);
+            // Enqueue_Prioqueue(Inventory, temp);
         }
-        else{
-            Delivery->T[i].delivery_time = MenitToTIME(0);
-            Dequeue_Prioqueue(Delivery, &f);
-            Enqueue_Prioqueue(Inventory,f);
+        else if (deliveryTime - timeAdded > 0)
+        {
+            Delivery->T[i].delivery_time= MenitToTIME(deliveryTime - timeAdded);
         }
-    }
-
-    // reduce time in inventory
-    for (i = 0 ; i < Inventory->MaxElQ ; i++){
-        Inventory->T[i].expiry_time = PrevNMenit(Inventory->T[i].expiry_time, MM);
     }
 }

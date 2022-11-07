@@ -1,6 +1,6 @@
 #include "prioqueueinv.h"
 #include <stdio.h>
-
+#include "../wordmachine/wordmachine.h"
 /* ********* Prototype ********* */
 boolean IsEmpty_Prioqueue (Prioqueueinv Q){
     return (Head(Q) == Nil) && (Tail(Q) == Nil);
@@ -63,36 +63,50 @@ void DeAlokasi_Prioqueue(Prioqueueinv * Q){
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Enqueue_Prioqueue (Prioqueueinv * Q, food X){
+void Enqueue_Prioqueue(Prioqueueinv *Q, food X){
     boolean found;
     int idx;
     int i, j;
     food temp;
-    TIME temp1,temp4;
-    Word temp2,temp3;
-    CreateTime(&temp1,0,0,0);
-    CreateTime(&temp4,0,0,0);
-    CreateFood(&temp,0,temp2,temp1,temp3,temp4);
 
-    // ALGORITMA
-    if (IsEmpty_Prioqueue(*Q)) {
-        Head(*Q) = 0;
-        Tail(*Q) = 0;
-        InfoTail(*Q) = X;
+    // enqueue based on expiry_time
+    if (IsEmpty_Prioqueue(*Q)){
+            Head(*Q) = 0;
+            Tail(*Q) = 0;
+            InfoHead(*Q) = X;
+    }
+    if (IsFull_Prioqueue(*Q)){
+        printf("Queue is full\n");
     }
     else {
-        Tail(*Q) = Tail(*Q) == MaxElQ(*Q) - 1 ? 0 : Tail(*Q) + 1;
-        InfoTail(*Q) = X;
-        i = Tail(*Q);
-        j = i == 0 ? MaxElQ(*Q) - 1 : i - 1;
-        while (i != Head(*Q) && TIMEToMenit(FoodExpiry((Elmt(*Q, i)))) < TIMEToMenit(FoodExpiry((Elmt(*Q, j))))) {
-            temp = Elmt(*Q, i);
-            Elmt(*Q, i) = Elmt(*Q, j);
-            Elmt(*Q, j) = temp;
-            i = j;
-            j = i == 0 ? MaxElQ(*Q) - 1 : i - 1;
+        found = false;
+        idx = Head(*Q);
+        while ((idx != Tail(*Q)) && (!found)){
+            int food_expired = TIMEToMenit(X.expiry_time);
+            int head_expired = TIMEToMenit(InfoHead(*Q).expiry_time);
+            if (food_expired < head_expired){
+                found = true;
+            }
+            else {
+                idx = (idx + 1) % MaxElQ(*Q);
+            }
+        }
+        if (found){
+            i = Tail(*Q);
+            while (i != idx){
+                j = (i - 1 + MaxElQ(*Q)) % MaxElQ(*Q);
+                (*Q).T[i] = (*Q).T[j];
+                i = j;
+            }
+            (*Q).T[idx] = X;
+            Tail(*Q) = (Tail(*Q) + 1) % MaxElQ(*Q);
+        }
+        else {
+            Tail(*Q) = (Tail(*Q) + 1) % MaxElQ(*Q);
+            InfoTail(*Q) = X;
         }
     }
+    // }
 }
 /* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan time */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
@@ -116,28 +130,41 @@ void Dequeue_Prioqueue (Prioqueueinv * Q, food * X){
 
 /* Operasi Tambahan */
 void PrintPrioqueueinv (Prioqueueinv Q){
-    food val;
-    Prioqueueinv temp;
-    temp = Q;
-    int i = 1;
-    if (!IsEmpty_Prioqueue(Q)) {
-        while (!IsEmpty_Prioqueue(temp)) {
-            Dequeue_Prioqueue(&temp, &val);
-            //printf("%d %c\n", Time(val), Info(val));
-            printf("%d. ",i);
-            PrintWord(FoodName(val)); printf(" ");
-            // Timetokata(FoodExpiry(val)); printf(" ");
-            Timetokata(FoodDelivery(val)); printf("\n");
-            i++;
+    int i;
+    if (IsEmpty_Prioqueue(Q)){
+        printf("Queue is empty\n");
+    }
+    else{
+        i = Head(Q);
+        int idx = 1;
+        while (i != Tail(Q)){
+            printf("%d. ",idx);
+            idx++;
+            PrintWord(FoodName(Q.T[i]));
+            printf(" (");
+            Timetokata(FoodDelivery(Q.T[i]));
+            printf(")\n");
+            i = (i + 1) % MaxElQ(Q);
         }
     }
-    //printf("#\n");
 }
-/* Mencetak isi queue Q ke layar */
-/* I.S. Q terdefinisi, mungkin kosong */
-/* F.S. Q tercetak ke layar dengan format:
-<time-1> <elemen-1>
-...
-<time-n> <elemen-n>
-#
-*/
+
+void PrintInvPrio(Prioqueueinv Q){
+    int i;
+    if (IsEmpty_Prioqueue(Q)){
+        printf("Queue is empty\n");
+    }
+    else{
+        i = Head(Q);
+        int idx = 1;
+        while (i != Tail(Q)){
+            printf("%d. ",idx);
+            idx++;
+            PrintWord(FoodName(Q.T[i]));
+            printf(" (");
+            Timetokata(FoodExpiry(Q.T[i]));
+            printf(")\n");
+            i = (i + 1) % MaxElQ(Q);
+        }
+    }
+}

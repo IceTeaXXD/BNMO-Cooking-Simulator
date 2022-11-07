@@ -1,5 +1,6 @@
 #include "food.h"
 #include "../utility/boolean.h"
+#include "../prioqueue/prioqueueinv.h"
 // #include "../time/time.c"
 // #include "../wordmachine/wordmachine.c"
 //#include "../wordmachine/charmachine.c"
@@ -208,22 +209,21 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
     }
 }
 
-void BUY(ListFoodStatik *Foods, Prioqueueinv *Delivery){
+void BUY(ListFoodStatik Foods, Prioqueueinv *Delivery){
     printf("======================\n");
     printf("=        BUY         =\n");
     printf("======================\n");
     printf("List Bahan Makanan:\n");
     int i,count;
-
     // hitung berapa food yang aksinya Buy
     count = 0;
-    for (i=0;i<listLength_ListFoodStatik(*Foods);i++){
-        if (compareString(FoodAction(LISTELMT(*Foods,i)),"Buy")){
+    for (i=0;i<listLength_ListFoodStatik(Foods);i++){
+        if (compareString(FoodAction(LISTELMT(Foods,i)),"Buy")){
             count++;
             printf("    %d. ", count);
-            PrintWord(FoodName(LISTELMT(*Foods, i)));
+            PrintWord(FoodName(LISTELMT(Foods, i)));
             printf(" (");
-            Timetokata(FoodDelivery(LISTELMT(*Foods, i)));
+            Timetokata(FoodDelivery(LISTELMT(Foods, i)));
             printf(")\n");
         }
     }
@@ -237,18 +237,18 @@ void BUY(ListFoodStatik *Foods, Prioqueueinv *Delivery){
             printf("Exit BUY.\n");
         } else if (idx > 0 && idx <= count){
             int j = 0;
-            for (i=0;i<listLength_ListFoodStatik(*Foods);i++){
-                if (compareString(FoodAction(LISTELMT(*Foods,i)),"Buy")){
+            for (i=0;i<listLength_ListFoodStatik(Foods);i++){
+                if (compareString(FoodAction(LISTELMT(Foods,i)),"Buy")){
                     j++;
                     if (j == idx){
                         printf("Berhasil memesan ");
-                        PrintWord(FoodName(LISTELMT(*Foods, i)));
+                        PrintWord(FoodName(LISTELMT(Foods, i)));
                         printf(". ");
-                        PrintWord(FoodName(LISTELMT(*Foods, i)));
+                        PrintWord(FoodName(LISTELMT(Foods, i)));
                         printf(" akan diantar dalam ");
-                        Timetokata(FoodDelivery(LISTELMT(*Foods, i)));
+                        Timetokata(FoodDelivery(LISTELMT(Foods, i)));
                         printf(".\n");
-                        Enqueue_Prioqueue(Delivery, LISTELMT(*Foods, i));
+                        Enqueue_Prioqueue(Delivery, LISTELMT(Foods, i));
                         break;
                     }
                 }

@@ -89,7 +89,7 @@ int main (){
     Prioqueueinv Delivery;
     ListFoodStatik Foods;
     CreateListFoodStatik(&Foods);
-    MakeEmpty_Prioqueue(&Delivery,100);
+    MakeEmpty_Prioqueue(&Delivery,1000);
     ReadFood_FILE("../cfg/food.txt", &Foods);
 
 
@@ -165,27 +165,22 @@ int main (){
         } 
         else if (compareString(currentWord,"INVENTORY")){
             tambahTime = false;
-            PrintPrioqueueinv(p.inventory);
+            PrintInvPrio(p.inventory);
         }
         
         else if (compareString(currentWord,"BUY")){
-            BUY(&Foods, &Delivery);
+            BUY(Foods, &Delivery);
         }
-        else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
-            // convert the string to integer
-            int X = 0;
-            int Y = 0;
-            int i = 5;
-            while (currentWord.TabWord[i] != ' '){
-                X = X * 10 + (currentWord.TabWord[i] - '0');
-                i++;
-            }
-            i++;
-            while (currentWord.TabWord[i] != '\0' && i < 10){
-                Y = Y * 10 + (currentWord.TabWord[i] - '0');
-                i++;
-            }
-            timeLogic(0, X, Y, &GameTime, &Delivery, &p.inventory);
+        // WAIT 10 11
+        else if (compareString(currentWord,"WAIT")){
+            currentWord = init;
+            printf("Masukkan jam: ");
+            STARTSENTENCE();
+            int jam = WordToInt(currentWord);
+            printf("Masukkan menit: ");
+            STARTSENTENCE();
+            int menit = WordToInt(currentWord);
+            timeLogic(0, jam, menit, &GameTime, &Delivery, &p.inventory);
             tambahTime = false;
         }
         else if (compareString(currentWord,"EXIT")){
