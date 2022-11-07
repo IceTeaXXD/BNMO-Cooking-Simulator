@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "food.c"
-#include "../prioqueue/prioqueueinv.h"
+#include "../prioqueue/prioqueueinv.c"
 
 Word currentWord;
 
@@ -17,7 +17,8 @@ int main(){
     MakeEmpty_Prioqueue(&inv, 100);
     ReadFood_FILE("../../cfg/food.txt", &l1);
     printf("List Length: %d\n", listLength_ListFoodStatik(l1));
-    for (int i = 0; i < listLength_ListFoodStatik(l1); i++){
+    int i;
+    for (i = 0; i < listLength_ListFoodStatik(l1); i++){
         Enqueue_Prioqueue(&inv, LISTELMT(l1,i));
         DisplayFood(LISTELMT(l1,i));
         printf("\n");

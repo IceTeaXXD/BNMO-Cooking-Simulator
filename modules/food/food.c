@@ -1,7 +1,7 @@
 #include "food.h"
 #include "../utility/boolean.h"
-#include "../time/time.c"
-#include "../wordmachine/wordmachine.c"
+// #include "../time/time.c"
+// #include "../wordmachine/wordmachine.c"
 //#include "../wordmachine/charmachine.c"
 
 void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery){
@@ -154,11 +154,11 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
     N = WordToInt(currentWord);
     ADVWORD();
     int i;
-    if (N == 0) {
-        printf("N=0\n");
-    } else {
-        printf("N=%d\n",N);
-    }
+    // if (N == 0) {
+    //     printf("N=0\n");
+    // } else {
+    //     printf("N=%d\n",N);
+    // }
     for (i = 0; i<N; i++){
         Word name, action;
         int j=0, k, id=0, p;
@@ -208,3 +208,56 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
     }
 }
 
+void BUY(ListFoodStatik *Foods){
+    printf("======================\n");
+    printf("=        BUY         =\n");
+    printf("======================\n");
+    printf("List Bahan Makanan:\n");
+    int i,count;
+
+    // hitung berapa food yang aksinya Buy
+    count = 0;
+    for (i=0;i<listLength_ListFoodStatik(*Foods);i++){
+        if (compareString(FoodAction(LISTELMT(*Foods,i)),"Buy")){
+            count++;
+            printf("    %d. ", count);
+            PrintWord(FoodName(LISTELMT(*Foods, i)));
+            printf(" (");
+            Timetokata(FoodDelivery(LISTELMT(*Foods, i)));
+            printf(")\n");
+        }
+    }
+
+    printf("\nKirim 0 untuk exit.\n");
+    printf("\nEnter Command: ");
+    STARTWORD();
+    if (WordIsInt(currentWord)){
+        int idx = WordToInt(currentWord);
+        if (idx == 0){
+            printf("Exit BUY.\n");
+        } else if (idx > 0 && idx <= count){
+            int j = 0;
+            for (i=0;i<listLength_ListFoodStatik(*Foods);i++){
+                if (compareString(FoodAction(LISTELMT(*Foods,i)),"Buy")){
+                    j++;
+                    if (j == idx){
+                        printf("Berhasil memesan ");
+                        PrintWord(FoodName(LISTELMT(*Foods, i)));
+                        printf(". ");
+                        PrintWord(FoodName(LISTELMT(*Foods, i)));
+                        printf(" akan diantar dalam ");
+                        Timetokata(FoodDelivery(LISTELMT(*Foods, i)));
+                        printf(".\n");
+                        break;
+                    }
+                }
+            }
+        } 
+        else {
+            printf("Invalid input.\n");
+        }
+    } 
+    else {
+        printf("Invalid input.\n");
+    }
+}
