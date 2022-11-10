@@ -202,13 +202,29 @@ int main (){
             }
         }
         // WAIT 10 11
-        else if (compareString(currentWord,"WAIT")){
-            printf("Masukkan jam: ");
-            STARTSENTENCE();
-            int jam = WordToInt(currentWord);
-            printf("Masukkan menit: ");
-            STARTSENTENCE();
-            int menit = WordToInt(currentWord);
+        else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
+            int jam, menit;
+            if (CharIsInt(currentWord.TabWord[5]) && CharIsInt(currentWord.TabWord[6]) && CharIsInt(currentWord.TabWord[8]) && CharIsInt(currentWord.TabWord[9])){
+                jam = (currentWord.TabWord[5] - '0') * 10 + (currentWord.TabWord[6] - '0');
+                menit = (currentWord.TabWord[8] - '0') * 10 + (currentWord.TabWord[9] - '0');
+            }
+            else if (CharIsInt(currentWord.TabWord[5]) && CharIsInt(currentWord.TabWord[7]) && CharIsInt(currentWord.TabWord[8])){
+                jam = (currentWord.TabWord[5] - '0');
+                menit = (currentWord.TabWord[7] - '0') * 10 + (currentWord.TabWord[8] - '0');
+            }
+            else if (CharIsInt(currentWord.TabWord[5]) && CharIsInt(currentWord.TabWord[6]) && CharIsInt(currentWord.TabWord[8])){
+                jam = (currentWord.TabWord[5] - '0') * 10 + (currentWord.TabWord[6] - '0');
+                menit = (currentWord.TabWord[8] - '0');
+            }
+            else if (CharIsInt(currentWord.TabWord[5]) && CharIsInt(currentWord.TabWord[7])){
+                jam = (currentWord.TabWord[5] - '0');
+                menit = (currentWord.TabWord[7] - '0');
+            }
+            else{
+                printf("Format Masukkan Waktu Salah!\n");
+                jam = 0;
+                menit = 0;
+            }
             timeLogic(0, jam, menit, &GameTime, &Delivery, &p.inventory);
             tambahTime = false;
         }
