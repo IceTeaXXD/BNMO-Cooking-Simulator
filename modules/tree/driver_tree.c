@@ -6,7 +6,7 @@ int main()
 {   
     Matrix m;
     createMatrix(100,100,&m);
-    int N = Treemachine("../../cfg/resep.txt",&m);
+    int N = Treemachine("../../cfg/resep2.txt",&m);
     Tree T;
     matrixToTree(m,N,&T);
     printTree(T.root,0);
