@@ -14,7 +14,7 @@ void CreatePoint (POINT * P, int X, int Y)
 
 void BacaPOINT (POINT * P)
 {
-    float X, Y;
+    int X, Y;
     scanf("%d %d", &X, &Y);
     CreatePoint(P, X, Y);
 }
@@ -102,7 +102,7 @@ float Panjang(POINT P1, POINT P2)
     return sqrt((Absis(P1) - Absis(P2)) * (Absis(P1) - Absis(P2)) + (Ordinat(P1) - Ordinat(P2)) * (Ordinat(P1) - Ordinat(P2)));
 }
 
-void Geser (POINT *P, float deltaX, float deltaY)
+void Geser (POINT *P, int deltaX, int deltaY)
 {
     Absis(*P) += deltaX;
     Ordinat(*P) += deltaY;

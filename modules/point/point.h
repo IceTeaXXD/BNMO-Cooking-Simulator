@@ -74,7 +74,7 @@ float Panjang (POINT P1, POINT P2);
 /* Menghitung panjang garis yang dibentuk P1 dan P2 */
 /* Perhatikanlah bahwa di sini spec fungsi kurang baik sebab menyangkut ADT Garis. */
 /* Tuliskan spec fungsi yang lebih tepat. */
-void Geser (POINT *P, float deltaX, float deltaY);
+void Geser (POINT *P, int deltaX, int deltaY);
 /* I.S. P terdefinisi */
 /* F.S. P digeser, absisnya sebesar deltaX dan ordinatnya sebesar deltaY */
 void GeserKeSbX (POINT *P);
