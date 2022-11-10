@@ -1,4 +1,4 @@
-14
+15
 0
 Nasi Uduk Pecel Ayam
 1 0 0
@@ -58,6 +58,11 @@ Buy
 Air
 30 0 0
 0 0 5
+Buy
+13
+Cabai
+0 8 0
+0 0 10
 Buy
 14
 Bawang
