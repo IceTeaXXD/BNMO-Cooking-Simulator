@@ -166,7 +166,7 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
     int n1 = NBElmt_Prioqueue(*Inventory);
     for (i = 0; i < n; i++)
     {
-        int deliveryTime = TIMEToMenit(Delivery->T[i].delivery_time);
+        int deliveryTime = TIMEToMenit(Delivery->T[i].action_time);
         if (deliveryTime - timeAdded <= 0)
         {
                 Dequeue_Prioqueue(Delivery, &foodAffected);
@@ -182,7 +182,7 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
         }
         else if (deliveryTime - timeAdded > 0)
         {
-            Delivery->T[i].delivery_time= MenitToTIME(deliveryTime - timeAdded);
+            Delivery->T[i].action_time= MenitToTIME(deliveryTime - timeAdded);
         }
     }
     if (n1 != 0){

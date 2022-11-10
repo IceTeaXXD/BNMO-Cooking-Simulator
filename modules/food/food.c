@@ -10,7 +10,7 @@ void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME deliv
     FoodName(*x) = name;
     FoodExpiry(*x) = expiry;
     FoodAction(*x) = action;
-    FoodDelivery(*x) = delivery;
+    FoodTime(*x) = delivery;
 }
 
 void DisplayFood(food x){
@@ -21,7 +21,7 @@ void DisplayFood(food x){
     printf(" - ");
     PrintWord(FoodAction(x));
     printf(" - ");
-    Timetokata(FoodDelivery(x));
+    Timetokata(FoodTime(x));
 }
 
 /*-------------------------------------*/
@@ -223,7 +223,7 @@ void BUY(ListFoodStatik Foods, Prioqueueinv *Delivery){
             printf("    %d. ", count);
             PrintWord(FoodName(LISTELMT(Foods, i)));
             printf(" (");
-            Timetokata(FoodDelivery(LISTELMT(Foods, i)));
+            Timetokata(FoodTime(LISTELMT(Foods, i)));
             printf(")\n");
         }
     }
@@ -246,9 +246,9 @@ void BUY(ListFoodStatik Foods, Prioqueueinv *Delivery){
                         printf(". ");
                         PrintWord(FoodName(LISTELMT(Foods, i)));
                         printf(" akan diantar dalam ");
-                        Timetokata(FoodDelivery(LISTELMT(Foods, i)));
+                        Timetokata(FoodTime(LISTELMT(Foods, i)));
                         printf(".\n");
-                        FoodDelivery(LISTELMT(Foods, i)).MM++;
+                        FoodTime(LISTELMT(Foods, i)).MM++;
                         Enqueue_Prioqueue_Delivery(Delivery, LISTELMT(Foods, i));
                         break;
                     }

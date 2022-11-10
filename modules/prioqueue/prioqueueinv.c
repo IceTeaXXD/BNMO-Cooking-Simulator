@@ -158,7 +158,7 @@ void PrintPrioqueueinv (Prioqueueinv Q){
 
             PrintWord(FoodName(Q.T[i]));
             printf(" (");
-            Timetokata(FoodDelivery(Q.T[i]));
+            Timetokata(FoodTime(Q.T[i]));
             printf(")\n");
             i = (i + 1) % MaxElQ(Q);
         }
@@ -167,7 +167,7 @@ void PrintPrioqueueinv (Prioqueueinv Q){
 
         PrintWord(FoodName(Q.T[i]));
         printf(" (");
-        Timetokata(FoodDelivery(Q.T[i]));
+        Timetokata(FoodTime(Q.T[i]));
         printf(")\n");
     }
 }
@@ -219,7 +219,7 @@ void Enqueue_Prioqueue_Delivery(Prioqueueinv *Q, food X){
         InfoTail(*Q) = X;
         i = Tail(*Q);
         j = (i == 0) ? MaxElQ(*Q) - 1 : i - 1;
-        while (i != Head(*Q) && TIMEToMenit(FoodDelivery(Elmt(*Q, i))) < TIMEToMenit(FoodDelivery(Elmt(*Q, j)))){
+        while (i != Head(*Q) && TIMEToMenit(FoodTime(Elmt(*Q, i))) < TIMEToMenit(FoodTime(Elmt(*Q, j)))){
             temp = Elmt(*Q, i);
             Elmt(*Q, i) = Elmt(*Q, j);
             Elmt(*Q, j) = temp;

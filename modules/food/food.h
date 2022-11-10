@@ -15,12 +15,12 @@ typedef struct
    Word food_name;
    TIME expiry_time;
    Word action;
-   TIME delivery_time;
+   TIME action_time;
    //  int id;
    //  char *food_name;
    //  TIME expiry_time;
    //  char *action;
-   //  TIME delivery_time;
+   //  TIME action_time;
 
 }food;
 
@@ -46,7 +46,7 @@ extern food foodAffected;
 #define FoodName(F) (F).food_name
 #define FoodExpiry(F) (F).expiry_time
 #define FoodAction(F) (F).action
-#define FoodDelivery(F) (F).delivery_time
+#define FoodTime(F) (F).action_time
 #define LISTELMT(l, i) (l).contents[(i)]
 
 void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery);
