@@ -55,6 +55,8 @@ void STARTWORD_FILE(char filename[]);
 
 int WordToInt(Word string);
 
+boolean CharIsInt(char c);
+
 void ADVNEWLINE();
 
 Word stringToWord(char str[], int len);

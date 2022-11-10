@@ -201,6 +201,15 @@ boolean WordIsInt(Word kata){
    return check;
 }
 
+boolean CharIsInt(char c){
+   if (c>=48&&c<=57){
+      return true;
+   }
+   else{
+      return false;
+   }
+}
+
 Word MergeWord(Word kata1, Word kata2){
    int i;
    Word result={"",0};
