@@ -91,16 +91,18 @@ boolean isTreeElmt (addressTree P, int X){
 }
 
 // int to addressTree
-addressTree toAddress (addressTree P, int X){
+addressTree getAddress (addressTree P, int X){
+// I.S. P terdefinisi
+// F.S. mengembalikan addressTree dengan data X
     if(P != NULL){
         if(Data(P) == X){
             return P;
         }else{
-            addressTree Q = toAddress(FirstChild(P), X);
+            addressTree Q = getAddress(FirstChild(P), X);
             if(Q != NULL){
                 return Q;
             }else{
-                return toAddress(NextSibling(P), X);
+                return getAddress(NextSibling(P), X);
             }
         }
     }else{
@@ -176,5 +178,28 @@ void matrixToTree (Matrix m, int N, Tree *T){
             }
             PPrev = PNow;
         }
+    }
+}
+
+addressTree getParent(addressTree root,addressTree C){
+    // I.S. C terdefinisi
+    // F.S. mengembalikan addressTree parent dari C
+    if(FirstChild(root) == C){
+        return root;
+    }else{
+        addressTree Q = FirstChild(root);
+        while(Q != NULL){
+            if(NextSibling(Q) == C){
+                return root;
+            }else{
+                addressTree R = getParent(Q, C);
+                if(R != NULL){
+                    return R;
+                }else{
+                    Q = NextSibling(Q);
+                }
+            }
+        }
+        return NULL;
     }
 }
