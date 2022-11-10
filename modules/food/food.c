@@ -248,7 +248,7 @@ void BUY(ListFoodStatik Foods, Prioqueueinv *Delivery){
                         printf(" akan diantar dalam ");
                         Timetokata(FoodDelivery(LISTELMT(Foods, i)));
                         printf(".\n");
-                        Enqueue_Prioqueue(Delivery, LISTELMT(Foods, i));
+                        Enqueue_Prioqueue_Delivery(Delivery, LISTELMT(Foods, i));
                         break;
                     }
                 }
