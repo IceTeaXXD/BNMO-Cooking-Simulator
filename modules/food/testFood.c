@@ -16,6 +16,8 @@ int main(){
     CreateListFoodStatik(&l1);
     MakeEmpty_Prioqueue(&inv, 100);
     ReadFood_FILE("../../cfg/food.txt", &l1);
+    DisplayFood(idtofood(10,l1));
+    printf("\n");
     printf("List Length: %d\n", listLength_ListFoodStatik(l1));
     int i;
     for (i = 0; i < listLength_ListFoodStatik(l1); i++){
@@ -23,17 +25,19 @@ int main(){
         DisplayFood(LISTELMT(l1,i));
         printf("\n");
     }
-    printf("-----------------\n");
-    printList_ListFoodStatik(l1);
-    printf("\n");
-    printf("-----------------\n");
-    Dequeue_Prioqueue(&inv, &f1);
-    PrintPrioqueueinv(inv);
-    printf("\n");
-    DisplayFood(LISTELMT(l1,0));
-    Enqueue_Prioqueue(&inv, LISTELMT(l1,0));
-    printf("-----------------\n");
-    PrintPrioqueueinv(inv);
+    // printf("-----------------\n");
+    // printList_ListFoodStatik(l1);
+    // printf("\n");
+    // printf("-----------------\n");
+    // Dequeue_Prioqueue(&inv, &f1);
+    // PrintPrioqueueinv(inv);
+    // printf("\n");
+    // DisplayFood(LISTELMT(l1,0));
+    // Enqueue_Prioqueue(&inv, LISTELMT(l1,0));
+    // printf("-----------------\n");
+    // PrintPrioqueueinv(inv);
+
+
     //PrintPrioqueueinv(inv);
     //printList_ListFoodStatik(l1);
     // Word k1,k2,k3;
