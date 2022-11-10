@@ -92,5 +92,6 @@ void PrintPrioqueueinv (Prioqueueinv Q);
 <time-n> <elemen-n>
 #
 */
+void PrintInvPrio(Prioqueueinv Q);
 
 #endif
