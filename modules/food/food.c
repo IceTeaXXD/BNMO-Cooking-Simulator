@@ -1,6 +1,6 @@
 #include "food.h"
 #include "../utility/boolean.h"
-//#include "../prioqueue/prioqueueinv.h"
+#include "../prioqueue/prioqueueinv.h"
 //#include "../time/time.c"
 //#include "../wordmachine/wordmachine.c"
 //#include "../wordmachine/charmachine.c"
@@ -248,6 +248,7 @@ void BUY(ListFoodStatik Foods, Prioqueueinv *Delivery){
                         printf(" akan diantar dalam ");
                         Timetokata(FoodDelivery(LISTELMT(Foods, i)));
                         printf(".\n");
+                        FoodDelivery(LISTELMT(Foods, i)).MM++;
                         Enqueue_Prioqueue_Delivery(Delivery, LISTELMT(Foods, i));
                         break;
                     }
@@ -261,4 +262,21 @@ void BUY(ListFoodStatik Foods, Prioqueueinv *Delivery){
     else {
         printf("Invalid input.\n");
     }
+
+}
+
+food idtofood(int id, ListFoodStatik L){
+    int i = 0;
+    food temp;
+    boolean flag = false;
+    while(!flag){
+        if (FoodId(LISTELMT(L,i)) == id){
+            flag = true;
+        }
+        else {
+            i++;
+        }
+    }
+    return LISTELMT(L, i);
+    
 }

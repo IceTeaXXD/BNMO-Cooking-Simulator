@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "time.h"
 
+boolean adaNotif;
+int jenisNotif;
+ListFoodStatik notif;
+
 boolean IsTIMEValid(int D, int H, int M)
 {
     return ((D>=0) && (H>=0) && (H<=23) && (M>=0) && (M<=59));
@@ -141,19 +145,7 @@ void Timetokata(TIME waktu)
     }
 }
 
-    // if (Day(waktu) > 0){
-    //     printf("%d Hari ", Day(waktu));
-    // }
-    // if (Hour(waktu) > 0){
-    //     printf("%d Jam ", Hour(waktu));
-    // }
-    // if (MM(waktu) > 0){
-    //     printf("%d menit", MM(waktu));
-    // }
-    // if (Day(waktu) == 0 && Hour(waktu) == 0 && MM(waktu) == 0){
-    //     printf("0");
-    // }
-   
+
 void TambahTime (TIME * T, int DD, int HH, int MM)
 // menambah time dengan DD hari, HH jam, MM menit
 {
@@ -168,33 +160,24 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
 {
     int timeAdded = DD*1440 + HH*60 + MM;
     int i;
-    food temp;
     int temptime;
     TambahTime(gameTime, DD, HH, MM);
-    int n = NBElmt_Prioqueue(*Delivery)-1;
-    int n1 = NBElmt_Prioqueue(*Inventory)-1;
+    int n = NBElmt_Prioqueue(*Delivery);
+    int n1 = NBElmt_Prioqueue(*Inventory);
     for (i = 0; i < n; i++)
     {
         int deliveryTime = TIMEToMenit(Delivery->T[i].delivery_time);
         if (deliveryTime - timeAdded <= 0)
         {
-            if (NBElmt_Prioqueue(*Delivery) == 1){
-                
-            } else {
-                //printf("%d", deliveryTime - timeAdded);
-                Dequeue_Prioqueue(Delivery, &temp);
-                //printf("%d", NBElmt_Prioqueue(*Delivery)-1);
-                temptime = TIMEToMenit(FoodExpiry(temp));
+                Dequeue_Prioqueue(Delivery, &foodAffected);
+                insertLast_ListFoodStatik(&notif, foodAffected);
+                adaNotif = true;
+                jenisNotif = 2;
+                temptime = TIMEToMenit(FoodExpiry(foodAffected));
                 temptime += (deliveryTime - timeAdded);
-                //printf("%d", temptime);
                 if (temptime > 0) {
-                    //DisplayFood(temp);
-                    //FoodExpiry(temp) = MenitToTIME(temptime);
-                    //DisplayFood(temp);
-                    //printf("\n");
-                    Enqueue_Prioqueue(Inventory, temp);
+                    Enqueue_Prioqueue(Inventory, foodAffected);
                     Inventory->T[i].expiry_time = MenitToTIME(temptime);
-                }
             }   
         }
         else if (deliveryTime - timeAdded > 0)
@@ -207,14 +190,16 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
             int inventoryTime = TIMEToMenit(Inventory->T[i].expiry_time);
             if (inventoryTime - timeAdded <= 0)
         {
+            adaNotif = true;
             if (NBElmt_Prioqueue(*Inventory) == 1){
-                Dequeue_Prioqueue(Inventory, &temp);
+                Dequeue_Prioqueue(Inventory, &foodAffected);
                 MakeEmpty_Prioqueue(Inventory, 1000);
             } else {
-                Dequeue_Prioqueue(Inventory, &temp);
-                //DisplayFood(temp);
-        
+                Dequeue_Prioqueue(Inventory, &foodAffected);
+                //DisplayFood(foodAffected);
             }
+            insertLast_ListFoodStatik(&notif, foodAffected);   
+            jenisNotif = 1;
         }
         else if (inventoryTime - timeAdded > 0)
         {
