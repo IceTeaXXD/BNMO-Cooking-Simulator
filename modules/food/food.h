@@ -39,7 +39,7 @@ typedef struct {
    ElType contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListFoodStatik;
 
-
+extern food foodAffected;
 
 
 #define FoodId(F) (F).id

@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "time.h"
 
+boolean adaNotif;
+int jenisNotif;
+ListFoodStatik notif;
+
 boolean IsTIMEValid(int D, int H, int M)
 {
     return ((D>=0) && (H>=0) && (H<=23) && (M>=0) && (M<=59));
@@ -156,7 +160,6 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
 {
     int timeAdded = DD*1440 + HH*60 + MM;
     int i;
-    food temp;
     int temptime;
     TambahTime(gameTime, DD, HH, MM);
     int n = NBElmt_Prioqueue(*Delivery);
@@ -166,11 +169,14 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
         int deliveryTime = TIMEToMenit(Delivery->T[i].delivery_time);
         if (deliveryTime - timeAdded <= 0)
         {
-                Dequeue_Prioqueue(Delivery, &temp);
-                temptime = TIMEToMenit(FoodExpiry(temp));
+                Dequeue_Prioqueue(Delivery, &foodAffected);
+                insertLast_ListFoodStatik(&notif, foodAffected);
+                adaNotif = true;
+                jenisNotif = 2;
+                temptime = TIMEToMenit(FoodExpiry(foodAffected));
                 temptime += (deliveryTime - timeAdded);
                 if (temptime > 0) {
-                    Enqueue_Prioqueue(Inventory, temp);
+                    Enqueue_Prioqueue(Inventory, foodAffected);
                     Inventory->T[i].expiry_time = MenitToTIME(temptime);
             }   
         }
@@ -184,14 +190,16 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
             int inventoryTime = TIMEToMenit(Inventory->T[i].expiry_time);
             if (inventoryTime - timeAdded <= 0)
         {
+            adaNotif = true;
             if (NBElmt_Prioqueue(*Inventory) == 1){
-                Dequeue_Prioqueue(Inventory, &temp);
+                Dequeue_Prioqueue(Inventory, &foodAffected);
                 MakeEmpty_Prioqueue(Inventory, 1000);
             } else {
-                Dequeue_Prioqueue(Inventory, &temp);
-                //DisplayFood(temp);
-        
+                Dequeue_Prioqueue(Inventory, &foodAffected);
+                //DisplayFood(foodAffected);
             }
+            insertLast_ListFoodStatik(&notif, foodAffected);   
+            jenisNotif = 1;
         }
         else if (inventoryTime - timeAdded > 0)
         {
