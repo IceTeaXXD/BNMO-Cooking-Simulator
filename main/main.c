@@ -201,7 +201,6 @@ int main (){
                 printf("Player tidak dalam radius telephone\n");
             }
         }
-        // WAIT 10 11
         else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
             int jam, menit;
             if (CharIsInt(currentWord.TabWord[5]) && CharIsInt(currentWord.TabWord[6]) && CharIsInt(currentWord.TabWord[8]) && CharIsInt(currentWord.TabWord[9])){
@@ -225,6 +224,7 @@ int main (){
                 jam = 0;
                 menit = 0;
             }
+            printf("Waktu bertambah sebanyak %d jam dan %d menit!\n", jam, menit);
             timeLogic(0, jam, menit, &GameTime, &Delivery, &p.inventory);
             tambahTime = false;
         }
