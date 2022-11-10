@@ -51,10 +51,12 @@ void printTree (addressTree P, int h);
 
 boolean isTreeElmt (addressTree P, int X);
 
-addressTree toAddress (addressTree P, int X);
+addressTree getAddress (addressTree P, int X);
 
 int Treemachine(char string[], Matrix *m);
 
 void matrixToTree (Matrix m, int N, Tree *T);
+
+addressTree getParent(addressTree root,addressTree C);
 
 #endif
