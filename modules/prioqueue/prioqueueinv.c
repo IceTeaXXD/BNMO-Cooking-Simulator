@@ -149,27 +149,7 @@ void PrintPrioqueueinv (Prioqueueinv Q){
     int i;
     if (IsEmpty_Prioqueue(Q)){
         printf("Queue is empty\n");
-    }
-    // else {
-    //     i = Head(Q);
-    //     int idx = 1;
-    //     boolean flag = true;
-    //     while (i != Tail(Q)){
-    //         flag = false;
-    //         printf("%d. ",idx);
-    //         idx++;
-
-    //         PrintWord(FoodName(Q.T[i]));
-    //         printf(" (");
-    //         Timetokata(FoodDelivery(Q.T[i]));
-    //         printf(")\n");
-    //         i = (i + 1) % MaxElQ(Q);
-    //     }
-    //     if (flag){
-    //         printf("kONTOL Queue is empty\n");
-    //     }
-    // }
-    else {
+    } else {
         i = Head(Q);
         int idx = 1;
         while (i != Tail(Q)){
@@ -246,36 +226,5 @@ void Enqueue_Prioqueue_Delivery(Prioqueueinv *Q, food X){
             i = j;
             j = (i == 0) ? MaxElQ(*Q) - 1 : i - 1;
         }
-    
-
-
-     /*--------------------------------------------------------*/   
-    /*    found = false;
-        idx = Head(*Q);
-        while ((idx != Tail(*Q)) && (!found)){
-            int food_expired = TIMEToMenit(X.expiry_time);
-            int head_expired = TIMEToMenit(InfoHead(*Q).expiry_time);
-            if (food_expired < head_expired){
-                found = true;
-            }
-            else {
-                idx = (idx + 1) % MaxElQ(*Q);
-            }
-        }
-        if (found){
-            i = Tail(*Q);
-            while (i != idx){
-                j = (i - 1 + MaxElQ(*Q)) % MaxElQ(*Q);
-                (*Q).T[i] = (*Q).T[j];
-                i = j;
-            }
-            (*Q).T[idx] = X;
-            Tail(*Q) = (Tail(*Q) + 1) % MaxElQ(*Q);
-        }
-        else {
-            Tail(*Q) = (Tail(*Q) + 1) % MaxElQ(*Q);
-            InfoTail(*Q) = X;
-        }
     }
-    // } */ }
 }

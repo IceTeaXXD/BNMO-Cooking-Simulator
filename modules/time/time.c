@@ -141,19 +141,7 @@ void Timetokata(TIME waktu)
     }
 }
 
-    // if (Day(waktu) > 0){
-    //     printf("%d Hari ", Day(waktu));
-    // }
-    // if (Hour(waktu) > 0){
-    //     printf("%d Jam ", Hour(waktu));
-    // }
-    // if (MM(waktu) > 0){
-    //     printf("%d menit", MM(waktu));
-    // }
-    // if (Day(waktu) == 0 && Hour(waktu) == 0 && MM(waktu) == 0){
-    //     printf("0");
-    // }
-   
+
 void TambahTime (TIME * T, int DD, int HH, int MM)
 // menambah time dengan DD hari, HH jam, MM menit
 {
@@ -171,30 +159,19 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
     food temp;
     int temptime;
     TambahTime(gameTime, DD, HH, MM);
-    int n = NBElmt_Prioqueue(*Delivery)-1;
-    int n1 = NBElmt_Prioqueue(*Inventory)-1;
+    int n = NBElmt_Prioqueue(*Delivery);
+    int n1 = NBElmt_Prioqueue(*Inventory);
     for (i = 0; i < n; i++)
     {
         int deliveryTime = TIMEToMenit(Delivery->T[i].delivery_time);
         if (deliveryTime - timeAdded <= 0)
         {
-            if (NBElmt_Prioqueue(*Delivery) == 1){
-                
-            } else {
-                //printf("%d", deliveryTime - timeAdded);
                 Dequeue_Prioqueue(Delivery, &temp);
-                //printf("%d", NBElmt_Prioqueue(*Delivery)-1);
                 temptime = TIMEToMenit(FoodExpiry(temp));
                 temptime += (deliveryTime - timeAdded);
-                //printf("%d", temptime);
                 if (temptime > 0) {
-                    //DisplayFood(temp);
-                    //FoodExpiry(temp) = MenitToTIME(temptime);
-                    //DisplayFood(temp);
-                    //printf("\n");
                     Enqueue_Prioqueue(Inventory, temp);
                     Inventory->T[i].expiry_time = MenitToTIME(temptime);
-                }
             }   
         }
         else if (deliveryTime - timeAdded > 0)
