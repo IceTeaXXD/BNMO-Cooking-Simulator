@@ -94,4 +94,5 @@ void PrintPrioqueueinv (Prioqueueinv Q);
 */
 void PrintInvPrio(Prioqueueinv Q);
 
+void Enqueue_Prioqueue_Delivery(Prioqueueinv *Q, food X);
 #endif

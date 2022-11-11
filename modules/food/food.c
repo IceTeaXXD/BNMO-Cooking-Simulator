@@ -3,6 +3,7 @@
 #include "../prioqueue/prioqueueinv.h"
 //#include "../time/time.c"
 //#include "../wordmachine/wordmachine.c"
+//#include "../liststatik/liststatik.c"
 //#include "../wordmachine/charmachine.c"
 
 void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery){
@@ -69,18 +70,24 @@ boolean isEmpty_ListFoodStatik(ListFoodStatik l){
 
 void printList_ListFoodStatik(ListFoodStatik l){
     int i;
-    char *s;
-    printf("[");
+    //printf("[");
     for (i = 0; i < listLength_ListFoodStatik(l); i++) {
-        PrintWord(FoodName(LISTELMT(l,i)));
+        printf("    %d. ", i + 1);
+        PrintWord(FoodName(LISTELMT(l,i))); printf(" - ");
+        printf("Kadaluwarsa : ");
+        Timetokata(FoodExpiry(LISTELMT(l,i))); printf(" - ");
+        PrintWord(FoodAction(LISTELMT(l,i))); printf(" - ");
+        printf("Delivery : ");
+        Timetokata(FoodTime(LISTELMT(l,i)));
+        printf("\n");
         /*for (s = FoodName(LISTELMT(l, i))[0]; *s != '\0'; s++)
         {
             printf("%c", *s);
         }*/
-        if (i < listLength_ListFoodStatik(l) - 1)
-            printf(",");
+        //if (i < listLength_ListFoodStatik(l) - 1)
+            //printf(",");
     }
-    printf("]");
+    //printf("]");
 }
 /* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung 
    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
