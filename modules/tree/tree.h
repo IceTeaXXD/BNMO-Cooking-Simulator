@@ -9,6 +9,9 @@
 #include "../wordmachine/wordmachine.h"
 #include "../matrix/matrix.h"
 
+/*  Kamus Umum */
+#define CAPACITY 100
+/* Kapasitas penyimpanan */
 
 /* Definisi Type Data */
 typedef struct tNode *addressTree;
@@ -22,11 +25,18 @@ typedef struct {
     addressTree root;
 } Tree;
 
+typedef Tree ListTreeStatik_ElType;
+typedef int ListTreeStatik_IdxType;
+typedef struct {
+    ListTreeStatik_ElType contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
+} ListTreeStatik;
+
 
 #define Data(P) (P)->data
 #define FirstChild(P) (P)->firstChild
 #define NextSibling(P) (P)->nextSibling
 #define Root(T) (T).root
+#define LISTELMT(l, i) (l).contents[(i)]
 
 /* Definisi Pohon : */
 /* Pohon kosong : P = Nil */
@@ -58,5 +68,15 @@ int Treemachine(char string[], Matrix *m);
 void matrixToTree (Matrix m, int N, Tree *T);
 
 addressTree getParent(addressTree root,addressTree C);
+
+void CreateListTreeStatik(ListTreeStatik *l);
+
+int listLength_ListTreeStatik(ListTreeStatik l);
+
+boolean isEmpty_ListTreeStatik(ListTreeStatik l);
+
+void insertLast_ListTreeStatik(ListTreeStatik *l, ListTreeStatik_ElType val);
+
+void printList_ListTreeStatik(ListTreeStatik l);
 
 #endif

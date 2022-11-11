@@ -3,8 +3,8 @@
 #include "tree.h"
 // #include "../liststatik/liststatik.c"
 // #include "../wordmachine/charmachine.c"
-// #include "../wordmachine/wordmachine.c"
-// #include "../matrix/matrix.c"
+#include "../wordmachine/wordmachine.c"
+#include "../matrix/matrix.c"
 
 /*KONSTRUKTOR*/
 void CreateTree(Tree *T){
@@ -202,4 +202,56 @@ addressTree getParent(addressTree root,addressTree C){
         }
         return NULL;
     }
+}
+    /* ----------------------------------------------- */
+
+void CreateListTreeStatik(ListTreeStatik *l)
+/* I.S. l sembarang */
+/* F.S. Terbentuk List l kosong dengan kapasitas CAPACITY */
+/* Proses: Inisialisasi semua elemen List l dengan LISTMARK */
+{
+    int i;
+    for (i = 0; i < CAPACITY; i++){
+        LISTELMT(*l, i).root = NULL;
+    }
+}
+int listLength_ListTreeStatik(ListTreeStatik l)
+/* Mengirimkan banyaknya elemen efektif List */
+/* Mengirimkan nol jika List kosong */
+{
+    int i, count;
+    count = 0;
+    for (i = 0 ; i < CAPACITY ; i++){
+        if (LISTELMT(l, i).root != NULL){
+            count++;
+        }
+    }
+    return count;
+}
+boolean isEmpty_ListTreeStatik(ListTreeStatik l){
+    return (listLength_ListTreeStatik(l) == 0);
+}
+
+void insertLast_ListTreeStatik(ListTreeStatik *l, ListTreeStatik_ElType val)
+/* Proses: Menambahkan val sebagai elemen terakhir List */
+/* I.S. List l boleh kosong, tetapi tidak penuh */
+/* F.S. val adalah elemen terakhir l yang baru */
+{
+    LISTELMT(*l, listLength_ListTreeStatik(*l)) = val;
+}
+void printList_ListTreeStatik(ListTreeStatik l)
+/* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung 
+   siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
+   karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
+/* I.S. l boleh kosong */
+/* F.S. Jika l tidak kosong: [e1,e2,...,en] */
+/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
+/* Jika List kosong : menulis [] */
+{
+    int i;
+    for (i = 0; i < listLength_ListTreeStatik(l); i++) {
+        printTree(LISTELMT(l,i).root, 0);
+        printf("\n------------------- %d -------------------\n", i+1);
+    }   
+
 }
