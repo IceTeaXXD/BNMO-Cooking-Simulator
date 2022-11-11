@@ -170,6 +170,7 @@ int main (){
         //prinf buat command kalo ke M,T,C,F,B,DLL);
         printf("%c Others:\n",204);
         printf("%c%c BUY\n",204,205);
+        printf("%c%c CATALOG\n",204,205);
         printf("%c%c DELIVERY\n",204,205);
         printf("%c%c INVENTORY\n",204,205);
         printf("%c%c WAIT <JAM> <MENIT>\n",204,205);
@@ -197,6 +198,11 @@ int main (){
         else if (compareString(currentWord,"INVENTORY")){
             tambahTime = false;
             PrintInvPrio(p.inventory);
+        }
+        else if (compareString(currentWord,"CATALOG")){
+            printf("\nList Makanan :\n");
+            tambahTime = false;
+            printList_ListFoodStatik(Foods);
         }
         
         else if (compareString(currentWord,"BUY")){
