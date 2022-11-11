@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include "time.h"
 
+food foodAffected;
 boolean adaNotif;
-int jenisNotif;
 ListFoodStatik notif;
+ListStatik jenis2Notif;
 
 boolean IsTIMEValid(int D, int H, int M)
 {
@@ -169,16 +170,19 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
         int deliveryTime = TIMEToMenit(Delivery->T[i].action_time);
         if (deliveryTime - timeAdded <= 0)
         {
-                Dequeue_Prioqueue(Delivery, &foodAffected);
+            adaNotif = true;
+            Dequeue_Prioqueue(Delivery, &foodAffected);
+            temptime = TIMEToMenit(FoodExpiry(foodAffected));
+            temptime += (deliveryTime - timeAdded);
+            if (temptime > 0) {
+                Enqueue_Prioqueue(Inventory, foodAffected);
+                Inventory->T[i].expiry_time = MenitToTIME(temptime);
                 insertLast_ListFoodStatik(&notif, foodAffected);
-                adaNotif = true;
-                jenisNotif = 2;
-                temptime = TIMEToMenit(FoodExpiry(foodAffected));
-                temptime += (deliveryTime - timeAdded);
-                if (temptime > 0) {
-                    Enqueue_Prioqueue(Inventory, foodAffected);
-                    Inventory->T[i].expiry_time = MenitToTIME(temptime);
-            }   
+                insertLast_ListStatik(&jenis2Notif, 2);                 //makanan yang sudah sampai mempunyai jenis notifikasi 2
+            } else {
+                insertLast_ListFoodStatik(&notif, foodAffected);
+                insertLast_ListStatik(&jenis2Notif, 3);                 //makanan yang sampai tapi busuk mempunyai jenis notifikasi 3
+            }
         }
         else if (deliveryTime - timeAdded > 0)
         {
@@ -189,22 +193,22 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
         for (i = 0; i < n1; i++){
             int inventoryTime = TIMEToMenit(Inventory->T[i].expiry_time);
             if (inventoryTime - timeAdded <= 0)
-        {
-            adaNotif = true;
-            if (NBElmt_Prioqueue(*Inventory) == 1){
-                Dequeue_Prioqueue(Inventory, &foodAffected);
-                MakeEmpty_Prioqueue(Inventory, 1000);
-            } else {
-                Dequeue_Prioqueue(Inventory, &foodAffected);
-                //DisplayFood(foodAffected);
+            {
+                adaNotif = true;
+                if (NBElmt_Prioqueue(*Inventory) == 1){
+                    Dequeue_Prioqueue(Inventory, &foodAffected);
+                    MakeEmpty_Prioqueue(Inventory, 1000);
+                } else {
+                    Dequeue_Prioqueue(Inventory, &foodAffected);
+                    //DisplayFood(foodAffected);
+                }
+                insertLast_ListFoodStatik(&notif, foodAffected);   
+                insertLast_ListStatik(&jenis2Notif, 1);                 //makanan yang sudah kadaluarsa memnpunyai jenis notifikasi 1
             }
-            insertLast_ListFoodStatik(&notif, foodAffected);   
-            jenisNotif = 1;
-        }
-        else if (inventoryTime - timeAdded > 0)
-        {
-            Inventory->T[i].expiry_time= MenitToTIME(inventoryTime - timeAdded);
-        } 
+            else if (inventoryTime - timeAdded > 0)
+            {
+                Inventory->T[i].expiry_time= MenitToTIME(inventoryTime - timeAdded);
+            } 
         }
     }
 

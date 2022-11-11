@@ -114,5 +114,11 @@ void insertLast_ListFoodStatik(ListFoodStatik *l, ElType val);
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 
+void deleteFirst_ListFoodStatik(ListFoodStatik *l, ElType *val);
+
+void deleteAt_ListFoodStatik(ListFoodStatik *l, ElType *val, IdxType idx);
+
+void deleteLast_ListFoodStatik(ListFoodStatik *l, ElType *val);
+
 #endif  
 

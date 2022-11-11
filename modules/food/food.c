@@ -147,7 +147,40 @@ void insertLast_ListFoodStatik(ListFoodStatik *l, ElType val){
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
+void deleteFirst_ListFoodStatik(ListFoodStatik *l, ElType *val){
+    int i;
+    food undef;
+    FoodId(undef) = LISTMARK;
+    if (!isEmpty_ListFoodStatik(*l)){
+        *val = LISTELMT(*l, 0);
+        for (i = 0; i < listLength_ListFoodStatik(*l) - 1; i++){
+            LISTELMT(*l, i) = LISTELMT(*l, i + 1);
+            }
+        }
+        LISTELMT(*l, listLength_ListFoodStatik(*l) - 1) = undef; 
+}
 
+void deleteAt_ListFoodStatik(ListFoodStatik *l, ElType *val, IdxType idx){
+    int i;
+    food undef;
+    FoodId(undef) = LISTMARK;
+    if (!isEmpty_ListFoodStatik(*l)){
+        *val = LISTELMT(*l, idx);
+        for (i = idx; i < listLength_ListFoodStatik(*l) - 1; i++){
+            LISTELMT(*l, i) = LISTELMT(*l, i + 1);
+            }
+        }
+        LISTELMT(*l, listLength_ListFoodStatik(*l) - 1) = undef;
+}
+
+void deleteLast_ListFoodStatik(ListFoodStatik *l, ElType *val){
+    food undef;
+    FoodId(undef) = LISTMARK;
+    if (!isEmpty_ListFoodStatik(*l)){
+        *val = LISTELMT(*l, listLength_ListFoodStatik(*l) - 1);
+        LISTELMT(*l, listLength_ListFoodStatik(*l) - 1) = undef;
+    }
+}
 void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
     int N;
     STARTWORD_FILE(filename);
