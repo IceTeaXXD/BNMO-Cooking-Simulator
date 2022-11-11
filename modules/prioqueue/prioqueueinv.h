@@ -95,4 +95,8 @@ void PrintPrioqueueinv (Prioqueueinv Q);
 void PrintInvPrio(Prioqueueinv Q);
 
 void Enqueue_Prioqueue_Delivery(Prioqueueinv *Q, food X);
+
+void deleteAt_Prioqueue(Prioqueueinv *Q, int idx, food *f);
+
+
 #endif

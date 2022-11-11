@@ -228,3 +228,16 @@ void Enqueue_Prioqueue_Delivery(Prioqueueinv *Q, food X){
         }
     }
 }
+
+void deleteAt_Prioqueue(Prioqueueinv *Q, int idx, food *f){
+    //kamus
+    int i;
+    food temp;
+    //algoritma
+    for (i=idx-1;i>=0;i--){
+        temp=Elmt(*Q,i);
+        Elmt(*Q,i)=Elmt(*Q,i-1);
+        Elmt(*Q,i-1)=temp;
+    }
+    Dequeue_Prioqueue(Q,f);
+}
