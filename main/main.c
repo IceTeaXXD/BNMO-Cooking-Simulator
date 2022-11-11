@@ -65,10 +65,6 @@ void terminate(){
     printf(":.,' ,' ,'  ,'  /   /   /   ,-------------------.   \\   \\   \\  `. `.`. `..:\n");
     printf(",' ,'  '   /   /   /   /   //                   \\\\   \\   \\   \\   \\  ` `..:\n");
 }
-food foodAffected;
-extern boolean adaNotif;
-extern int jenisNotif;
-extern ListFoodStatik notif;
 
 int main (){
     //inisiasi program
@@ -77,7 +73,7 @@ int main (){
     char keluar[NMax]="EXIT";
     char mulai[NMax]="START";
     char input[NMax];
-    int i, idxNotif;
+    int i, idxNotif, jenisNotif, banyakNotif;
     boolean tambahTime;
     //KAMUS ADT
     Word titiK={".",1};
@@ -86,6 +82,10 @@ int main (){
     TIME T;
     Word nameTemp;
     player p;
+    food foodAffected;
+    extern boolean adaNotif;
+    extern ListStatik jenis2Notif;
+    extern ListFoodStatik notif;
     ReadMap_FILE(&m,&LOC(p), "../modules/map/testMap.txt");
 
     // Delivery
@@ -96,6 +96,7 @@ int main (){
     MakeEmpty_Prioqueue(&Delivery,1000);
     ReadFood_FILE("../cfg/food.txt", &Foods);
     CreateListFoodStatik(&notif);
+    CreateListStatik(&jenis2Notif);
 
     // GAME TIME
     TIME GameTime;
@@ -131,22 +132,28 @@ int main (){
         printf("\n");
         if (adaNotif) {
             printf("Notifikasi: \n");
-            // if (jenisNotif==1){
-            //     PrintWord(FoodName(foodAffected)); printf(" telah kadaluarsa");
-            // } else if (jenisNotif==2) {
-            //     PrintWord(FoodName(foodAffected)); printf(" telah sampai");
-            // }
-            for (idxNotif = 1; idxNotif <= listLength_ListFoodStatik(notif); idxNotif++){
-                printf("\t %d.",idxNotif);
-                PrintWord(FoodName(foodAffected));
-                printf(" telah ");
-                if (jenisNotif == 1) {
-                    printf("kadaluarsa :(\n");
-                } else if (jenisNotif==2){
-                    printf("datang! :)\n");
-                }
+            // printList_ListFoodStatik(notif);printList_ListStatik(jenis2Notif);
+            // printf("ada %d notif\n", listLength_ListFoodStatik(notif));
+            banyakNotif = listLength_ListFoodStatik(notif);
+            for (idxNotif = 0; idxNotif < banyakNotif; idxNotif++){
+                printf("\t %d.",idxNotif+1);
+                deleteFirst_ListStatik(&jenis2Notif, &jenisNotif);
+                deleteFirst_ListFoodStatik(&notif, &foodAffected);
+                    switch (jenisNotif)
+                    {
+                    case 1:
+                        PrintWord(FoodName(foodAffected)); printf(" kedaluwarsa..:(\n");
+                        break;
+                    case 2:
+                        PrintWord(FoodName(foodAffected)); printf(" telah diterima oleh BNMO!\n");
+                        break;
+                    case 3:
+                        PrintWord(FoodName(foodAffected)); printf(" kedaluwarsa! Kamu kelamaan..:(\n");
+                        break;
+                    }
             }
             CreateListFoodStatik(&notif);
+            CreateListStatik(&jenis2Notif);
             adaNotif = false;
         } else {
             printf("Notifikasi: -"); 
