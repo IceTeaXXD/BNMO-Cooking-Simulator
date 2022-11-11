@@ -77,7 +77,7 @@ void printList_ListFoodStatik(ListFoodStatik l){
         printf("Kadaluwarsa : ");
         Timetokata(FoodExpiry(LISTELMT(l,i))); printf(" - ");
         PrintWord(FoodAction(LISTELMT(l,i))); printf(" - ");
-        printf("Delivery : ");
+        printf("Process Time : ");
         Timetokata(FoodTime(LISTELMT(l,i)));
         printf("\n");
         /*for (s = FoodName(LISTELMT(l, i))[0]; *s != '\0'; s++)
