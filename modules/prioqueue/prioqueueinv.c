@@ -241,3 +241,54 @@ void deleteAt_Prioqueue(Prioqueueinv *Q, int idx, food *f){
     }
     Dequeue_Prioqueue(Q,f);
 }
+
+void PrintCookPrio(Prioqueueinv Q){
+    int i;
+    if (IsEmpty_Prioqueue(Q)){
+        printf("Tidak ada yang bisa diolah\n");
+    }
+    else{
+        i = Head(Q);
+        int idx = 1;
+        while (i != Tail(Q)){
+            printf("    %d. ",idx);
+            idx++;
+
+            PrintWord(FoodName(Q.T[i]));
+            printf(" (");
+            Timetokata(FoodExpiry(Q.T[i]));
+            printf(")\n");
+            i = (i + 1) % MaxElQ(Q);
+        }
+        printf("%d. ",idx);
+        idx++;
+
+        PrintWord(FoodName(Q.T[i]));
+        printf(" (");
+        Timetokata(FoodExpiry(Q.T[i]));
+        printf(")\n");
+    }
+}
+
+/*Search index dari FoodId pada Prioqueue*/
+int indexOf_Prioqueue(Prioqueueinv Q, int val)
+/* Search apakah ada elemen List l yang bernilai val */
+/* Jika ada, menghasilkan indeks i terkecil, dengan LISTELMT(l,i) = val */
+/* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
+/* Skema Searching yang digunakan bebas */
+{
+    int i = 0;
+    boolean found = false;
+    while (!found && i < NBElmt_Prioqueue(Q)) {
+        if (FoodId(Elmt(Q, i)) == val) {
+            found = true;
+        } else {
+            i++;
+        }
+    }
+    if (found) {
+        return i;
+    } else {
+        return Nil;
+    }
+}
