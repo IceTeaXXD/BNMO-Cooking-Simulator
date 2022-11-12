@@ -168,14 +168,15 @@ int main (){
         printf("%c%c MOVE SOUTH\n",204,205);
         printf("%c%c MOVE WEST\n",204,205);
         //prinf buat command kalo ke M,T,C,F,B,DLL);
-        printf("%c Others:\n",204);
+        printf("%c Cooking:\n",204);
         printf("%c%c BUY\n",204,205);
-        printf("%c%c CATALOG\n",204,205);
+        printf("%c%c CHOP\n",204,205);
+        printf("%c Others:\n",204);
+        printf("%c%c WAIT\n",204,205);
         printf("%c%c DELIVERY\n",204,205);
         printf("%c%c INVENTORY\n",204,205);
-        printf("%c%c WAIT <JAM> <MENIT>\n",204,205);
+	    printf("%c%c CATALOG\n",204,205);
         printf("%c Exit Program\n",204);
-        printf("%c%c EXIT\n",200,205);
         
         printf("\nENTER COMMAND: ");
         STARTSENTENCE(); 
@@ -211,9 +212,18 @@ int main (){
             }
             else{
                 tambahTime = false;
-                printf("Player tidak dalam radius telephone\n");
+                printf("Player tidak dalam radius telephone (T)\n");
+            }
+        } else if (compareString(currentWord,"CHOP"))
+        {
+            if(isAdjacentToChop(m,p.loc)){
+                //masih lieur
+            } else {
+                tambahTime=false;
+                printf("Player tidak dalam radius Chop (C)\n");
             }
         }
+        
         else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
             int jam, menit;
             if (CharIsInt(currentWord.TabWord[5]) && CharIsInt(currentWord.TabWord[6]) && CharIsInt(currentWord.TabWord[8]) && CharIsInt(currentWord.TabWord[9])){
