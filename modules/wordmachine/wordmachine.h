@@ -55,7 +55,11 @@ void STARTWORD_FILE(char filename[]);
 
 int WordToInt(Word string);
 
+boolean WordIsInt(Word kata);
+
 boolean CharIsInt(char c);
+
+Word MergeWord(Word kata1, Word kata2);
 
 void ADVNEWLINE();
 
