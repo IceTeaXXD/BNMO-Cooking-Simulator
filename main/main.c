@@ -81,18 +81,24 @@ int main (){
     Matrix m;
     TIME T;
     Word nameTemp;
-    player p;
+    player p;CreatePlayer(&p);
     food foodAffected;
     extern boolean adaNotif;
     extern ListStatik jenis2Notif;
     extern ListFoodStatik notif;
     ReadMap_FILE(&m,&LOC(p), "../modules/map/testMap.txt");
-
+    //Constructor Tree
+    Matrix n;
+    ListTreeStatik lt;
+    CreateListTreeStatik(&lt);
+    createMatrix(100,100,&n);
+    int N = Treemachine("../cfg/resep.txt",&n);
+    Tree tree;
+    matrixToTree(n,N,&tree);
+    insertLast_ListTreeStatik(&lt, tree);
     // Delivery
-    CreatePlayer(&p);
     Prioqueueinv Delivery;
-    ListFoodStatik Foods;
-    CreateListFoodStatik(&Foods);
+    ListFoodStatik Foods;CreateListFoodStatik(&Foods);
     MakeEmpty_Prioqueue(&Delivery,1000);
     ReadFood_FILE("../cfg/food.txt", &Foods);
     CreateListFoodStatik(&notif);
@@ -136,7 +142,7 @@ int main (){
             // printf("ada %d notif\n", listLength_ListFoodStatik(notif));
             banyakNotif = listLength_ListFoodStatik(notif);
             for (idxNotif = 0; idxNotif < banyakNotif; idxNotif++){
-                printf("\t %d.",idxNotif+1);
+                printf("   %d. ",idxNotif+1);
                 deleteFirst_ListStatik(&jenis2Notif, &jenisNotif);
                 deleteFirst_ListFoodStatik(&notif, &foodAffected);
                     switch (jenisNotif)
@@ -216,12 +222,12 @@ int main (){
             }
         } else if (compareString(currentWord,"CHOP"))
         {
-            if(isAdjacentToChop(m,p.loc)){
-                //masih lieur
-            } else {
-                tambahTime=false;
-                printf("Player tidak dalam radius Chop (C)\n");
-            }
+            // if(isAdjacentToChop(m,p.loc)){
+            CHOP(&INVENTORY(p),Foods, tree);
+            // } else {
+                // tambahTime=false;
+                // printf("Player tidak dalam radius Chop (C)\n");
+            // }
         }
         
         else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
@@ -254,11 +260,6 @@ int main (){
         else if (compareString(currentWord,"EXIT")){
             printf("Thank you for playing!\n");
             printf("See you next time!\n");
-            break;
-        }
-
-        else if (compareString(currentWord,keluar)){
-            terminate();
             break;
         }
         else {

@@ -1,6 +1,7 @@
 #include "food.h"
 #include "../utility/boolean.h"
 #include "../prioqueue/prioqueueinv.h"
+#include "../tree/tree.h"
 //#include "../time/time.c"
 //#include "../wordmachine/wordmachine.c"
 //#include "../liststatik/liststatik.c"
@@ -319,4 +320,83 @@ food idtofood(int id, ListFoodStatik L){
     }
     return LISTELMT(L, i);
     
+}
+
+void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
+    printf("=======================================\n");
+    printf("=                 CHOP                =\n");
+    printf("=======================================\n");
+    printf("Pilih bahan makanan yang ingin di-CHOP:\n");
+    //kamus
+    int i,count;
+    int lockIdx;
+    int idx;
+    addressTree p;
+    addressTree child;
+    addressTree parent;
+    child=Root(T);
+    Prioqueueinv temp, process;
+    MakeEmpty_Prioqueue(&temp,20);
+    MakeEmpty_Prioqueue(&process,20);
+    food pud, tempFood, store;
+    //algoritma
+    count = 0;
+    if(IsEmpty_Prioqueue(*Inventory)){
+        printf("Inventory Kosong\n");
+    } else {
+        for (i=0;i<=NBElmt_Prioqueue(*Inventory);i++){
+
+            p=getAddress(child,FoodId(Elmt(*Inventory,i)));
+            parent=getParent(Root(T),p);
+            if (parent==NULL){
+                continue;
+            }
+            pud=idtofood(Data(parent), Foods);
+            if (compareString(FoodAction(pud),"Chop")){
+                count++;
+                store=pud;
+                deleteAt_Prioqueue(Inventory,i,&tempFood);
+                Enqueue_Prioqueue(&temp,Elmt(*Inventory,i));
+                Enqueue_Prioqueue(&process,pud);
+            }
+        }
+    }
+    // PrintInvPrio(process);
+    if (!IsEmpty_Prioqueue(temp)){
+        PrintCookPrio(temp);
+        printf("\nKirim 0 untuk cancel CHOP.");
+        printf("\nEnter Command: ");
+        STARTWORD();
+        if (WordIsInt(currentWord)){
+            int idx = WordToInt(currentWord);
+            if (idx == 0){
+                Enqueue_Prioqueue(Inventory,tempFood);
+            } else if (idx > 0 && idx <= count){
+                int j = 0;
+                for (i=0;i<NBElmt_Prioqueue(temp);i++){
+                    j++;
+                    if (j == idx){
+                        PrintWord(FoodName(Elmt(temp, i)));
+                        printf(" menjadi ");
+                        PrintWord(FoodName(store));
+                        printf(" dalam ");
+                        Timetokata(FoodTime(LISTELMT(Foods, i)));
+                        printf(".\n");
+                        FoodTime(store).MM++;
+                        Enqueue_Prioqueue(Inventory, store);
+                        break;
+                    }
+                }
+            } 
+            else {
+                printf("Invalid input.\n");
+            }
+        } 
+        else {
+            printf("Invalid input.\n");
+        }
+    } else {
+        printf("Tidak Ada!\nSilahkan membeli bahan makanan dahulu\n");
+    }
+
 }

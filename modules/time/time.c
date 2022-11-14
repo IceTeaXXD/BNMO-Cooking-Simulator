@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "time.h"
+#include "../liststatik/liststatik.h"
 
 food foodAffected;
 boolean adaNotif;
