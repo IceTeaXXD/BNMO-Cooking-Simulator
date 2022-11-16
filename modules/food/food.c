@@ -329,7 +329,7 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
     printf("Pilih bahan makanan yang ingin di-CHOP:\n");
     //kamus
     int i,count;
-    int lockIdx;
+    int lockIdx, lockIdx2;
     int idx;
     addressTree p;
     addressTree child;
@@ -344,7 +344,7 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
     if(IsEmpty_Prioqueue(*Inventory)){
         printf("Inventory Kosong\n");
     } else {
-        for (i=0;i<=NBElmt_Prioqueue(*Inventory);i++){
+        for (i=0;i<NBElmt_Prioqueue(*Inventory);i++){
 
             p=getAddress(child,FoodId(Elmt(*Inventory,i)));
             parent=getParent(Root(T),p);
@@ -352,12 +352,11 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
                 continue;
             }
             pud=idtofood(Data(parent), Foods);
+            PrintWord(FoodName(pud));
             if (compareString(FoodAction(pud),"Chop")){
                 count++;
                 store=pud;
-                deleteAt_Prioqueue(Inventory,i,&tempFood);
                 Enqueue_Prioqueue(&temp,Elmt(*Inventory,i));
-                Enqueue_Prioqueue(&process,pud);
             }
         }
     }
@@ -370,12 +369,14 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
         if (WordIsInt(currentWord)){
             int idx = WordToInt(currentWord);
             if (idx == 0){
-                Enqueue_Prioqueue(Inventory,tempFood);
+                printf("Exiting CHOP\n");
             } else if (idx > 0 && idx <= count){
                 int j = 0;
                 for (i=0;i<NBElmt_Prioqueue(temp);i++){
                     j++;
                     if (j == idx){
+                        lockIdx2=indexOf_Prioqueue(temp,FoodId(Elmt(temp,i)));
+                        deleteAt_Prioqueue(&temp,lockIdx2,&tempFood);
                         PrintWord(FoodName(Elmt(temp, i)));
                         printf(" menjadi ");
                         PrintWord(FoodName(store));
@@ -383,6 +384,8 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
                         Timetokata(FoodTime(LISTELMT(Foods, i)));
                         printf(".\n");
                         FoodTime(store).MM++;
+                        lockIdx=indexOf_Prioqueue(*Inventory,FoodId(Elmt(temp,i)));
+                        deleteAt_Prioqueue(Inventory,lockIdx,&tempFood);
                         Enqueue_Prioqueue(Inventory, store);
                         break;
                     }

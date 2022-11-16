@@ -234,7 +234,7 @@ void deleteAt_Prioqueue(Prioqueueinv *Q, int idx, food *f){
     int i;
     food temp;
     //algoritma
-    for (i=idx-1;i>=0;i--){
+    for (i=idx;i>0;i--){
         temp=Elmt(*Q,i);
         Elmt(*Q,i)=Elmt(*Q,i-1);
         Elmt(*Q,i-1)=temp;
@@ -260,7 +260,7 @@ void PrintCookPrio(Prioqueueinv Q){
             printf(")\n");
             i = (i + 1) % MaxElQ(Q);
         }
-        printf("%d. ",idx);
+        printf("    %d. ",idx);
         idx++;
 
         PrintWord(FoodName(Q.T[i]));
