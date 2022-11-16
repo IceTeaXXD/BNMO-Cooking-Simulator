@@ -322,84 +322,92 @@ food idtofood(int id, ListFoodStatik L){
     
 }
 
+
 void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
     printf("=======================================\n");
     printf("=                 CHOP                =\n");
     printf("=======================================\n");
     printf("Pilih bahan makanan yang ingin di-CHOP:\n");
-    //kamus
-    int i,count;
-    int lockIdx, lockIdx2;
-    int idx;
-    addressTree p;
-    addressTree child;
-    addressTree parent;
-    child=Root(T);
-    Prioqueueinv temp, process;
-    MakeEmpty_Prioqueue(&temp,20);
-    MakeEmpty_Prioqueue(&process,20);
-    food pud, tempFood, store;
-    //algoritma
-    count = 0;
+
+    ListFoodStatik foodAvailable;
+    CreateListFoodStatik(&foodAvailable);
+
+    int i, j, count;
+
     if(IsEmpty_Prioqueue(*Inventory)){
         printf("Inventory Kosong\n");
-    } else {
+    }
+    else{
+        // check apakah ada parent di food di inventory yang bisa di chop
+        count = 0;
         for (i=0;i<NBElmt_Prioqueue(*Inventory);i++){
-
-            p=getAddress(child,FoodId(Elmt(*Inventory,i)));
-            parent=getParent(Root(T),p);
-            if (parent==NULL){
-                continue;
-            }
-            pud=idtofood(Data(parent), Foods);
-            PrintWord(FoodName(pud));
-            if (compareString(FoodAction(pud),"Chop")){
-                count++;
-                store=pud;
-                Enqueue_Prioqueue(&temp,Elmt(*Inventory,i));
+            addressTree child = getAddress(T.root,FoodId(Elmt(*Inventory,i)));
+            addressTree parent = getParent(T.root,child);
+            if (parent != NULL){
+                food parentFood = idtofood(parent->data, Foods);
+                if (compareString(FoodAction(parentFood),"Chop")){ 
+                    count++;
+                    printf("    %d. ", count);
+                    PrintWord(FoodName(parentFood));
+                    printf(" (");
+                    Timetokata(FoodTime(parentFood));
+                    printf(")\n");
+                    insertLast_ListFoodStatik(&foodAvailable, parentFood);
+                }
             }
         }
-    }
-    // PrintInvPrio(process);
-    if (!IsEmpty_Prioqueue(temp)){
-        PrintCookPrio(temp);
-        printf("\nKirim 0 untuk cancel CHOP.");
-        printf("\nEnter Command: ");
-        STARTWORD();
-        if (WordIsInt(currentWord)){
-            int idx = WordToInt(currentWord);
-            if (idx == 0){
-                printf("Exiting CHOP\n");
-            } else if (idx > 0 && idx <= count){
-                int j = 0;
-                for (i=0;i<NBElmt_Prioqueue(temp);i++){
-                    j++;
-                    if (j == idx){
-                        lockIdx2=indexOf_Prioqueue(temp,FoodId(Elmt(temp,i)));
-                        deleteAt_Prioqueue(&temp,lockIdx2,&tempFood);
-                        PrintWord(FoodName(Elmt(temp, i)));
-                        printf(" menjadi ");
-                        PrintWord(FoodName(store));
-                        printf(" dalam ");
-                        Timetokata(FoodTime(LISTELMT(Foods, i)));
-                        printf(".\n");
-                        FoodTime(store).MM++;
-                        lockIdx=indexOf_Prioqueue(*Inventory,FoodId(Elmt(temp,i)));
-                        deleteAt_Prioqueue(Inventory,lockIdx,&tempFood);
-                        Enqueue_Prioqueue(Inventory, store);
-                        break;
+
+        if (isEmpty_ListFoodStatik(foodAvailable)){
+            printf("Tidak ada bahan makanan yang bisa di-CHOP.\n");
+        }
+
+        else{
+            printf("\nKirim 0 untuk cancel CHOP.");
+            printf("\n\nEnter Command: ");
+            STARTWORD();
+            
+            if (WordIsInt(currentWord)){
+                int idx = WordToInt(currentWord);
+                if (idx == 0){
+                    printf("Exiting Fry");
+                }
+
+                else if  (idx > 0 && idx <= count){
+                    int j = 0;
+                    for (i=0;i<listLength_ListFoodStatik(foodAvailable);i++){
+                        j++;
+                        if (j == idx){
+                            printf("Berhasil memotong ");
+                            PrintWord(FoodName(LISTELMT(foodAvailable, i)));
+                            printf(". ");
+                            PrintWord(FoodName(LISTELMT(foodAvailable, i)));
+                            printf(" akan diantar dalam ");
+                            Timetokata(FoodTime(LISTELMT(foodAvailable, i)));
+                            printf(".\n");
+                            FoodTime(LISTELMT(foodAvailable, i)).MM++;
+                            addressTree parent = getAddress(T.root, FoodId(LISTELMT(foodAvailable, i)));
+                            addressTree child = FirstChild(parent);
+                            food childFood = idtofood(child->data, Foods);
+                            // dequeue childFood dari inventory
+                            for (j=0;j<NBElmt_Prioqueue(*Inventory);j++){
+                                if (FoodId(Elmt(*Inventory,j)) == FoodId(childFood)){
+                                    Dequeue_idx_Prioqueue(Inventory, j);
+                                    break;
+                                }
+                            }
+                            Enqueue_Prioqueue(Inventory, LISTELMT(foodAvailable, i));
+                            break;
+                        }
                     }
                 }
-            } 
-            else {
-                printf("Invalid input.\n");
+                else {
+                    printf("Invalid input.\n");
+                }
             }
-        } 
-        else {
-            printf("Invalid input.\n");
         }
-    } else {
-        printf("Tidak Ada!\nSilahkan membeli bahan makanan dahulu\n");
     }
 
+}
+
+void FRY(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
 }

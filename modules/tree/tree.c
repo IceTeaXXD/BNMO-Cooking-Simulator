@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "tree.h"
 // #include "../liststatik/liststatik.c"
-// #include "../wordmachine/charmachine.c"
 // #include "../wordmachine/wordmachine.c"
 // #include "../matrix/matrix.c"
 

@@ -220,15 +220,17 @@ int main (){
                 tambahTime = false;
                 printf("Player tidak dalam radius telephone (T)\n");
             }
-        } else if (compareString(currentWord,"CHOP"))
-        {
-            // if(isAdjacentToChop(m,p.loc)){
+        } else if (compareString(currentWord,"CHOP")){
+            if(isAdjacentToChop(m,p.loc)){
             CHOP(&INVENTORY(p),Foods, tree);
-            // } else {
-                // tambahTime=false;
-                // printf("Player tidak dalam radius Chop (C)\n");
-            // }
+            } else {
+                tambahTime=false;
+                printf("Player tidak dalam radius Chop (C)\n");
+            }
         }
+        // else if (compareString(currentWord,"FRY")){
+        //     FRY(&INVENTORY(p),Foods, tree);
+        // }
         
         else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
             int jam, menit;
