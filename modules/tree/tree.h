@@ -69,6 +69,8 @@ void matrixToTree (Matrix m, int N, Tree *T);
 
 addressTree getParent(addressTree root,addressTree C);
 
+ListStatik getChild(addressTree parent);
+
 void CreateListTreeStatik(ListTreeStatik *l);
 
 int listLength_ListTreeStatik(ListTreeStatik l);

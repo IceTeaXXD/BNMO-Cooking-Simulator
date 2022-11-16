@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tree.h"
+#include "../liststatik/liststatik.h"
 // #include "../liststatik/liststatik.c"
 // #include "../wordmachine/wordmachine.c"
 // #include "../matrix/matrix.c"
+
 
 /*KONSTRUKTOR*/
 void CreateTree(Tree *T){
@@ -202,6 +204,23 @@ addressTree getParent(addressTree root,addressTree C){
         return NULL;
     }
 }
+
+ListStatik getChild(addressTree parent){
+    ListStatik L;
+    CreateListStatik(&L);
+    if(FirstChild(parent)!=NULL){
+        parent=FirstChild(parent);
+        insertLast_ListStatik(&L,Data(parent));
+        while (NextSibling(parent)!=NULL)
+        {
+            parent=NextSibling(parent);
+            insertLast_ListStatik(&L,Data(parent));
+        }            
+    }
+    return L;
+}
+
+
     /* ----------------------------------------------- */
 
 void CreateListTreeStatik(ListTreeStatik *l)
