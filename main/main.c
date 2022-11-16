@@ -240,12 +240,28 @@ int main (){
                 tambahTime=false;
                 printf("Player tidak dalam radius Chop (C)\n");
             }
-        }
-        // else if (compareString(currentWord,"FRY")){
-        //     FRY(&INVENTORY(p),Foods, tree);
-        // }
-        
-        else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
+        } else if (compareString(currentWord,"BOIL")){
+            if(isAdjacentToBoil(m,p.loc)){
+                BOIL(&INVENTORY(p),Foods, tree, &Process);
+            } else {
+                tambahTime=false;
+                printf("Player tidak dalam radius Boil (B)\n");
+            }
+        } else if (compareString(currentWord,"FRY")){
+            if(isAdjacentToFry(m,p.loc)){
+                FRY(&INVENTORY(p),Foods, tree, &Process);
+            } else {
+                tambahTime=false;
+                printf("Player tidak dalam radius Fry (F)\n");
+            }    
+        } else if (compareString(currentWord,"FRY")){
+            if(isAdjacentToMix(m,p.loc)){
+                MIX(&INVENTORY(p),Foods, tree, &Process);
+            } else {
+                tambahTime=false;
+                printf("Player tidak dalam radius Fry (F)\n");
+            }
+        } else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
             int jam, menit;
             if (CharIsInt(currentWord.TabWord[5]) && CharIsInt(currentWord.TabWord[6]) && CharIsInt(currentWord.TabWord[8]) && CharIsInt(currentWord.TabWord[9])){
                 jam = (currentWord.TabWord[5] - '0') * 10 + (currentWord.TabWord[6] - '0');

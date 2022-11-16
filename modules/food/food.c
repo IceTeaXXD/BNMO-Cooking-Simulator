@@ -413,7 +413,7 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *P
     }
 }
 
-void BOIL(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
+void BOIL(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *Process){
     printf("=======================================\n");
     printf("=                 BOIL                =\n");
     printf("=======================================\n");
@@ -490,7 +490,7 @@ void BOIL(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
                                     }
                                 }
                             }
-                            Enqueue_Prioqueue(Inventory, LISTELMT(foodAvailable, i));
+                            Enqueue_Prioqueue(Process, LISTELMT(foodAvailable, i));
                             break;
                         }
                     }
