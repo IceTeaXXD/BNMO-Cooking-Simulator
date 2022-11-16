@@ -330,6 +330,7 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
     printf("Pilih bahan makanan yang ingin di-CHOP:\n");
 
     ListFoodStatik foodAvailable;
+    ListStatik childrens;
     CreateListFoodStatik(&foodAvailable);
 
     int i, j, count;
@@ -369,7 +370,7 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
             if (WordIsInt(currentWord)){
                 int idx = WordToInt(currentWord);
                 if (idx == 0){
-                    printf("Exiting Fry");
+                    printf("Exiting Chop.\n");
                 }
 
                 else if  (idx > 0 && idx <= count){
@@ -386,13 +387,17 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
                             printf(".\n");
                             FoodTime(LISTELMT(foodAvailable, i)).MM++;
                             addressTree parent = getAddress(T.root, FoodId(LISTELMT(foodAvailable, i)));
-                            addressTree child = FirstChild(parent);
-                            food childFood = idtofood(child->data, Foods);
-                            // dequeue childFood dari inventory
-                            for (j=0;j<NBElmt_Prioqueue(*Inventory);j++){
-                                if (FoodId(Elmt(*Inventory,j)) == FoodId(childFood)){
-                                    Dequeue_idx_Prioqueue(Inventory, j);
-                                    break;
+                            childrens = getChild(parent);
+                            food childFood = idtofood(LISTELMT(childrens, 0), Foods);
+                            if (NBElmt_Prioqueue(*Inventory) == 1){
+                                MakeEmpty_Prioqueue(Inventory,1000);
+                            }
+                            else {
+                                for (j=0;j<NBElmt_Prioqueue(*Inventory);j++){
+                                    if (FoodId(Elmt(*Inventory,j)) == FoodId(childFood)){
+                                        Dequeue_idx_Prioqueue(Inventory, j);
+                                        break;
+                                    }
                                 }
                             }
                             Enqueue_Prioqueue(Inventory, LISTELMT(foodAvailable, i));

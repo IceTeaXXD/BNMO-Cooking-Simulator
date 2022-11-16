@@ -221,12 +221,12 @@ int main (){
                 printf("Player tidak dalam radius telephone (T)\n");
             }
         } else if (compareString(currentWord,"CHOP")){
-            if(isAdjacentToChop(m,p.loc)){
+            // if(isAdjacentToChop(m,p.loc)){
             CHOP(&INVENTORY(p),Foods, tree);
-            } else {
-                tambahTime=false;
-                printf("Player tidak dalam radius Chop (C)\n");
-            }
+            // } else {
+                // tambahTime=false;
+                // printf("Player tidak dalam radius Chop (C)\n");
+            // }
         }
         // else if (compareString(currentWord,"FRY")){
         //     FRY(&INVENTORY(p),Foods, tree);
