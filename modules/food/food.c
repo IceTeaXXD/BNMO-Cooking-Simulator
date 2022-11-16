@@ -502,3 +502,71 @@ void BOIL(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *P
         }
     }
 }
+
+void Mix(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *Process){
+    printf("=======================================\n");
+    printf("=                  MIX                 =\n");
+    printf("=======================================\n");
+    printf("Pilih bahan makanan yang ingin di-MIX:\n");
+
+    ListFoodStatik foodAvailable;
+    ListStatik childrens;
+    CreateListFoodStatik(&foodAvailable);
+    addressTree temp = T.root;
+    food tempf;
+    int i, j, count;
+    boolean flag = false;
+
+    if(IsEmpty_Prioqueue(*Inventory)){
+        printf("Inventory Kosong\n");
+    }
+    else{
+        // check apakah ada parent di food di inventory yang bisa di Mix
+        if (NBElmt_Prioqueue(*Inventory) >= 2){
+            while(temp != NULL){
+                tempf = idtofood(Data(temp), Foods);
+                if (compareString(FoodAction(tempf), "Mix")){
+                    childrens = getChild(temp);
+                    printList_ListStatik(childrens);
+                    for (i = 0; i < listLength_ListStatik(childrens); i++){
+                        for (j = 0; j < NBElmt_Prioqueue(*Inventory); j++){
+                            if (LISTELMT(childrens, i) == FoodId(Elmt(*Inventory,j))){
+                                flag = true;
+                                break;
+                            }
+                        }
+                        if(!flag){
+                            break;
+                        }
+                        if (i != listLength_ListStatik(childrens) - 1){
+                            flag = false;
+                        } 
+                    }
+                    if (flag){
+                        flag = false;
+                        insertLast_ListFoodStatik(&foodAvailable, tempf);
+                    }
+                    if (temp->nextSibling == NULL){
+                        temp = temp->firstChild;
+                    } else {
+                        temp = temp->nextSibling;
+                    }
+
+                } else{
+                    if (temp->nextSibling == NULL){
+                        temp = temp->firstChild;
+                    } else {
+                        temp = temp->nextSibling;
+                    }
+                }
+            }
+            printList_ListFoodStatik(foodAvailable);
+            
+            
+
+        } else {
+            printf("Tidak ada bahan makanan yang bisa di-Mix.\n");
+        }
+        
+    }
+}

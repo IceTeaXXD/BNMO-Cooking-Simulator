@@ -224,7 +224,9 @@ int main (){
             tambahTime = false;
             printList_ListFoodStatik(Foods);
         }
-        
+        else if (compareString(currentWord,"MIX")) {
+            Mix(&INVENTORY(p),Foods, tree, &Process);
+        }
         else if (compareString(currentWord,"BUY")){
             if(isAdjacentToTelephone(m,p.loc)){
                 BUY(Foods, &Delivery);
@@ -247,20 +249,20 @@ int main (){
                 tambahTime=false;
                 printf("Player tidak dalam radius Boil (B)\n");
             }
-        } else if (compareString(currentWord,"FRY")){
-            if(isAdjacentToFry(m,p.loc)){
-                FRY(&INVENTORY(p),Foods, tree, &Process);
-            } else {
-                tambahTime=false;
-                printf("Player tidak dalam radius Fry (F)\n");
-            }    
-        } else if (compareString(currentWord,"FRY")){
-            if(isAdjacentToMix(m,p.loc)){
-                MIX(&INVENTORY(p),Foods, tree, &Process);
-            } else {
-                tambahTime=false;
-                printf("Player tidak dalam radius Fry (F)\n");
-            }
+        // } else if (compareString(currentWord,"FRY")){
+        //     if(isAdjacentToFry(m,p.loc)){
+        //         FRY(&INVENTORY(p),Foods, tree, &Process);
+        //     } else {
+        //         tambahTime=false;
+        //         printf("Player tidak dalam radius Fry (F)\n");
+        //     }    
+        // } else if (compareString(currentWord,"MIX")){
+        //     if(isAdjacentToMix(m,p.loc)){
+        //         MIX(&INVENTORY(p),Foods, tree, &Process);
+        //     } else {
+        //         tambahTime=false;
+        //         printf("Player tidak dalam radius Fry (F)\n");
+        //     }
         } else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
             int jam, menit;
             if (CharIsInt(currentWord.TabWord[5]) && CharIsInt(currentWord.TabWord[6]) && CharIsInt(currentWord.TabWord[8]) && CharIsInt(currentWord.TabWord[9])){
