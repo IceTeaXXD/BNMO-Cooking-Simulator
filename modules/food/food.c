@@ -514,59 +514,105 @@ void Mix(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *Pr
     CreateListFoodStatik(&foodAvailable);
     addressTree temp = T.root;
     food tempf;
-    int i, j, count;
+    int i, j, count, counts,k, i1;
     boolean flag = false;
-
+    addressTree temp1,temp2;
+    count = 0;
     if(IsEmpty_Prioqueue(*Inventory)){
         printf("Inventory Kosong\n");
     }
-    else{
+    else {
         // check apakah ada parent di food di inventory yang bisa di Mix
         if (NBElmt_Prioqueue(*Inventory) >= 2){
-            while(temp != NULL){
-                tempf = idtofood(Data(temp), Foods);
-                if (compareString(FoodAction(tempf), "Mix")){
-                    childrens = getChild(temp);
-                    printList_ListStatik(childrens);
-                    for (i = 0; i < listLength_ListStatik(childrens); i++){
-                        for (j = 0; j < NBElmt_Prioqueue(*Inventory); j++){
-                            if (LISTELMT(childrens, i) == FoodId(Elmt(*Inventory,j))){
-                                flag = true;
-                                break;
-                            }
-                        }
-                        if(!flag){
-                            break;
-                        }
-                        if (i != listLength_ListStatik(childrens) - 1){
-                            flag = false;
-                        } 
-                    }
-                    if (flag){
-                        flag = false;
+            for (j = 0; j < NBElmt_Prioqueue(*Inventory); j++){
+                temp1 = getAddress(temp, FoodId(Elmt(*Inventory,j)));
+                temp2 = getParent(temp, temp1);
+                if (temp2 != NULL){
+                    tempf = idtofood(temp2->data, Foods);
+                    if (compareString(FoodAction(tempf),"Mix") && indexOf_ListFoodStatik(foodAvailable, FoodId(tempf)) == IDX_UNDEF){
+                        count++;
+                        printf("    %d. ", count);
+                        PrintWord(FoodName(tempf));
+                        printf(" (");
+                        Timetokata(FoodTime(tempf));
+                        printf(")\n");
                         insertLast_ListFoodStatik(&foodAvailable, tempf);
                     }
-                    if (temp->nextSibling == NULL){
-                        temp = temp->firstChild;
-                    } else {
-                        temp = temp->nextSibling;
-                    }
+                }
 
-                } else{
-                    if (temp->nextSibling == NULL){
-                        temp = temp->firstChild;
-                    } else {
-                        temp = temp->nextSibling;
-                    }
+            }
+
+        }
+        if (isEmpty_ListFoodStatik(foodAvailable)){
+            printf("Tidak ada bahan makanan yang bisa di-Mix.\n");
+        } else {
+            printf("\nKirim 0 untuk cancel MIX.");
+            printf("\n\nEnter Command: ");
+            STARTWORD();
+            
+            if (WordIsInt(currentWord)){
+                int idx = WordToInt(currentWord);
+                if (idx == 0){
+                    printf("Exiting Mix.\n");
+                }
+
+                else if  (idx > 0 && idx <= count){
+                    int j = 0;
+                    for (i=0;i<listLength_ListFoodStatik(foodAvailable);i++){
+                        j++;
+                        if (j == idx){
+                            tempf = LISTELMT(foodAvailable, i);
+                            childrens = getChild(getAddress(temp, FoodId(tempf)));
+                            for (i1 = 0; i1 < listLength_ListStatik(childrens); i1++){
+                                for (k = 0; k < NBElmt_Prioqueue(*Inventory); k++){
+                                    if (LISTELMT(childrens, i1) == FoodId(Elmt(*Inventory,k))){
+                                        flag = true;
+                                        break;
+                                    }
+                                    
+                                }
+                                if (!flag) {
+                                    break;
+                                    }
+                                if (i1 != listLength_ListStatik(childrens) - 1){
+                                        flag = false;
+                                    } 
+                            }
+                            if (flag){
+                                printf("Berhasil Melakukan Mix! Makanan ");
+                                PrintWord(FoodName(tempf));
+                                printf(" Tercipta!. ");
+                                PrintWord(FoodName(tempf));
+                                printf(" akan diantar dalam ");
+                                Timetokata(FoodTime(tempf));
+                                printf(".\n");
+                                FoodTime(LISTELMT(foodAvailable, i)).MM++;
+                                for (i1 = 0; i1 < listLength_ListStatik(childrens); i1++){
+                                    for (k = 0; k < NBElmt_Prioqueue(*Inventory); k++){
+                                        if (LISTELMT(childrens, i1) == FoodId(Elmt(*Inventory,k))){
+                                            if (NBElmt_Prioqueue(*Inventory) == 1){
+                                                MakeEmpty_Prioqueue(Inventory,1000);
+                                                break;
+                                            } else {
+                                                Dequeue_idx_Prioqueue(Inventory, k);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                Enqueue_Prioqueue(Process, LISTELMT(foodAvailable, i));
+                                break;
+
+                            } else {
+                                printf("Bahan Kamu kurang cok\n");
+                            }
+                        }
                 }
             }
-            printList_ListFoodStatik(foodAvailable);
-            
-            
-
-        } else {
-            printf("Tidak ada bahan makanan yang bisa di-Mix.\n");
+            else {
+                    printf("Invalid input.\n");
+                }
         }
-        
     }
+}
 }
