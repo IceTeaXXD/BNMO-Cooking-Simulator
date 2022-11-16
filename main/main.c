@@ -96,6 +96,7 @@ int main (){
     Tree tree;
     matrixToTree(n,N,&tree);
     insertLast_ListTreeStatik(&lt, tree);
+    
     // Delivery
     Prioqueueinv Delivery;
     ListFoodStatik Foods;CreateListFoodStatik(&Foods);
@@ -103,7 +104,11 @@ int main (){
     ReadFood_FILE("../cfg/food.txt", &Foods);
     CreateListFoodStatik(&notif);
     CreateListStatik(&jenis2Notif);
-
+    
+    //FoodTIME(Processing)
+    Prioqueueinv Process;
+    MakeEmpty_Prioqueue(&Process,100);
+    
     // GAME TIME
     TIME GameTime;
     CreateTime(&GameTime, 0, 0, 0);
@@ -151,10 +156,13 @@ int main (){
                         PrintWord(FoodName(foodAffected)); printf(" kedaluwarsa..:(\n");
                         break;
                     case 2:
-                        PrintWord(FoodName(foodAffected)); printf(" telah diterima oleh BNMO!\n");
+                        PrintWord(FoodName(foodAffected)); printf(" telah diterima oleh %s!\n",USERNAME(p));
                         break;
                     case 3:
                         PrintWord(FoodName(foodAffected)); printf(" kedaluwarsa! Kamu kelamaan..:(\n");
+                        break;
+                    case 4:
+                        PrintWord(FoodName(foodAffected)); printf(" telah selesai di "); PrintWord(FoodAction(foodAffected)); printf("!\n");
                         break;
                     }
             }
@@ -205,7 +213,12 @@ int main (){
         else if (compareString(currentWord,"INVENTORY")){
             tambahTime = false;
             PrintInvPrio(p.inventory);
+        } else if (compareString(currentWord,"COOK"))
+        {
+            tambahTime = false;
+            PrintCookPrio(Process);
         }
+        
         else if (compareString(currentWord,"CATALOG")){
             printf("\nList Makanan :\n");
             tambahTime = false;
@@ -221,12 +234,12 @@ int main (){
                 printf("Player tidak dalam radius telephone (T)\n");
             }
         } else if (compareString(currentWord,"CHOP")){
-            // if(isAdjacentToChop(m,p.loc)){
-            CHOP(&INVENTORY(p),Foods, tree);
-            // } else {
-                // tambahTime=false;
-                // printf("Player tidak dalam radius Chop (C)\n");
-            // }
+            if(isAdjacentToChop(m,p.loc)){
+                CHOP(&INVENTORY(p),Foods, tree, &Process);
+            } else {
+                tambahTime=false;
+                printf("Player tidak dalam radius Chop (C)\n");
+            }
         }
         // else if (compareString(currentWord,"FRY")){
         //     FRY(&INVENTORY(p),Foods, tree);
@@ -256,7 +269,7 @@ int main (){
                 menit = 0;
             }
             printf("Waktu bertambah sebanyak %d jam dan %d menit!\n", jam, menit);
-            timeLogic(0, jam, menit, &GameTime, &Delivery, &p.inventory);
+            timeLogic(0, jam, menit, &GameTime, &Delivery, &p.inventory,&Process);
             tambahTime = false;
         }
         else if (compareString(currentWord,"EXIT")){
@@ -269,7 +282,7 @@ int main (){
             printf("Unidentified Command\n");
         }
         if (tambahTime){
-            timeLogic(0,0,1,&GameTime,&Delivery,&p.inventory);
+            timeLogic(0,0,1,&GameTime,&Delivery,&p.inventory,&Process);
         }
         printf("press <enter> to continue\n");
         STARTSENTENCE();

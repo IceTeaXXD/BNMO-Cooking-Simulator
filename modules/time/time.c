@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "time.h"
 #include "../liststatik/liststatik.h"
+#include "../prioqueue/prioqueueinv.h"
 
 food foodAffected;
 boolean adaNotif;
@@ -157,8 +158,7 @@ void TambahTime (TIME * T, int DD, int HH, int MM)
     *T = MenitToTIME(menit);
 }
 
-// LOOPING INI MASIH TOLOL KYK HAIDAR
-void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, Prioqueueinv *Inventory)
+void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, Prioqueueinv *Inventory, Prioqueueinv *Process)
 {
     int timeAdded = DD*1440 + HH*60 + MM;
     int i;
@@ -166,28 +166,31 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
     TambahTime(gameTime, DD, HH, MM);
     int n = NBElmt_Prioqueue(*Delivery);
     int n1 = NBElmt_Prioqueue(*Inventory);
-    for (i = 0; i < n; i++)
-    {
-        int deliveryTime = TIMEToMenit(Delivery->T[i].action_time);
-        if (deliveryTime - timeAdded <= 0)
+    int n2 = NBElmt_Prioqueue(*Process);
+    if (n!=0){
+        for (i = 0; i < n; i++)
         {
-            adaNotif = true;
-            Dequeue_Prioqueue(Delivery, &foodAffected);
-            temptime = TIMEToMenit(FoodExpiry(foodAffected));
-            temptime += (deliveryTime - timeAdded);
-            if (temptime > 0) {
-                Enqueue_Prioqueue(Inventory, foodAffected);
-                Inventory->T[i].expiry_time = MenitToTIME(temptime);
-                insertLast_ListFoodStatik(&notif, foodAffected);
-                insertLast_ListStatik(&jenis2Notif, 2);                 //makanan yang sudah sampai mempunyai jenis notifikasi 2
-            } else {
-                insertLast_ListFoodStatik(&notif, foodAffected);
-                insertLast_ListStatik(&jenis2Notif, 3);                 //makanan yang sampai tapi busuk mempunyai jenis notifikasi 3
+            int deliveryTime = TIMEToMenit(Delivery->T[i].action_time);
+            if (deliveryTime - timeAdded <= 0)
+            {
+                adaNotif = true;
+                Dequeue_Prioqueue(Delivery, &foodAffected);
+                temptime = TIMEToMenit(FoodExpiry(foodAffected));
+                temptime += (deliveryTime - timeAdded);
+                if (temptime > 0) {
+                    Enqueue_Prioqueue(Inventory, foodAffected);
+                    Inventory->T[i].expiry_time = MenitToTIME(temptime);
+                    insertLast_ListFoodStatik(&notif, foodAffected);
+                    insertLast_ListStatik(&jenis2Notif, 2);                 //makanan yang sudah sampai mempunyai jenis notifikasi 2
+                } else {
+                    insertLast_ListFoodStatik(&notif, foodAffected);
+                    insertLast_ListStatik(&jenis2Notif, 3);                 //makanan yang sampai tapi busuk mempunyai jenis notifikasi 3
+                }
             }
-        }
-        else if (deliveryTime - timeAdded > 0)
-        {
-            Delivery->T[i].action_time= MenitToTIME(deliveryTime - timeAdded);
+            else if (deliveryTime - timeAdded > 0)
+            {
+                Delivery->T[i].action_time= MenitToTIME(deliveryTime - timeAdded);
+            }
         }
     }
     if (n1 != 0){
@@ -212,5 +215,31 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
             } 
         }
     }
-
+    if (n2 != 0){
+        for (i = 0; i < n2; i++)
+        {
+            int processTime = TIMEToMenit(FoodTime(Elmt(*Process,i)));
+            if (processTime - timeAdded <= 0)
+            {
+                adaNotif = true;
+                Dequeue_Prioqueue(Process, &foodAffected);
+                temptime = TIMEToMenit(FoodExpiry(foodAffected));
+                temptime += (processTime - timeAdded);
+                if (temptime > 0) {
+                    Enqueue_Prioqueue(Inventory, foodAffected);
+                    int j = indexOf_Prioqueue(*Inventory, FoodId(foodAffected));
+                    Inventory->T[j].expiry_time = MenitToTIME(temptime);
+                    insertLast_ListFoodStatik(&notif, foodAffected);
+                    insertLast_ListStatik(&jenis2Notif, 4);                 //makanan yang sudah sampai mempunyai jenis notifikasi 2
+                } else {
+                    insertLast_ListFoodStatik(&notif, foodAffected);
+                    insertLast_ListStatik(&jenis2Notif, 3);                 //makanan yang sampai tapi busuk mempunyai jenis notifikasi 3
+                }
+            }
+            else if (processTime - timeAdded > 0)
+            {
+                FoodTime(Elmt(*Process,i))= MenitToTIME(processTime - timeAdded);
+            }
+        }
+    }
 }

@@ -245,7 +245,7 @@ void deleteAt_Prioqueue(Prioqueueinv *Q, int idx, food *f){
 void PrintCookPrio(Prioqueueinv Q){
     int i;
     if (IsEmpty_Prioqueue(Q)){
-        printf("Tidak ada yang bisa diolah\n");
+        printf("Tidak ada yang sedang diolah\n");
     }
     else{
         i = Head(Q);
@@ -253,20 +253,23 @@ void PrintCookPrio(Prioqueueinv Q){
         while (i != Tail(Q)){
             printf("    %d. ",idx);
             idx++;
-
             PrintWord(FoodName(Q.T[i]));
             printf(" (");
-            Timetokata(FoodExpiry(Q.T[i]));
+            PrintWord(FoodAction(Elmt(Q,i)));
+            printf(" ");
+            Timetokata(FoodTime(Q.T[i]));
             printf(")\n");
             i = (i + 1) % MaxElQ(Q);
         }
         printf("    %d. ",idx);
         idx++;
-
         PrintWord(FoodName(Q.T[i]));
         printf(" (");
-        Timetokata(FoodExpiry(Q.T[i]));
+        PrintWord(FoodAction(Elmt(Q,i)));
+        printf(" ");
+        Timetokata(FoodTime(Q.T[i]));
         printf(")\n");
+
     }
 }
 

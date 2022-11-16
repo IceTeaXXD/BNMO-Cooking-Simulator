@@ -323,7 +323,7 @@ food idtofood(int id, ListFoodStatik L){
 }
 
 
-void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
+void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *Process){
     printf("=======================================\n");
     printf("=                 CHOP                =\n");
     printf("=======================================\n");
@@ -400,7 +400,7 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T){
                                     }
                                 }
                             }
-                            Enqueue_Prioqueue(Inventory, LISTELMT(foodAvailable, i));
+                            Enqueue_Prioqueue(Process, LISTELMT(foodAvailable, i));
                             break;
                         }
                     }
