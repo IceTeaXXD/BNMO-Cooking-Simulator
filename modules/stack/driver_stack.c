@@ -3,7 +3,6 @@
 int main()
 {
     Stack S;
-    CreateEmpty_Stack(&S);
-    Push(&S, 1);
-    
+    Stack_infotype X;
+    CreateEmpty_Stack(&S);   
 }

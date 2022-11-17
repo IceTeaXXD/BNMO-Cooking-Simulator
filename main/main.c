@@ -81,7 +81,8 @@ int main (){
     Matrix m;
     TIME T;
     Word nameTemp;
-    player p;CreatePlayer(&p);
+    player p;
+    CreatePlayer(&p);
     food foodAffected;
     extern boolean adaNotif;
     extern ListStatik jenis2Notif;
@@ -113,6 +114,15 @@ int main (){
     TIME GameTime;
     CreateTime(&GameTime, 0, 0, 0);
 
+    // STACK UNDO REDO
+    Stack UndoGame;
+    Stack RedoGame;
+    Stack_infotype data;
+    CreateStack(&UndoGame);
+    CreateStack(&RedoGame);
+    boolean firstUndo = true;
+    boolean firstRedo = true;
+
     //ALGORITMA MAIN
     printf("Please insert START to initiate the program\n");
     STARTSENTENCE();
@@ -131,6 +141,12 @@ int main (){
     printf("Masukkan Username : ");
     STARTSENTENCE();
     p.username = WordToStr(currentWord);
+    data.P = p;
+    data.Delivery = Delivery;
+    data.Process = Process;
+    data.GameTime = GameTime;
+    data.Map = m;
+    push(&UndoGame,data);
     while (!compareString(currentWord,keluar))
     {
         tambahTime = true;
@@ -300,9 +316,53 @@ int main (){
                 menit = 0;
             }
             printf("Waktu bertambah sebanyak %d jam dan %d menit!\n", jam, menit);
-            timeLogic(0, jam, menit, &GameTime, &Delivery, &p.inventory,&Process);
+            timeLogic(0, jam, menit-1, &GameTime, &Delivery, &p.inventory,&Process);
+        }
+        else if (compareString(currentWord,"UNDO")){
+            printf("UNDO");
+            if(!isStackEmpty(UndoGame)){
+                Stack_infotype temp;
+                if (firstUndo){
+                    pop(&UndoGame, &temp);
+                }
+                pop(&UndoGame, &temp);
+                p = temp.P;
+                m = temp.Map;
+                GameTime = temp.GameTime;
+                Delivery = temp.Delivery;
+                Process = temp.Process;
+                push(&RedoGame, temp);
+                if(!isStackEmpty(RedoGame)){printf("\nredo kosong woi\n");}
+                firstUndo = false;
+            }
+            else{
+                printf("Tidak ada perintah yang bisa di undo!\n");
+            }
             tambahTime = false;
         }
+
+        else if (compareString(currentWord,"REDO")){
+            printf("REDO");
+            if(!isStackEmpty(RedoGame)){
+                Stack_infotype temp;
+                if (firstRedo){
+                    pop(&RedoGame, &temp);
+                }
+                pop(&RedoGame, &temp);
+                p = temp.P;
+                m = temp.Map;
+                GameTime = temp.GameTime;
+                Delivery = temp.Delivery;
+                Process = temp.Process;
+                push(&UndoGame, temp);
+                firstRedo = false;
+            }
+            else{
+                printf("Tidak ada perintah yang bisa di redo!\n");
+            }
+            tambahTime = false;
+        }
+
         else if (compareString(currentWord,"EXIT")){
             terminate();
             break;
@@ -313,7 +373,22 @@ int main (){
         }
         if (tambahTime){
             timeLogic(0,0,1,&GameTime,&Delivery,&p.inventory,&Process);
+            data.P = p;
+            data.Delivery = Delivery;
+            data.Process = Process;
+            data.GameTime = GameTime;
+            data.Map = m;
+            push(&UndoGame,data);
+            printf("Push berhasil\n");
+            firstUndo = true;
+            firstRedo = true;
         }
+
+        if ((!compareString(currentWord,"UNDO")) && (!compareString(currentWord,"REDO"))){
+            printf("\nredo dikosongkan!\n");
+            CreateStack(&RedoGame);
+        }
+
         printf("press <enter> to continue\n");
         STARTSENTENCE();
         system("cls");

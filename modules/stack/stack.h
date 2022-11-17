@@ -2,58 +2,61 @@
 /* deklarasi stack yang diimplementasi dengan tabel kontigu dan ukuran sama */
 /* TOP adalah alamat elemen puncak */
 /* Implementasi dalam bahasa C dengan alokasi statik */
-#ifndef stackt_H
-#define stackt_H
+#ifndef STACK_H
+#define STACK_H
 
 #include "../utility/boolean.h"
+#include "../simulator/simulator.h"
+#include "../prioqueue/prioqueueinv.h"
+#include "../matrix/matrix.h"
+#include "../time/time.h"
 
 #define Nil -1
 #define stack_MaxEl 100
 /* Nil adalah stack dengan elemen kosong . */
 
-typedef int stack_infotype;
-typedef int addressStack;   /* indeks tabel */
+typedef struct node_stack* Address;
 
-/* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
-/* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit*/
-typedef struct { 
-  stack_infotype T[stack_MaxEl]; /* tabel penyimpan elemen */
-  addressStack TOP;  /* alamat TOP: elemen puncak */
+typedef struct{
+  player P;
+  TIME GameTime;
+  Matrix Map;
+  Prioqueueinv Delivery;
+  Prioqueueinv Process;
+  Address next;
+} Stack_infotype;
+
+typedef struct node_stack{
+  Stack_infotype info;
+  Address next;
+} Node_stack;
+
+typedef struct{
+  Address TOP;
 } Stack;
-/* Definisi stack S kosong : S.TOP = Nil */
-/* Elemen yang dipakai menyimpan nilai Stack T[0]..T[MaxEl-1] */
-/* Jika S adalah Stack maka akses elemen : */
-   /* S.T[(S.TOP)] untuk mengakses elemen TOP */
-   /* S.TOP adalah alamat elemen TOP */
 
-/* Definisi akses dengan Selektor : Set dan Get */
-#define Top(S) (S).TOP
-#define InfoTop(S) (S).T[(S).TOP]
+/* Selektor */
+#define     NEXT(p) (p)->next
+#define     INFO(p) (p)->info
+#define ADDR_TOP(s) (s).addrTop
+#define      TOP(s) (s).addrTop->info 
 
-/* ************ Prototype ************ */
-/* *** Konstruktor/Kreator *** */
-void CreateEmpty_Stack(Stack *S);
-/* I.S. sembarang; */
-/* F.S. Membuat sebuah stack S yang kosong berkapasitas MaxEl */
-/* jadi indeksnya antara 0.. MaxEl */
-/* Ciri stack kosong : TOP bernilai Nil */
+void CreateStack(Stack *s);
+/* I.S. sembarang */ 
+/* F.S. Membuat sebuah stack s yang kosong */
 
-/* ************ Predikat Untuk test keadaan KOLEKSI ************ */
-boolean IsEmpty_Stack(Stack S);
-/* Mengirim true jika Stack kosong: lihat definisi di atas */
-boolean IsFull_Stack(Stack S);
-/* Mengirim true jika tabel penampung nilai elemen stack penuh */
+void push(Stack *s, Stack_infotype x);
+/* Menambahkan x sebagai elemen Stack s */
+/* I.S. s mungkin kosong, x terdefinisi */
+/* F.S. x menjadi Top yang baru jika alokasi x berhasil, */
+/*      jika tidak, s tetap */
+/* Pada dasarnya adalah operasi insertFirst pada list linier */
 
-/* ************ Menambahkan sebuah elemen ke Stack ************ */
-void Push(Stack * S, stack_infotype X);
-/* Menambahkan X sebagai elemen Stack S. */
-/* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
-/* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
-
-/* ************ Menghapus sebuah elemen Stack ************ */
-void Pop(Stack * S, stack_infotype* X);
-/* Menghapus X dari Stack S. */
-/* I.S. S  tidak mungkin kosong */
-/* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
-
+void pop(Stack *s, Stack_infotype *x);
+/* Menghapus Top dari Stack s */
+/* I.S. s tidak kosong */
+/* F.S. x adalah nilai elemen Top yang lama, */
+/*      elemen Top yang lama didealokasi */
+/* Pada dasarnya adalah operasi deleteFirst pada list linier */
+boolean isStackEmpty(Stack s);
 #endif

@@ -378,7 +378,7 @@ void CHOP(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *P
                     for (i=0;i<listLength_ListFoodStatik(foodAvailable);i++){
                         j++;
                         if (j == idx){
-                            printf("Berhasil memotong ");
+                            printf("Berhasil membuat ");
                             PrintWord(FoodName(LISTELMT(foodAvailable, i)));
                             printf(". ");
                             PrintWord(FoodName(LISTELMT(foodAvailable, i)));

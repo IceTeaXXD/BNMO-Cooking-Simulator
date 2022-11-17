@@ -2,46 +2,61 @@
 #include <stdlib.h>
 #include "stack.h"
 
-/* ************ Prototype ************ */
-/* *** Konstruktor/Kreator *** */
-void CreateEmpty_Stack(Stack *S)
-/* I.S. sembarang; */
-/* F.S. Membuat sebuah stack S yang kosong berkapasitas stack_MaxEl */
-/* jadi indeksnya antara 0.. stack_MaxEl */
-/* Ciri stack kosong : TOP bernilai Nil */
+void CreateStack(Stack *s)
+/* I.S. sembarang */ 
+/* F.S. Membuat sebuah stack s yang kosong */
 {
-    Top(*S) = Nil;
+    s->TOP = NULL;
+}
+void CreateUndoStack(Stack *s, player P, TIME GameTime, Matrix Map, Prioqueueinv Delivery, Prioqueueinv Process)
+/* I.S. sembarang */ 
+/* F.S. Membuat sebuah stack s yang kosong */
+{
+    Stack_infotype x;
+    x.P = P;
+    x.GameTime = GameTime;
+    x.Map = Map;
+    x.Delivery = Delivery;
+    x.Process = Process;
+    push(s, x);
 }
 
-/* ************ Predikat Untuk test keadaan KOLEKSI ************ */
-boolean IsEmpty_Stack(Stack S)
-/* Mengirim true jika Stack kosong: lihat definisi di atas */
+void push(Stack *s, Stack_infotype x)
+/* Menambahkan x sebagai elemen Stack s */
+/* I.S. s mungkin kosong, x terdefinisi */
+/* F.S. x menjadi Top yang baru jika alokasi x berhasil, */
+/*      jika tidak, s tetap */
+/* Pada dasarnya adalah operasi insertFirst pada list linier */
 {
-    return (Top(S) == Nil);
+    Address p = (Address) malloc(sizeof(Node_stack));
+    if (p != NULL)
+    {
+        INFO(p) = x;
+        NEXT(p) = s->TOP;
+        s->TOP = p;
+    }
+
+}
+void pop(Stack *s, Stack_infotype *x)
+/* Menghapus Top dari Stack s */
+/* I.S. s tidak kosong */
+/* F.S. x adalah nilai elemen Top yang lama, */
+/*      elemen Top yang lama didealokasi */
+/* Pada dasarnya adalah operasi deleteFirst pada list linier */
+{
+    if(!isStackEmpty(*s))
+    {
+        Address p = s->TOP;
+        *x = INFO(p);
+        s->TOP = NEXT(p);
+        free(p);
+    }
+    else{
+        printf("Stack is empty\n");
+    }
+
 }
 
-boolean IsFull_Stack(Stack S)
-/* Mengirim true jika tabel penampung nilai elemen stack penuh */
-{
-    return (Top(S) == stack_MaxEl-1);
-}
-
-/* ************ Menambahkan sebuah elemen ke Stack ************ */
-void Push(Stack * S, stack_infotype X)
-/* Menambahkan X sebagai elemen Stack S. */
-/* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
-/* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
-{
-    Top(*S)++;
-    InfoTop(*S) = X;
-}
-
-/* ************ Menghapus sebuah elemen Stack ************ */
-void Pop(Stack * S, stack_infotype* X)
-/* Menghapus X dari Stack S. */
-/* I.S. S  tidak mungkin kosong */
-/* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
-{
-    *X = InfoTop(*S);
-    Top(*S)--;
+boolean isStackEmpty(Stack s){
+    return (s.TOP == NULL);
 }
