@@ -185,6 +185,9 @@ int main (){
         printf("%c Cooking:\n",204);
         printf("%c%c BUY\n",204,205);
         printf("%c%c CHOP\n",204,205);
+        printf("%c%c FRY\n",204,205);
+        printf("%c%c BOIL\n",204,205);
+        printf("%c%c MIX\n",204,205);
         printf("%c Others:\n",204);
         printf("%c%c WAIT\n",204,205);
         printf("%c%c DELIVERY\n",204,205);
@@ -225,7 +228,12 @@ int main (){
             printList_ListFoodStatik(Foods);
         }
         else if (compareString(currentWord,"MIX")) {
-            Mix(&INVENTORY(p),Foods, tree, &Process);
+            if (isAdjacentToMix){
+                MIX(&INVENTORY(p),Foods, tree, &Process);
+            }
+            else{
+                printf("Player tidak dalam radius Mix (M)\n");
+            }
         }
         else if (compareString(currentWord,"BUY")){
             if(isAdjacentToTelephone(m,p.loc)){
@@ -235,35 +243,32 @@ int main (){
                 tambahTime = false;
                 printf("Player tidak dalam radius telephone (T)\n");
             }
-        } else if (compareString(currentWord,"CHOP")){
+        } 
+        else if (compareString(currentWord,"CHOP")){
             if(isAdjacentToChop(m,p.loc)){
                 CHOP(&INVENTORY(p),Foods, tree, &Process);
             } else {
                 tambahTime=false;
                 printf("Player tidak dalam radius Chop (C)\n");
             }
-        } else if (compareString(currentWord,"BOIL")){
+        } 
+        else if (compareString(currentWord,"BOIL")){
             if(isAdjacentToBoil(m,p.loc)){
                 BOIL(&INVENTORY(p),Foods, tree, &Process);
             } else {
                 tambahTime=false;
                 printf("Player tidak dalam radius Boil (B)\n");
             }
-        // } else if (compareString(currentWord,"FRY")){
-        //     if(isAdjacentToFry(m,p.loc)){
-        //         FRY(&INVENTORY(p),Foods, tree, &Process);
-        //     } else {
-        //         tambahTime=false;
-        //         printf("Player tidak dalam radius Fry (F)\n");
-        //     }    
-        // } else if (compareString(currentWord,"MIX")){
-        //     if(isAdjacentToMix(m,p.loc)){
-        //         MIX(&INVENTORY(p),Foods, tree, &Process);
-        //     } else {
-        //         tambahTime=false;
-        //         printf("Player tidak dalam radius Fry (F)\n");
-        //     }
-        } else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
+        } 
+        else if (compareString(currentWord,"FRY")){
+            if(isAdjacentToFry(m,p.loc)){
+                FRY(&INVENTORY(p),Foods, tree, &Process);
+            } else {
+                tambahTime=false;
+                printf("Player tidak dalam radius Fry (F)\n");
+            }
+        }    
+        else if (currentWord.TabWord[0] == 'W' && currentWord.TabWord[1] == 'A' && currentWord.TabWord[2] == 'I' && currentWord.TabWord[3] == 'T'){
             int jam, menit;
             if (CharIsInt(currentWord.TabWord[5]) && CharIsInt(currentWord.TabWord[6]) && CharIsInt(currentWord.TabWord[8]) && CharIsInt(currentWord.TabWord[9])){
                 jam = (currentWord.TabWord[5] - '0') * 10 + (currentWord.TabWord[6] - '0');
