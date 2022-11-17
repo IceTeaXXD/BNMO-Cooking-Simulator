@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tree.h"
-#include "../liststatik/liststatik.h"
+// #include "../liststatik/liststatik.h"
 // #include "../liststatik/liststatik.c"
 // #include "../wordmachine/wordmachine.c"
 // #include "../matrix/matrix.c"
@@ -220,6 +220,21 @@ ListStatik getChild(addressTree parent){
     return L;
 }
 
+ListStatik getAllNodes(addressTree parent){
+    // return all the nodes inside the tree
+    ListStatik L;
+    CreateListStatik(&L);
+    if(parent!=NULL){
+        insertLast_ListStatik(&L,Data(parent));
+        if(FirstChild(parent)!=NULL){
+            L=concat_ListStatik(L,getAllNodes(FirstChild(parent)));
+        }
+        if(NextSibling(parent)!=NULL){
+            L=concat_ListStatik(L,getAllNodes(NextSibling(parent)));
+        }
+    }
+    return L;
+}
 
     /* ----------------------------------------------- */
 

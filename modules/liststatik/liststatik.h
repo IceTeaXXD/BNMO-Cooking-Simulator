@@ -170,5 +170,7 @@ void sortList_ListStatik(ListStatik *l, boolean asc);
 /*      Jika asc = false, l terurut mengecil */
 /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
    algoritma bebas */
+ListStatik concat_ListStatik(ListStatik l1, ListStatik l2);
 
+void removeDuplicates(ListStatik *l);
 #endif

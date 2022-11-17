@@ -193,6 +193,7 @@ int main (){
         printf("%c%c DELIVERY\n",204,205);
         printf("%c%c INVENTORY\n",204,205);
 	    printf("%c%c CATALOG\n",204,205);
+        printf("%c%c COOKBOOK\n",204,205);
         printf("%c Exit Program\n",204);
         
         printf("\nENTER COMMAND: ");
@@ -216,7 +217,8 @@ int main (){
         else if (compareString(currentWord,"INVENTORY")){
             tambahTime = false;
             PrintInvPrio(p.inventory);
-        } else if (compareString(currentWord,"COOK"))
+        } 
+        else if (compareString(currentWord,"COOK"))
         {
             tambahTime = false;
             PrintCookPrio(Process);
@@ -227,6 +229,12 @@ int main (){
             tambahTime = false;
             printList_ListFoodStatik(Foods);
         }
+        
+        else if (compareString(currentWord,"COOKBOOK")){
+            tambahTime = false;
+            CookBook(tree, Foods);
+        }
+
         else if (compareString(currentWord,"MIX")) {
             if (isAdjacentToMix){
                 MIX(&INVENTORY(p),Foods, tree, &Process);

@@ -317,3 +317,27 @@ void sortList_ListStatik(ListStatik *l, boolean asc)
         }
     }
 }
+
+ListStatik concat_ListStatik(ListStatik l1, ListStatik l2){
+    ListStatik l3;
+    int i;
+    CreateListStatik(&l3);
+    for (i = 0; i < listLength_ListStatik(l1); i++){
+        insertLast_ListStatik(&l3, LISTELMT(l1, i));
+    }
+    for (i = 0; i < listLength_ListStatik(l2); i++){
+        insertLast_ListStatik(&l3, LISTELMT(l2, i));
+    }
+    return l3;
+}
+
+void removeDuplicates(ListStatik *l){
+    int i, j;
+    for (i = 0; i < listLength_ListStatik(*l); i++){
+        for (j = i + 1; j < listLength_ListStatik(*l); j++){
+            if (LISTELMT(*l, i) == LISTELMT(*l, j)){
+                deleteAt_ListStatik(l, &LISTELMT(*l, j), j);
+            }
+        }
+    }
+}

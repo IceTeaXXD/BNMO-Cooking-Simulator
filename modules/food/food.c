@@ -727,3 +727,43 @@ void FRY(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *Pr
         }
     }
 }
+
+void CookBook(Tree T, ListFoodStatik L){
+    printf("=======================================\n");
+    printf("=                COOKBOOK             =\n");
+    printf("=======================================\n");
+    printf("Menampilkan resep makanan yang dapat dibuat:\n");
+
+    // Mengubah semua elemen di tree menjadi list
+    ListStatik treeElmt;
+    CreateListStatik(&treeElmt);
+    treeElmt = getAllNodes(T.root);
+    sortList_ListStatik(&treeElmt,true);
+    removeDuplicates(&treeElmt);
+
+    ListStatik childrens;
+    CreateListStatik(&childrens);
+
+    int i,j;
+    for (i = 0 ; i < listLength_ListStatik(treeElmt); i++){
+        food parent = idtofood(LISTELMT(treeElmt, i), L);
+        printf("%d. ", i+1);
+        PrintWord(FoodName(parent));
+        printf("\n    Action : ");
+        PrintWord(FoodAction(parent));
+        printf("\n");
+        if (!compareString(FoodAction(parent),"Buy")){
+            childrens = getChild(getAddress(T.root, FoodId(parent)));
+            printf("    Bahan : ");
+            for (j = 0; j < listLength_ListStatik(childrens); j++){
+                food child = idtofood(LISTELMT(childrens, j), L);
+                PrintWord(FoodName(child));
+                if (j != listLength_ListStatik(childrens) - 1){
+                    printf(", ");
+                }
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+}
