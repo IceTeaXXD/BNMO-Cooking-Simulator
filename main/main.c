@@ -52,7 +52,7 @@ void terminate(){
     printf(".:. . ./ /          / /            ,          ,     \\ \\ :  '  '  ' '::. .:.\n");
     printf(":. . .: :    o     / /                               \\ ;'  '  '  ' ':: . .:\n");
     printf(".:. . | |   /_\\   : :     ,     THANK YOU        ,    : '  '  '  ' ' :: .:.\n");
-    printf(":. . .| |  ((<))  | |,          SINCERELY!!           |\'__',-._.' ' ||. .:\n");
+    printf(":. . .| |  ((<))  | |,       SEE YOU NEXT TIME!!!     |\'__',-._.' ' ||. .:\n");
     printf(".:.:. | |   `-'   | |---....____                      | ,---\\/--/  ' ||:.:.\n");
     printf("------| |         : :    ,.     ```--..._   ,         |''  '  '  ' ' ||----\n");
     printf("_...--. |  ,       \\ \\             ,.    `-._     ,  /: '  '  '  ' ' ;;..._\n");
@@ -296,8 +296,7 @@ int main (){
             tambahTime = false;
         }
         else if (compareString(currentWord,"EXIT")){
-            printf("Thank you for playing!\n");
-            printf("See you next time!\n");
+            terminate();
             break;
         }
         else {
