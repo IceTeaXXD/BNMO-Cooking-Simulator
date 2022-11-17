@@ -179,7 +179,8 @@ void timeLogic(int DD, int HH, int MM, TIME *gameTime, Prioqueueinv *Delivery, P
                 temptime += (deliveryTime - timeAdded);
                 if (temptime > 0) {
                     Enqueue_Prioqueue(Inventory, foodAffected);
-                    Inventory->T[i].expiry_time = MenitToTIME(temptime);
+                    int j = indexOf_Prioqueue(*Inventory, FoodId(foodAffected));
+                    Inventory->T[j].expiry_time = MenitToTIME(temptime);
                     insertLast_ListFoodStatik(&notif, foodAffected);
                     insertLast_ListStatik(&jenis2Notif, 2);                 //makanan yang sudah sampai mempunyai jenis notifikasi 2
                 } else {
