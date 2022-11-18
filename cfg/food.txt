@@ -20,8 +20,8 @@ Mix
 3
 Nasi Uduk
 1 0 0
-0 0 15
-Buy
+0 0 7
+Mix
 2 1
 4
 Ayam Goreng
@@ -100,4 +100,10 @@ Nasi
 0 12 0
 0 0 30
 Boil
+1 1
+18
+Bawang Goreng
+0 5 0
+0 0 3
+Fry
 1 1.
