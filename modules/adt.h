@@ -12,5 +12,6 @@
 #include "./wordmachine/wordmachine.h"
 #include "./listdin/listdin.h"
 #include "./tree/tree.h"
+#include "./set/set.h"
 
 #endif

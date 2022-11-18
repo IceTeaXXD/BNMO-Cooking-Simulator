@@ -14,5 +14,6 @@
 #include "../modules/matrix/matrix.c"
 #include "../modules/food/food.c"
 #include "../modules/simulator/simulator.c"
+#include "../modules/set/set.c"
 
 #endif
