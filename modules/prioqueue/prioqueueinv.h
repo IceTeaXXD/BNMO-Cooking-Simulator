@@ -100,6 +100,8 @@ void deleteAt_Prioqueue(Prioqueueinv *Q, int idx, food *f);
 
 void PrintCookPrio(Prioqueueinv Q);
 
+void PrintInvInFridge(Prioqueueinv Q);
+
 int indexOf_Prioqueue(Prioqueueinv Q, int val);
 
 void Dequeue_idx_Prioqueue(Prioqueueinv *Q, int x);

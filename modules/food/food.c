@@ -27,7 +27,7 @@ void DisplayFood(food x){
     printf(" - ");
     Timetokata(FoodTime(x));
     printf(" - ");
-    printf("%dx%d", FoodSizeX(x), FoodSizeY(x));
+    printf("Ukuran Makanan: %dx%d", FoodSizeX(x), FoodSizeY(x));
 }
 
 /*-------------------------------------*/

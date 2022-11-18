@@ -32,8 +32,8 @@ void initiate(){
     printf(".:.:,' \\/\\/--\\/--------------------------------------------`._',;'`. `.:.:.\n");
     printf(":.,' ,' ,'  ,'  /   /   /   ,-------------------.   \\   \\   \\  `. `.`. `..:\n");
     printf(",' ,'  '   /   /   /   /   //                   \\\\   \\   \\   \\   \\  ` `..:\n");
-    printf("================================================\n");
-    printf("================================================\n");
+    printf("==========================================================================\n");
+    printf("==========================================================================\n");
 }
 void terminate(){
     system("cls"); 
@@ -134,15 +134,17 @@ int main (){
     ListSet foodSets = treeToListSet(tree, Foods);
 
     //ALGORITMA MAIN
-    printf("Please insert START to initiate the program\n");
+    printf("=====          Please insert START to initiate the program           =====\n");
+    printf("                                  ");
     STARTSENTENCE();
     system("cls"); 
     while (!compareString(currentWord,mulai))
     {
         initiate();
         currentWord=init;
-        printf("Wrong Command\n");
-        printf("Please insert START to initiate the program\n");
+        printf("=====                        Wrong Command                          ======\n");
+        printf("=====          Please insert START to initiate the program           =====\n");
+        printf("                                  ");
         STARTSENTENCE();
         system("cls"); 
     }

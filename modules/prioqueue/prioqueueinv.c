@@ -199,6 +199,29 @@ void PrintInvPrio(Prioqueueinv Q){
         printf(")\n");
     }
 }
+void PrintInvInFridge(Prioqueueinv Q){
+    int i;
+    if (IsEmpty_Prioqueue(Q)){
+        printf("Inventory Kosong\n");
+    }
+    else{
+        i = Head(Q);
+        int idx = 1;
+        while (i != Tail(Q)){
+            printf("    %d. ",idx);
+            idx++;
+
+            DisplayFood(Elmt(Q,i));
+            printf("\n");
+            i = (i + 1) % MaxElQ(Q);
+        }
+        printf("    %d. ",idx);
+        idx++;
+
+        DisplayFood(Elmt(Q,i));
+        printf("\n");
+    }
+}
 void Enqueue_Prioqueue_Delivery(Prioqueueinv *Q, food X){
     boolean found;
     int idx;

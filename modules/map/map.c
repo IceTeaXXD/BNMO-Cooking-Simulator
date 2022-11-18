@@ -393,7 +393,8 @@ while (flag){
         } else if (compareString(currentWord,"PLACE")){
             system("cls");
             displayKulkas(*kulkas);
-            PrintInvPrio(*inventory);
+            printf("List Inventory: \n");
+            PrintInvInFridge(*inventory);
             printf("Pilih makanan yang ingin dimasukkan : ");
             STARTSENTENCE();
             if(compareString(currentWord,"CANCEL")) {
@@ -419,6 +420,7 @@ while (flag){
         }else if (compareString(currentWord,"TAKE")){
             system("cls");
             displayKulkas(*kulkas);
+            printf("List Makanan Dalam Kulkas: \n");
             printList_ListFoodStatik(*listFridge);
             if (isEmpty_ListFoodStatik(*listFridge)){
                 printf("Kulkas Kosong\n");
