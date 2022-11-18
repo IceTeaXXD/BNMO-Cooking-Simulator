@@ -8,7 +8,7 @@
 /* ********* Prototype ********* */
 
 /* *** Konstruktor/Kreator *** */
-void CreateEmpty(Set *S)
+void CreateEmpty_Set(Set *S)
 /* I.S. Sembarang */
 /* F.S. Membuat sebuah Set S kosong berkapasitas MaxEl */
 /* Ciri Set kosong : count bernilai Nil */
@@ -17,14 +17,14 @@ void CreateEmpty(Set *S)
 }
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */
-boolean IsEmpty(Set S)
+boolean IsEmpty_Set(Set S)
 /* Mengirim true jika Set S kosong*/
 /* Ciri Set kosong : count bernilai Nil */
 {
     return (S.Count == Nil);
 }
 
-boolean IsFull(Set S)
+boolean IsFull_Set(Set S)
 /* Mengirim true jika Set S penuh */
 /* Ciri Set penuh : count bernilai MaxEl */
 {
@@ -32,44 +32,17 @@ boolean IsFull(Set S)
 }
 
 /* ********** Operator Dasar Set ********* */
-void Insert(Set *S, infotype Elmt)
+void Insert_Set(Set *S, infotype_set Elmt)
 /* Menambahkan Elmt sebagai elemen Set S. */
 /* I.S. S mungkin kosong, S tidak penuh
         S mungkin sudah beranggotakan Elmt */
 /* F.S. Elmt menjadi anggota dari S. Jika Elmt sudah merupakan anggota, operasi tidak dilakukan */
 {
-    if (!(IsMember(*S, Elmt))){
-        (*S).Elements[(*S).Count] = Elmt;
-        (*S).Count++;
-    }
+    (*S).Elements[(*S).Count] = Elmt;
+    (*S).Count++;
 }
 
-void Delete(Set *S, infotype Elmt)
-/* Menghapus Elmt dari Set S. */
-/* I.S. S tidak kosong
-        Elmt mungkin anggota / bukan anggota dari S */
-/* F.S. Elmt bukan anggota dari S */
-{
-    if (IsMember(*S, Elmt)){
-        boolean found = false;
-        int i = 0;
-        while (i<(*S).Count && !found){
-            if ((*S).Elements[i] == Elmt){
-                found = true;
-            } else {
-                i++;
-            }
-        }
-
-        int j;
-        for (j=i; j<(*S).Count-1; j++){
-            (*S).Elements[j] = (*S).Elements[j+1];
-        }
-        (*S).Count--;
-    }
-}
-
-boolean IsMember(Set S, infotype Elmt)
+boolean IsMember_Set(Set S, infotype_set Elmt)
 /* Mengembalikan true jika Elmt adalah member dari S */
 {
     boolean found = false;
@@ -87,97 +60,82 @@ boolean IsMember(Set S, infotype Elmt)
 }
 
 Set SetUnion(Set s1, Set s2)
-// Mengembalikan set baru yang berisi elemen-elemen yang terdapat pada s1 atau s2
-// Contoh: [1, 2] U [2, 3] = [1, 2, 3]
+// I.S. Isi set hanyalah angka 0 dan 1
+// F.S. Dihasilkan S3 yaitu gabungan s1 dan s2, jika pada indeks yang sama s1 dan s2 memiliki angka yang beda, maka yang dimasukkan adalah angka 1
 {
-    Set s;
-    CreateEmpty(&s);
-    int i;
-    for(i=0; i<s1.Count; i++){
-        Insert(&s, s1.Elements[i]);
+    Set S3;
+    CreateEmpty_Set(&S3);
+    int i = 0;
+    while (i < s1.Count){
+        if (s1.Elements[i] == s2.Elements[i]){
+            Insert_Set(&S3, s1.Elements[i]);
+        } else {
+            Insert_Set(&S3, 1);
+        }
+        i++;
     }
-
-    for (i=0; i<s2.Count; i++){
-        Insert(&s, s2.Elements[i]);
-    }
-
-    return s;
+    return S3;
 }
 
-Set SetIntersection(Set s1, Set s2)
-// Mengembalikan set baru yang berisi elemen-elemen dari s1 dan s2 yang terdapat pada kedua set
-// Contoh: [1, 2] ∩ [2, 3] = [2]
+boolean isSubset(Set s1, Set s2)
+// Mengembalikan true jika s2 merupakan subset dari s1
 {
-    Set s;
-    CreateEmpty(&s);
-    int i;
-    for (i=0; i<s1.Count; i++){
-        if (IsMember(s2, s1.Elements[i])){
-            Insert(&s, s1.Elements[i]);
+    boolean subset = true;
+    int i = 0;
+    while (i<s2.Count && subset){
+        if (!(IsMember_Set(s1, s2.Elements[i]))){
+            subset = false;
+        } else {
+            i++;
         }
     }
-
-    return s;
+    return subset;
 }
 
-Set SetSymmetricDifference(Set s1, Set s2)
-// Mengembalikan set baru yang berisi elemen yang ada di s1 atau s2, tapi tidak pada keduanya
-// Contoh: [1, 2] ⊖ [2, 3] = [1, 3]
+void CreateEmpty_ListSet(ListSet *LS)
+/* I.S. LS sembarang */
+/* F.S. Terbentuk ListSet kosong */
 {
-    Set s, intersect;
-    CreateEmpty(&s);
-    CreateEmpty(&intersect);
-    intersect = SetIntersection(s1, s2);
-    int i;
-    for (i=0; i<s1.Count; i++){
-        if (!(IsMember(intersect, s1.Elements[i]))){
-            Insert(&s, s1.Elements[i]);
-        }
-    }
-
-    for (i=0; i<s2.Count; i++){
-        if (!(IsMember(intersect, s2.Elements[i]))){
-            Insert(&s, s2.Elements[i]);
-        }
-    }
-
-    return s;
+    (*LS).ListCount = Nil;
 }
 
-Set SetSubtract(Set s1, Set s2)
-// Mengembalikan set baru yang berupa hasil pengurangan s1 dengan s2
-// Contoh:
-// s1 = [1, 2] s2 = [2, 3]
-// s1 - s2 = [1]
+void insert_ListSet(ListSet *LS, Set S)
+/* I.S. LS mungkin kosong */
 {
-    Set s;
-    CreateEmpty(&s);
-    int i;
-    for(i=0; i<s1.Count; i++){
-        if (!(IsMember(s2, s1.Elements[i]))){
-            Insert(&s, s1.Elements[i]);
-        }
-    }
-
-    return s;
-
+    (*LS).contents[(*LS).ListCount] = S;
+    (*LS).ListCount++;
 }
 
-// int main(){
-//     Set s1;
-//     CreateEmpty(&s1);
-//     Insert(&s1, 1);
-//     Insert(&s1, 2);
-//     Set s2;
-//     CreateEmpty(&s2);
-//     Insert(&s2, 2);
-//     Insert(&s2, 3);
-//     Set s3;
-//     s3 = SetUnion(s1, s2);
-//     // output s3
-//     int i;
-//     for (i=0; i<s3.Count; i++){
-//         printf("%d ", s3.Elements[i]);
-//     }
-
-// }
+int main(){
+    Set s1;
+    CreateEmpty_Set(&s1);
+    Insert_Set(&s1, 0);
+    Insert_Set(&s1, 1);
+    Insert_Set(&s1, 1);
+    Insert_Set(&s1, 0);
+    Set s2;
+    CreateEmpty_Set(&s2);
+    Insert_Set(&s2, 0);
+    Insert_Set(&s2, 0);
+    Insert_Set(&s2, 1);
+    Insert_Set(&s2, 1);
+    Set s3;
+    s3 = SetUnion(s1, s2);
+    // output s3
+    int i;
+    for (i=0; i<s3.Count; i++){
+        printf("%d ", s3.Elements[i]);
+    }
+    if (isSubset(s1,s2)){
+        printf("s2 subset s1");
+    }
+    // printf("%d\n", s3.Count);
+    // printf("\n\n");
+    // ListSet LS1;
+    // CreateEmpty_ListSet(&LS1);
+    // insert_ListSet(&LS1, s1);
+    // insert_ListSet(&LS1, s2);
+    // insert_ListSet(&LS1, s3);
+    // printf("%d", LS1.contents[2].Count);
+    // return 0;
+}
