@@ -124,6 +124,9 @@ int main (){
     boolean firstUndo = true;
     boolean firstRedo = true;
 
+    // SET UNTUK REKOMENDASI MAKANAN
+    ListSet foodSets = treeToListSet(tree, Foods);
+
     //ALGORITMA MAIN
     printf("Please insert START to initiate the program\n");
     STARTSENTENCE();
@@ -209,6 +212,7 @@ int main (){
         printf("%c%c INVENTORY\n",204,205);
 	    printf("%c%c CATALOG\n",204,205);
         printf("%c%c COOKBOOK\n",204,205);
+        printf("%c%c REKOMENDASI\n",204,205);
         printf("%c Exit Program\n",204);
         
         printf("\nENTER COMMAND: ");
@@ -315,7 +319,8 @@ int main (){
                 menit = 0;
             }
             printf("Waktu bertambah sebanyak %d jam dan %d menit!\n", jam, menit);
-            timeLogic(0, jam, menit-1, &GameTime, &Delivery, &p.inventory,&Process);
+            timeLogic(0, jam, menit, &GameTime, &Delivery, &p.inventory,&Process);
+            tambahTime = false;
         }
         else if (compareString(currentWord,"UNDO")){
             if (!isStackEmpty(UndoGame)){
@@ -349,6 +354,11 @@ int main (){
                 printf("Tidak ada perintah yang bisa di redo!\n");
             }
             tambahTime = false;
+        }
+
+        else if (compareString(currentWord,"REKOMENDASI")){
+            Set inv = prioQueueToSet(INVENTORY(p));
+            Rekomendasi(foodSets, inv, Foods, tree);
         }
 
         else if (compareString(currentWord,"EXIT")){
