@@ -446,7 +446,6 @@ void BOIL(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *P
             addressTree parent = getParent(T.root,child);
             if (parent != NULL){
                 food parentFood = idtofood(parent->data, Foods);
-                PrintWord(FoodName(parentFood));
                 if (compareString(FoodAction(parentFood),"Boil")){ 
                     count++;
                     printf("    %d. ", count);
