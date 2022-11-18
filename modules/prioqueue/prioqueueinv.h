@@ -102,4 +102,6 @@ void PrintCookPrio(Prioqueueinv Q);
 
 int indexOf_Prioqueue(Prioqueueinv Q, int val);
 
+void Dequeue_idx_Prioqueue(Prioqueueinv *Q, int x);
+
 #endif
