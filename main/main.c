@@ -87,7 +87,7 @@ int main (){
     extern boolean adaNotif;
     extern ListStatik jenis2Notif;
     extern ListFoodStatik notif;
-    ReadMap_FILE(&m,&LOC(p), "../modules/map/testMap.txt");
+    ReadMap_FILE(&m,&LOC(p), "../cfg/map.txt");
     //Constructor kulkas
     Matrix kulkas;
     ListFoodStatik listFridge;
