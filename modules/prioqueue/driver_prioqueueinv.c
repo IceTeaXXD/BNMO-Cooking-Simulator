@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include "prioqueuefood.c"
+#include "prioqueueinv.c"
 #include "../wordmachine/wordmachine.c"
 
 int main(){
-    PrioQueueFood q;
+    Prioqueueinv q;
     ListFoodStatik l;
     int i;
     CreateListFoodStatik(&l);
@@ -12,6 +12,6 @@ int main(){
     for (i = 0; i<listLength_ListFoodStatik(l);i++){
         Enqueue_Prioqueue(&q,LISTELMT(l,i));
     }
-    PrintPrioQueueFood(q);
+    PrintPrioqueueinv(q);
     return 0;
 }

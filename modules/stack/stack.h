@@ -10,6 +10,7 @@
 #include "../prioqueue/prioqueueinv.h"
 #include "../matrix/matrix.h"
 #include "../time/time.h"
+#include "../food/food.h"
 
 #define Nil -1
 #define stack_MaxEl 100
@@ -24,6 +25,8 @@ typedef struct{
   Prioqueueinv Delivery;
   Prioqueueinv Process;
   Address next;
+  Matrix kulkas;
+  ListFoodStatik listFridge;
 } Stack_infotype;
 
 typedef struct node_stack{

@@ -44,7 +44,7 @@ Mix
 7
 Minyak Goreng
 0 1 30
-0 1 0
+0 0 10
 Buy
 1 2
 9
@@ -61,7 +61,7 @@ Chop
 2 1
 11
 Tepung
-0 1 0
+0 10 0
 0 0 30
 Buy
 1 2

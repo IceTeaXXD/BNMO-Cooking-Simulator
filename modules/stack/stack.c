@@ -8,18 +8,6 @@ void CreateStack(Stack *s)
 {
     s->TOP = NULL;
 }
-void CreateUndoStack(Stack *s, player P, TIME GameTime, Matrix Map, Prioqueueinv Delivery, Prioqueueinv Process)
-/* I.S. sembarang */ 
-/* F.S. Membuat sebuah stack s yang kosong */
-{
-    Stack_infotype x;
-    x.P = P;
-    x.GameTime = GameTime;
-    x.Map = Map;
-    x.Delivery = Delivery;
-    x.Process = Process;
-    push(s, x);
-}
 
 void push(Stack *s, Stack_infotype x)
 /* Menambahkan x sebagai elemen Stack s */
