@@ -88,4 +88,16 @@ Ayam Mentah
 1 0 0
 0 0 15
 Buy
-2 1.
+2 1
+16
+Beras
+30 0 0
+0 0 10
+Buy
+1 2
+17
+Nasi
+0 12 0
+0 0 30
+Boil
+1 1.
