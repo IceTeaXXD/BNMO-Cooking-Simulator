@@ -2,12 +2,17 @@
 #define set_H
 #include <stdio.h>
 #include "../utility/boolean.h"
+#include "../food/food.h"
+#include "../tree/tree.h"
+#include "../food/food.h"
+#include "../liststatik/liststatik.h"
+#include "../prioqueue/prioqueueinv.h"
 
 /* MODUL Set
 Deklarasi stack yang dengan implementasi array eksplisit-statik rata kiri
 */
 
-#define Nil 0
+#define Nil_SET 0
 #define MaxEl 100
 
 typedef int infotype_set;
@@ -17,6 +22,7 @@ typedef struct
 {
     infotype_set Elements[MaxEl];
     address Count;
+    int foodID;
 } Set;
 
 // struct ListSet
