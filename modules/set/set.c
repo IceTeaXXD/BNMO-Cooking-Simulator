@@ -1,10 +1,3 @@
-//NIM: 18221168
-//Nama: Rania Sasi Kirana
-//Tanggal: 1 November 2022
-//Topik Praktikum: Set dan Map
-//Deskripsi: Pasca prak no. 6
-//Implementasi set.h
-
 #include <stdio.h>
 #include "set.h"
 
@@ -169,3 +162,22 @@ Set SetSubtract(Set s1, Set s2)
     return s;
 
 }
+
+// int main(){
+//     Set s1;
+//     CreateEmpty(&s1);
+//     Insert(&s1, 1);
+//     Insert(&s1, 2);
+//     Set s2;
+//     CreateEmpty(&s2);
+//     Insert(&s2, 2);
+//     Insert(&s2, 3);
+//     Set s3;
+//     s3 = SetUnion(s1, s2);
+//     // output s3
+//     int i;
+//     for (i=0; i<s3.Count; i++){
+//         printf("%d ", s3.Elements[i]);
+//     }
+
+// }
