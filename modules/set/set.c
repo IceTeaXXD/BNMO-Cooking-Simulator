@@ -83,7 +83,7 @@ boolean isSubset(Set s1, Set s2)
     boolean subset = true;
     int i = 0;
     while (i<s2.Count && subset){
-        if (!(IsMember_Set(s1, s2.Elements[i]))){
+        if (s2.Elements[i] == 1 && s1.Elements[i] == 0){
             subset = false;
         } else {
             i++;
@@ -118,7 +118,7 @@ int main(){
     Insert_Set(&s2, 0);
     Insert_Set(&s2, 0);
     Insert_Set(&s2, 1);
-    Insert_Set(&s2, 1);
+    Insert_Set(&s2, 0);
     Set s3;
     s3 = SetUnion(s1, s2);
     // output s3
