@@ -7,12 +7,14 @@
 //#include "../liststatik/liststatik.c"
 //#include "../wordmachine/charmachine.c"
 
-void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery){
+void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery, int xSize, int ySize){
     FoodId(*x) = id;
     FoodName(*x) = name;
     FoodExpiry(*x) = expiry;
     FoodAction(*x) = action;
     FoodTime(*x) = delivery;
+    FoodSizeX(*x) = xSize;
+    FoodSizeY(*x) = ySize;
 }
 
 void DisplayFood(food x){
@@ -24,6 +26,8 @@ void DisplayFood(food x){
     PrintWord(FoodAction(x));
     printf(" - ");
     Timetokata(FoodTime(x));
+    printf(" - ");
+    printf("%dx%d", FoodSizeX(x), FoodSizeY(x));
 }
 
 /*-------------------------------------*/
@@ -79,7 +83,8 @@ void printList_ListFoodStatik(ListFoodStatik l){
         Timetokata(FoodExpiry(LISTELMT(l,i))); printf(" - ");
         PrintWord(FoodAction(LISTELMT(l,i))); printf(" - ");
         printf("Process Time : ");
-        Timetokata(FoodTime(LISTELMT(l,i)));
+        Timetokata(FoodTime(LISTELMT(l,i))); printf(" - ");
+        printf("Ukuran makanan : %dx%d", FoodSizeX(LISTELMT(l,i)), FoodSizeY(LISTELMT(l,i)));
         printf("\n");
         /*for (s = FoodName(LISTELMT(l, i))[0]; *s != '\0'; s++)
         {
@@ -206,6 +211,7 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
         int j=0, k, id=0, p;
         int DDexp=0, HHexp=0, MMexp=0;
         int DDdlv=0, HHdlv=0, MMdlv=0;
+        int xSize=0, ySize=0;
         Word NameTemp;
         TIME expiry, delivery;
         food x;
@@ -243,7 +249,11 @@ void ReadFood_FILE(char filename[], ListFoodStatik *listfood){
         // }
         // action[k] = '\0';
         ADVWORD();
-        CreateFood(&x, id, name, expiry, action, delivery);
+        xSize = WordToInt(currentWord);
+        ADVWORD();
+        ySize = WordToInt(currentWord);
+        ADVWORD();
+        CreateFood(&x, id, name, expiry, action, delivery, xSize, ySize);
         insertLast_ListFoodStatik(listfood, x);
         //DisplayFood(x);
         //printf("\n");
@@ -604,7 +614,7 @@ void MIX(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *Pr
                                 break;
 
                             } else {
-                                printf("Bahan Kamu kurang cok\n");
+                                printf("Bahan Kamu kurang!\n");
                             }
                         }
                 }
@@ -718,7 +728,7 @@ void FRY(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *Pr
                                 break;
 
                             } else {
-                                printf("Bahan Kamu kurang cok\n");
+                                printf("Bahan Kamu kurang!\n");
                             }
                         }
                     }

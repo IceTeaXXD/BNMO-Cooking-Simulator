@@ -4,73 +4,88 @@ Nasi Uduk Pecel Ayam
 1 0 0
 0 0 12
 Mix
+2 2
 1
 Lalapan
 0 3 0
 0 0 10
 Buy
+2 1
 2
 Ayam Goreng Extra Sambal
 1 0 0
 0 0 20
 Mix
+3 1
 3
 Nasi Uduk
 1 0 0
 0 0 15
 Buy
+2 1
 4
 Ayam Goreng
 0 12 0
 0 0 30
 Fry
+2 1
 5
 Sambal Goreng
 0 10 0
 0 0 15
 Fry
+1 1
 6
 Ayam Tepung
 1 12 0
 0 0 10
 Mix
+2 1
 7
 Minyak Goreng
 0 1 30
 0 1 0
 Buy
+1 2
 9
 Sambal
 0 12 0
 0 0 3
 Mix
+1 1
 10
 Ayam Potong
 2 0 0
 0 0 5
 Chop
+2 1
 11
 Tepung
 0 1 0
 0 0 30
 Buy
+1 2
 12
 Air
 30 0 0
 0 0 5
 Buy
+1 2
 13
 Cabai
 0 8 0
 0 0 10
 Buy
+1 1
 14
 Bawang
 2 0 0
 0 0 20
 Buy
+1 1
 15
 Ayam Mentah
 1 0 0
 0 0 15
-Buy.
+Buy
+2 1.

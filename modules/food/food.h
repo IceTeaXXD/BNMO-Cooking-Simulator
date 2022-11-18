@@ -16,12 +16,8 @@ typedef struct
    TIME expiry_time;
    Word action;
    TIME action_time;
-   //  int id;
-   //  char *food_name;
-   //  TIME expiry_time;
-   //  char *action;
-   //  TIME action_time;
-
+   int width;           //horizontal size
+   int length;          //vertical size
 }food;
 
 /*  Kamus Umum */
@@ -47,9 +43,11 @@ extern food foodAffected;
 #define FoodExpiry(F) (F).expiry_time
 #define FoodAction(F) (F).action
 #define FoodTime(F) (F).action_time
+#define FoodSizeX(F) (F).width
+#define FoodSizeY(F) (F).length
 #define LISTELMT(l, i) (l).contents[(i)]
 
-void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery);
+void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery, int xSize, int ySize);
 
 void DisplayFood(food x);
 
