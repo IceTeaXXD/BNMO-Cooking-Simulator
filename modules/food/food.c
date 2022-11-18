@@ -4,7 +4,7 @@
 #include "../tree/tree.h"
 //#include "../time/time.c"
 //#include "../wordmachine/wordmachine.c"
-//#include "../liststatik/liststatik.c"
+#include "../liststatik/liststatik.h"
 //#include "../wordmachine/charmachine.c"
 
 void CreateFood(food *x, int id, Word name, TIME expiry, Word action, TIME delivery, int xSize, int ySize){
