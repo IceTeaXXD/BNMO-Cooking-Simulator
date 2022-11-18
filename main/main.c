@@ -88,6 +88,12 @@ int main (){
     extern ListStatik jenis2Notif;
     extern ListFoodStatik notif;
     ReadMap_FILE(&m,&LOC(p), "../modules/map/testMap.txt");
+    //Constructor kulkas
+    Matrix kulkas;
+    ListFoodStatik listFridge;
+    createKulkas(10,20,&kulkas);
+    CreateListFoodStatik(&listFridge);
+    
     //Constructor Tree
     Matrix n;
     ListTreeStatik lt;
@@ -213,8 +219,9 @@ int main (){
 	    printf("%c%c CATALOG\n",204,205);
         printf("%c%c COOKBOOK\n",204,205);
         printf("%c%c REKOMENDASI\n",204,205);
+        printf("%c%c FRIDGE\n",204,205);
         printf("%c Exit Program\n",204);
-        
+        printf("%c%c EXIT\n",200,205);
         printf("\nENTER COMMAND: ");
         STARTSENTENCE(); 
         if (compareString(currentWord,"MOVE NORTH")){
@@ -241,6 +248,13 @@ int main (){
         {
             tambahTime = false;
             PrintCookPrio(Process);
+        } else if (compareString(currentWord,"FRIDGE")){
+            if(isAdjacentToKulkas(m,p.loc)){
+                FRIDGE(&INVENTORY(p), &kulkas, &listFridge);
+            } else {
+                tambahTime=false;
+                printf("Player tidak dalam radius FRIDGE (K)\n");
+            }
         }
         
         else if (compareString(currentWord,"CATALOG")){

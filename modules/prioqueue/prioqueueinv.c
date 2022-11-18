@@ -300,10 +300,19 @@ void Dequeue_idx_Prioqueue(Prioqueueinv *Q, int x){
     // delete at index x
     int i;
     food temp;
-    for (i=x;i<NBElmt_Prioqueue(*Q)-1;i++){
-        temp=Elmt(*Q,i);
-        Elmt(*Q,i)=Elmt(*Q,i+1);
-        Elmt(*Q,i+1)=temp;
+    if (NBElmt_Prioqueue(*Q)==1){
+        Dequeue_Prioqueue(Q,&temp);
+    
+    }else if (IsEmpty_Prioqueue(*Q))
+    {
+        printf("Queue Kosong\n");
     }
-    Tail(*Q)--;
+     else {
+        for (i=x;i<NBElmt_Prioqueue(*Q)-1;i++){
+            temp=Elmt(*Q,i);
+            Elmt(*Q,i)=Elmt(*Q,i+1);
+            Elmt(*Q,i+1)=temp;
+        }
+        Tail(*Q)--;
+    }
 }
