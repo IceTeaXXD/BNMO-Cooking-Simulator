@@ -159,6 +159,8 @@ int main (){
         data.GameTime = GameTime;
         data.Delivery = Delivery;
         data.Process = Process;
+        data.kulkas = kulkas;
+        data.listFridge = listFridge;
         tambahTime = true;
         currentWord=init;
         printf("================================================\n");
@@ -344,6 +346,8 @@ int main (){
                 GameTime = data_temp.GameTime;
                 Delivery = data_temp.Delivery;
                 Process = data_temp.Process;
+                kulkas = data_temp.kulkas;
+                listFridge = data_temp.listFridge;
                 push(&RedoGame,data);
                 printf("Undo berhasil!\n");
             }
@@ -361,6 +365,8 @@ int main (){
                 GameTime = data_temp.GameTime;
                 Delivery = data_temp.Delivery;
                 Process = data_temp.Process;
+                kulkas = data_temp.kulkas;
+                listFridge = data_temp.listFridge;
                 push(&UndoGame,data);
                 printf("Redo berhasil!\n");
             }
