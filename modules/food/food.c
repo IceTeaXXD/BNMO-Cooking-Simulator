@@ -438,7 +438,7 @@ void BOIL(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *P
     if(IsEmpty_Prioqueue(*Inventory)){
         printf("Inventory Kosong\n");
     }
-    else{
+        else{
         // check apakah ada parent di food di inventory yang bisa di chop
         count = 0;
         for (i=0;i<NBElmt_Prioqueue(*Inventory);i++){
@@ -446,6 +446,7 @@ void BOIL(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *P
             addressTree parent = getParent(T.root,child);
             if (parent != NULL){
                 food parentFood = idtofood(parent->data, Foods);
+                PrintWord(FoodName(parentFood));
                 if (compareString(FoodAction(parentFood),"Boil")){ 
                     count++;
                     printf("    %d. ", count);
