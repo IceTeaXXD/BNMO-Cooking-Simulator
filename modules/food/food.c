@@ -329,6 +329,8 @@ food idtofood(int id, ListFoodStatik L){
         }
     }
     return LISTELMT(L, i);
+
+
     
 }
 
@@ -534,11 +536,10 @@ void MIX(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *Pr
     else {
         // check apakah ada parent di food di inventory yang bisa di Mix
         if (NBElmt_Prioqueue(*Inventory) >= 2){
-            for (j = 0; j < NBElmt_Prioqueue(*Inventory); j++){
-                temp1 = getAddress(temp, FoodId(Elmt(*Inventory,j)));
-                temp2 = getParent(temp, temp1);
+            for (j = 0; j < listLength_ListFoodStatik(Foods); j++){
+                temp2 = getAddress(temp, j);
                 if (temp2 != NULL){
-                    tempf = idtofood(temp2->data, Foods);
+                    tempf = idtofood(j, Foods);
                     if (compareString(FoodAction(tempf),"Mix") && indexOf_ListFoodStatik(foodAvailable, FoodId(tempf)) == IDX_UNDEF){
                         count++;
                         printf("    %d. ", count);
@@ -640,6 +641,7 @@ void FRY(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *Pr
     food tempf;
     int i, j, count, counts,k, i1;
     boolean flag = false;
+    boolean flag1 = false;
     addressTree temp1,temp2;
     count = 0;
     if(IsEmpty_Prioqueue(*Inventory)){
@@ -647,23 +649,24 @@ void FRY(Prioqueueinv *Inventory, ListFoodStatik Foods, Tree T, Prioqueueinv *Pr
     }
     else {
         // check apakah ada parent di food di inventory yang bisa di Mix
+        // mengganti for j < nb elmt
         if (NBElmt_Prioqueue(*Inventory) >= 2){
-            for (j = 0; j < NBElmt_Prioqueue(*Inventory); j++){
-                temp1 = getAddress(temp, FoodId(Elmt(*Inventory,j)));
-                temp2 = getParent(temp, temp1);
-                if (temp2 != NULL){
-                    tempf = idtofood(temp2->data, Foods);
-                    if (compareString(FoodAction(tempf),"Fry") && indexOf_ListFoodStatik(foodAvailable, FoodId(tempf)) == IDX_UNDEF){
-                        count++;
-                        printf("    %d. ", count);
-                        PrintWord(FoodName(tempf));
-                        printf(" (");
-                        Timetokata(FoodTime(tempf));
-                        printf(")\n");
-                        insertLast_ListFoodStatik(&foodAvailable, tempf);
-                    }
-                }
+                for (j = 0; j < listLength_ListFoodStatik(Foods); j++){
+                        temp2 = getAddress(temp, j);
+                        if (temp2 != NULL){
+                            tempf = idtofood(j, Foods);
+                            if (compareString(FoodAction(tempf),"Fry") && indexOf_ListFoodStatik(foodAvailable, FoodId(tempf)) == IDX_UNDEF){
+                                    count++;
+                                    printf("    %d. ", count);
+                                    PrintWord(FoodName(tempf));
+                                    printf(" (");
+                                    Timetokata(FoodTime(tempf));
+                                    printf(")\n");
+                                    insertLast_ListFoodStatik(&foodAvailable, tempf);
+                                }
+                        
 
+                }
             }
 
         }
