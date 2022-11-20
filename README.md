@@ -41,3 +41,5 @@ Adventure Time.c is a CLI (Command Line Interface) based simulation program that
 3. Run the .exe file
 
 `./main`
+
+4. Tips : use the command `COMMAND` to show the list of commands available
