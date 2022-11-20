@@ -239,6 +239,8 @@ int main (){
             printf("%c%c WAIT\n",204,205);
             printf("%c%c DELIVERY\n",204,205);
             printf("%c%c INVENTORY\n",204,205);
+            printf("%c%c UNDO\n",204,205);
+            printf("%c%c REDO\n",204,205);
             printf("%c%c CATALOG\n",204,205);
             printf("%c%c COOKBOOK\n",204,205);
             printf("%c%c REKOMENDASI\n",204,205);
