@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "implementasiadt.h"
-//buat run pake yang bawah aja, nanti edit
-//#include "../modules/adt.h"
+
 void initiate(){
     system("cls");
     printf("                    . .:.:.:.:. .:\\     /:. .:.:.:.:. ,\n");
